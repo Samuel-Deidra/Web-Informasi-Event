@@ -1,0 +1,237 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --second-color: black;
+    --primary-color: #2C71D6;
+    --submit-color: #21539e;
+    --black-color: #020101;
+}   
+
+body {
+    background: url('Ucapan\ Selamat\ Datang\ di\ Kelas\ Pendidikan\ Kewarganegaraan\ PPKN\ Dekorasi\ Hia_20251010_130904_0000.png') no-repeat center center/cover;
+}
+
+a {
+    color: var(--second-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0,2);
+    border-radius: 5px  ;
+}
+
+.login_container {
+    width: 400px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0);
+    color: var(--second-color);
+}
+
+.login_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.login_title span {
+    font-family: "BBH Sans Hegarty", sans-serif;
+    color: white;
+    font-size: 30px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 50px;
+}
+
+.login_title::before {
+    content: "";
+    top: 0;
+    left: -30px;
+    position: absolute;
+    border-top-right-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+}
+
+.login_title::after{
+    content: "";
+    top: 0;
+    height: 30px;
+    right: -30px;
+    background: transparent;
+    border-top-left-radius: 50%;
+}
+
+.input_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    transition: all 0.3s;
+}
+
+.input_wrapper input {
+    position: relative;
+    height: 40px;             
+    padding: 20px;             
+    text-align: left;         
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    box-sizing: border-box;  
+    box-shadow: 0 0 2px var(--submit-color);
+}
+
+.toggle-pass {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: black;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.toggle-pass:hover {
+    color: black;
+}
+
+
+
+#user {
+    margin-bottom: -2px;
+}
+
+.label {
+    position: absolute;
+    transition: 0.2s;
+    left: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.input_field {
+    width: 100%;
+    padding: 10px 40px 40px 40px; 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    outline: none;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+
+}
+
+.input_field:focus ~ .label,
+.input_field:valid ~ .label {
+    position: absolute;
+    font-size: 12px;
+    top: -14px;
+    left: 35px;
+    background-color: var(--primary-color);
+    color: var(--black-color);
+    border-radius: 30px;
+    padding: 0 10px;
+}
+
+
+.remember_me {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #fff;
+    margin: 20px 40px;
+}
+
+.remember_me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #007bff; 
+    cursor: pointer;
+    display: flex;
+}
+
+.remember_me label {
+    cursor: pointer;
+}
+
+
+.submit-btn {
+    display: flex;
+    margin: 0 auto;
+    background: var(--primary-color);
+    width: 70%;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    border: none;
+    transition: all 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 0 20px var(--submit-color);
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: var(--submit-color);
+}
+
+.submit-btn:active {
+    transform: scale(0.97); 
+}
+
+.back-btn {
+    display: flex;
+    margin: 20px 20px;
+    background: var(--primary-color);
+    width: 10%;
+    height: 35px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 0 20px var(--submit-color);
+    color: white;
+} 
+
+.back-btn:hover {
+    background-color: var(--submit-color);
+}
+
+.back-btn:active {
+    transform: scale(0.97); 
+}
+
+
+@media only screen and (max-width: 564px) {
+    .container{
+        padding: 20px;
+    }
+    .login_container{
+        padding:  7.5rem 1.5em 4em 1.5em;
+    }
+}
