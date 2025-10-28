@@ -74,45 +74,45 @@
                     <tr class="desc-row">
                         <td colspan="6">
                             <div class="desc-box">
-                                <p><strong>Location : </strong>Lobby gedung utama politeknik negeri batam</p>
-                                <p><strong>Link : </strong>https://www.jobfair2025.com</p>
+                                <p><strong>Location : </strong>Lobby gedung utama politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.jobfair2025.com</p><br>
                                 <p><strong>Deskripsi : </strong>Pameran lowongan kerja dan magang dari berbagai perusahaan nasional dan startup</p>
                             </div>
                         </td>
                     </tr>
 
                     <tr class="data-row" data-year="2025" data-status="Closed" data-type="Workshop">
-                        <td>19-21 Desember</td>
-                        <td><img src="musc.jpg"></td>
-                        <td>Campus Music night</td>
-                        <td>Rp 150.000</td>
-                        <td>Coming Soon</td>
-                        <td>Konser</td>
+                        <td>23-09 November</td>
+                        <td><img src="fair.jpg"></td>
+                        <td>HMTI FAIR 2025</td>
+                        <td>Rp 30.000</td>
+                        <td>Open Registration</td>
+                        <td>Festival</td>
                     </tr>
                     <tr class="desc-row">
                         <td colspan="6">
                             <div class="desc-box">
-                               <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p>
-                                <p><strong>Link : </strong>https://www.nightmusic.com</p>
-                                <p><strong>Deskripsi : </strong>konser music tahunan dengan penampilan band kapus dan bintang tamu</p>
+                               <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.nightmusic.com</p><br>
+                                <p><strong>Deskripsi : </strong>HMTI FAIR 2025 adalah ajang tahunan Himpunan Mahasiswa Teknik Informatika Polibatam dengan tema “Exploring Infinite Space, Beyond the Horizon.” Kegiatan ini menghadirkan berbagai lomba seru seperti Short Movie, Capture The Flag, Graphic Design, Photography, PES, dan Mobile Legends untuk siswa SMA/SMK/MA se-Kepri.</p>
                             </div>
                         </td>
                     </tr>
 
                     <tr class="data-row" data-year="2024" data-status="Upcoming" data-type="Festival">
-                        <td>25-28 Oktober</td>
-                        <td><img src="sport.jpg"></td>
-                        <td>Sports day</td>
+                        <td>25-28 Februari 2026</td>
+                        <td><img src="pbl expo.jpg"></td>
+                        <td>PBL EXPO 2025</td>
                         <td>Rp 20.000/tim</td>
-                        <td>Upcoming</td>
-                        <td>Kompetisi</td>
+                        <td>Coming Soon</td>
+                        <td>Pameran</td>
                     </tr>
                     <tr class="desc-row">
                         <td colspan="6">
                             <div class="desc-box">
-                               <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p>
-                                <p><strong>Link : </strong>https://www.sportsdaypoltek.com</p>
-                                <p><strong>Deskripsi : </strong>Turnamen olahraga antar-fakultas meliputi futsal, basket, badminton, dan e-sport.</p>
+                               <p><strong>Location : </strong>Gedung Traine Politeknik Negeri Batam</p><br>
+                                <p><strong>Link : </strong>https://www.pblpoltek.com</p><br>
+                                <p><strong>Deskripsi : </strong>Pameran karya proyek PBL mahasiswa. Akan ada penilaian dan hadiah untuk karya terbaik.</p>
                             </div>
                         </td>
                     </tr>

@@ -78,8 +78,8 @@
                         <tr class="desc-row">
                             <td colspan="8">
                                 <div class="desc-box">
-                                    <p><strong>Location : </strong>Lobby gedung utama politeknik negeri batam</p>
-                                <p><strong>Link : </strong>https://www.jobfair2025.com</p>
+                                    <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.jobfair2025.com</p><br>
                                 <p><strong>Deskripsi : </strong>Pameran lowongan kerja dan magang dari berbagai perusahaan nasional dan startup</p>
                                 </div>
                             </td>
@@ -102,9 +102,9 @@
                         <tr class="desc-row">
                             <td colspan="8">
                                 <div class="desc-box">
-                                    <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p>
-                                <p><strong>Link : </strong>https://www.nightmusic.com</p>
-                                <p><strong>Deskripsi : </strong>konser music tahunan dengan penampilan band kapus dan bintang tamu</p>
+                                    <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.nightmusic.com</p><br>
+                                <p><strong>Deskripsi : </strong>konser music tahunan dengan penampilan band kapus dan bintang tamu</p><br>
                                 </div>
                             </td>
                         </tr>
@@ -126,9 +126,9 @@
                         <tr class="desc-row">
                             <td colspan="8">
                                 <div class="desc-box">
-                                   <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p>
-                                <p><strong>Link : </strong>https://www.sportsdaypoltek.com</p>
-                                <p><strong>Deskripsi : </strong>Turnamen olahraga antar-fakultas meliputi futsal, basket, badminton, dan e-sport.</p>
+                                   <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.sportsdaypoltek.com</p><br>
+                                <p><strong>Deskripsi : </strong>Turnamen olahraga antar-fakultas meliputi futsal, basket, badminton, dan e-sport.</p><br>
                             </td>
                         </tr>
                     </tbody>
@@ -137,17 +137,53 @@
         </section>
 
         <!-- HISTORY SECTION -->
+
+        <!-- Table Actions (Add Event & Search) -->
+
+
+        <!-- Filter Bar -->
+        <section class="event-container filter-event history-box" id="historyFilterBar">
+            <div class="filter-bar">
+                <select id="yearFilter">
+                    <option value="">Tahun</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                </select>
+                <select id="statusFilter">
+                    <option value="">Status</option>
+                    <option value="Open">Open</option>
+                    <option value="Closed">Closed</option>
+                    <option value="Upcoming">Upcoming</option>
+                </select>
+                <select id="typeFilter">
+                    <option value="">Type</option>
+                    <option value="Seminar">Seminar</option>
+                    <option value="Workshop">Workshop</option>
+                    <option value="Festival">Festival</option>
+                </select>
+
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search Event" />
+                    <button class="search-btn" id="searchBtn">Search Event</button>
+
+                </div>
+            </div>
+        </section>
         <section class="history-container" id="historySection" style="display: none;">
             <h2>📜 Event History</h2>
             <p>Riwayat event yang sudah selesai atau ditutup</p>
-            
+
+
+
+            <!--History list-->
             <div class="history-list">
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Date</th>
-                            <th>Logo</th>
+                            <th></th>
                             <th>Event</th>
                             <th>Fee</th>
                             <th>Status</th>
@@ -156,112 +192,86 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                    
                         <!-- History Event 1 -->
                         <tr class="history-data-row">
-                            <td>101</td>
-                            <td>2025-06-14</td>
-                            <td><img src="logopoltektransparan.png" alt="poltek"></td>
-                            <td>Workshop Design Thinking</td>
-                            <td>Rp 60.000</td>
-                            <td>Closed</td>
-                            <td>Workshop</td>
+                            <td>126</td>
+                            <td>20-23 Agustus 2024</td>
+                            <td><img src="pblexpo.jpg"></td>
+                            <td>PBL EXPO 2024</td>
+                            <td>Rp 20.000/tim</td>
+                            <td>Finished</td>
+                            <td>Pameran</td>
                             <td>
-                                <button class="view-detail">View</button>
                                 <button class="delete-history">Delete</button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
                             <td colspan="9">
                                 <div class="desc-box">
-                                    Workshop intensif tentang design thinking untuk pengembangan produk inovatif.
+                                    <p><strong>Location : </strong>Gedung Traine Politeknik Negeri Batam
+                                    </p>
+                                    <p><strong>Link : </strong>https://www.pblexpo25poltek.com</p>
+                                    <p><strong>Deskripsi : </strong>PBL EXPO 2024 merupakan pameran karya mahasiswa
+                                        Politeknik Negeri Batam hasil dari kegiatan Project Based Learning (PBL). Dalam
+                                        acara ini, berbagai proyek inovatif ditampilkan dan dinilai oleh juri.
+                                    </p>
                                 </div>
                             </td>
                         </tr>
+
 
                         <!-- History Event 2 -->
                         <tr class="history-data-row">
-                            <td>102</td>
-                            <td>2025-08-03</td>
-                            <td><img src="logopoltektransparan.png" alt="poltek"></td>
-                            <td>Seminar Startup 101</td>
-                            <td>Gratis</td>
-                            <td>Closed</td>
-                            <td>Seminar</td>
+                            <td>510</td>
+                            <td>30 Desember 2024</td>
+                            <td><img src="batassenja.jpg"></td>
+                            <td>Konser Batas Senja Live at Poltek</td>
+                            <td>Rp 50.000</td>
+                            <td>Finished</td>
+                            <td>Konser</td>
                             <td>
-                                <button class="view-detail">View</button>
                                 <button class="delete-history">Delete</button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
                             <td colspan="9">
                                 <div class="desc-box">
-                                    Seminar membahas dasar-dasar membangun startup dari nol hingga mendapat pendanaan.
+                                    <p><strong>Location : </strong>Depan Gedung Techno, Politeknik Negeri Batam
+                                    </p>
+                                    <p><strong>Link : </strong>https://www.konserpoltek.com</p>
+                                    <p><strong>Deskripsi : </strong>Konser Batas Senja Live at Poltek menjadi penutup
+                                        acara PBL EXPO 2024 yang meriah di Politeknik Negeri Batam. Acara ini
+                                        menghadirkan penampilan seru dari band Batas Senja dan berhasil menarik banyak
+                                        penonton, baik dari mahasiswa maupun umum.
+                                    </p>
                                 </div>
                             </td>
                         </tr>
+
 
                         <!-- History Event 3 -->
                         <tr class="history-data-row">
-                            <td>103</td>
-                            <td>2025-07-22</td>
-                            <td><img src="logopoltektransparan.png" alt="poltek"></td>
-                            <td>Hackathon 2025</td>
-                            <td>Rp 100.000</td>
-                            <td>Closed</td>
-                            <td>Competition</td>
+                            <td>109</td>
+                            <td>20 Agustus 2025</td>
+                            <td><img src="summer art.jpg"></td>
+                            <td>Summar Art Festival</td>
+                            <td>free</td>
+                            <td>Finished</td>
+                            <td>Festival</td>
                             <td>
-                                <button class="view-detail">View</button>
                                 <button class="delete-history">Delete</button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
                             <td colspan="9">
                                 <div class="desc-box">
-                                    Kompetisi coding 24 jam untuk menciptakan solusi teknologi inovatif.
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- History Event 4 -->
-                        <tr class="history-data-row">
-                            <td>104</td>
-                            <td>2025-05-10</td>
-                            <td><img src="logopoltektransparan.png" alt="poltek"></td>
-                            <td>Tech Talk: Cloud Computing</td>
-                            <td>Gratis</td>
-                            <td>Closed</td>
-                            <td>Seminar</td>
-                            <td>
-                                <button class="view-detail">View</button>
-                                <button class="delete-history">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="history-desc-row">
-                            <td colspan="9">
-                                <div class="desc-box">
-                                    Diskusi mendalam tentang cloud computing dan implementasinya di industri.
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- History Event 5 -->
-                        <tr class="history-data-row">
-                            <td>105</td>
-                            <td>2025-09-15</td>
-                            <td><img src="logopoltektransparan.png" alt="poltek"></td>
-                            <td>Career Fair 2025</td>
-                            <td>Gratis</td>
-                            <td>Closed</td>
-                            <td>Career</td>
-                            <td>
-                                <button class="view-detail">View</button>
-                                <button class="delete-history">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="history-desc-row">
-                            <td colspan="9">
-                                <div class="desc-box">
-                                    Bursa kerja tahunan dengan lebih dari 50 perusahaan teknologi terkemuka.
+                                    <p><strong>Location : </strong> Depan Techno Politeknik Negeri Batam
+                                    </p>
+                                    <p><strong>Link : </strong>https://www.festivalpoltek.com </p>
+                                    <p><strong>Deskripsi : </strong> Summer Art Festival 2025 adalah ajang seni tahunan yang diselenggarakan oleh Unit Kegiatan Mahasiswa Kuas Polibatam. Mengusung semangat “Salam Seni, Kreativitas Tanpa Batas!”, festival ini menjadi wadah bagi pelajar SMA/SMK sederajat untuk menyalurkan bakat dan mengekspresikan diri melalui berbagai lomba seperti Dance, Tari Tradisional, Solo Song, dan Lukis.
+                                    </p>
                                 </div>
                             </td>
                         </tr>

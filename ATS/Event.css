@@ -209,6 +209,12 @@ body {
     background: #e0ebff;
     cursor: pointer;
 }
+.event-list img {
+    width: 40px;        /* Sesuaikan ukuran gambar */
+    height: auto;
+    object-fit: contain; /* Menjaga proporsi gambar */
+    border-radius: 8px;  /* Opsional, biar lebih rapi */
+  }
 
 .detail-event {
     text-align: left;

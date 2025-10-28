@@ -2,50 +2,63 @@
 // TAB SWITCHING LOGIC
 // ========================================
 
-// Get tab elements
-const tabEvent = document.getElementById('tabEvent');
-const tabHistory = document.getElementById('tabHistory');
+// ========================================
+// TAB SWITCHING LOGIC
+// ========================================
 
-// Get section elements
-const eventSection = document.getElementById('eventSection');
-const historySection = document.getElementById('historySection');
+document.addEventListener("DOMContentLoaded", () => {
+    // Get tab elements
+    const tabEvent = document.getElementById('tabEvent');
+    const tabHistory = document.getElementById('tabHistory');
 
-// Get table actions (Add Event button and Search box)
-const tableActions = document.getElementById('tableActions');
+    // Get section elements
+    const eventSection = document.getElementById('eventSection');
+    const historySection = document.getElementById('historySection');
+    const historyFilterBar = document.getElementById('historyFilterBar');
 
-// Function to show Event tab
-function showEventTab() {
-    historySection.style.display = 'none';
-    eventSection.style.display = 'block';
-    tableActions.style.display = 'block';
-    
-    tabEvent.classList.add('active');
-    tabHistory.classList.remove('active');
-}
+    // Get table actions (Add Event button and Search box)
+    const tableActions = document.getElementById('tableActions');
 
-// Function to show History tab
-function showHistoryTab() {
-    eventSection.style.display = 'none';
-    historySection.style.display = 'block';
-    tableActions.style.display = 'none';
-    
-    tabHistory.classList.add('active');
-    tabEvent.classList.remove('active');
-}
+    // Function to show Event tab
+    function showEventTab() {
+        historySection.style.display = 'none';
+        eventSection.style.display = 'block';
+        tableActions.style.display = 'block';
 
-// Add click event listeners
-tabEvent.addEventListener('click', (e) => {
-    e.preventDefault();
+        // Sembunyikan filter bar di bawah event
+        if (historyFilterBar) historyFilterBar.style.display = 'none';
+
+        tabEvent.classList.add('active');
+        tabHistory.classList.remove('active');
+    }
+
+    // Function to show History tab
+    function showHistoryTab() {
+        eventSection.style.display = 'none';
+        historySection.style.display = 'block';
+        tableActions.style.display = 'none';
+
+        // Tampilkan filter bar hanya di tab History
+        if (historyFilterBar) historyFilterBar.style.display = 'block';
+
+        tabHistory.classList.add('active');
+        tabEvent.classList.remove('active');
+    }
+
+    // Add click event listeners
+    tabEvent.addEventListener('click', (e) => {
+        e.preventDefault();
+        showEventTab();
+    });
+
+    tabHistory.addEventListener('click', (e) => {
+        e.preventDefault();
+        showHistoryTab();
+    });
+
+    // Initialize: Show Event tab by default
     showEventTab();
 });
-
-tabHistory.addEventListener('click', (e) => {
-    e.preventDefault();
-    showHistoryTab();
-});
-
-// Initialize: Show Event tab by default
-showEventTab();
 
 
 // ========================================
@@ -92,12 +105,12 @@ nextBtn.addEventListener('click', () => {
     const dateInput = document.getElementById('dateInput');
     const nameInput = document.getElementById('nameInput');
     const feeInput = document.getElementById('feeInput');
-    
+
     if (!dateInput.value || !nameInput.value || !feeInput.value) {
         alert('Please fill in all required fields');
         return;
     }
-    
+
     formStep1.classList.remove('active');
     formStep2.classList.add('active');
 });
@@ -123,10 +136,10 @@ eventRows.forEach((row) => {
     row.addEventListener('click', (e) => {
         // Don't trigger if clicking buttons
         if (e.target.tagName === 'BUTTON') return;
-        
+
         const descRow = row.nextElementSibling;
         const descBox = descRow ? descRow.querySelector('.desc-box') : null;
-        
+
         if (!descBox) return;
 
         // Close all other descriptions in event list
@@ -149,10 +162,10 @@ historyRows.forEach((row) => {
     row.addEventListener('click', (e) => {
         // Don't trigger if clicking buttons
         if (e.target.tagName === 'BUTTON') return;
-        
+
         const descRow = row.nextElementSibling;
         const descBox = descRow ? descRow.querySelector('.desc-box') : null;
-        
+
         if (!descBox) return;
 
         // Close all other descriptions in history list
@@ -175,12 +188,12 @@ const dataRows = document.querySelectorAll('.data-row');
 
 function searchEvents() {
     const searchTerm = searchInput.value.toLowerCase().trim();
-    
+
     dataRows.forEach((row) => {
         const eventName = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
         const eventType = row.querySelector('td:nth-child(7)').textContent.toLowerCase();
         const descRow = row.nextElementSibling;
-        
+
         if (eventName.includes(searchTerm) || eventType.includes(searchTerm)) {
             row.style.display = '';
             if (descRow && descRow.classList.contains('desc-row')) {
@@ -224,10 +237,10 @@ const deleteButtons = document.querySelectorAll('.delete');
 deleteButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent row click
-        
+
         const row = e.target.closest('.data-row');
         const eventName = row.querySelector('td:nth-child(4)').textContent;
-        
+
         if (confirm(`Are you sure you want to delete "${eventName}"?`)) {
             const descRow = row.nextElementSibling;
             row.remove();
@@ -245,10 +258,10 @@ const deleteHistoryButtons = document.querySelectorAll('.delete-history');
 deleteHistoryButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent row click
-        
+
         const row = e.target.closest('.history-data-row');
         const eventName = row.querySelector('td:nth-child(4)').textContent;
-        
+
         if (confirm(`Are you sure you want to permanently delete "${eventName}" from history?`)) {
             const descRow = row.nextElementSibling;
             row.remove();
@@ -269,23 +282,23 @@ const editButtons = document.querySelectorAll('.edit');
 editButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent row click
-        
+
         const row = e.target.closest('.data-row');
-        
+
         const date = row.querySelector('td:nth-child(2)').textContent;
         const eventName = row.querySelector('td:nth-child(4)').textContent;
         const fee = row.querySelector('td:nth-child(5)').textContent;
         const status = row.querySelector('td:nth-child(6)').textContent;
         const type = row.querySelector('td:nth-child(7)').textContent;
-        
+
         document.getElementById('dateInput').value = date;
         document.getElementById('nameInput').value = eventName;
         document.getElementById('feeInput').value = fee;
         document.getElementById('statusInput').value = status;
         document.getElementById('typeInput').value = type;
-        
+
         document.getElementById('modalTitle').textContent = 'Edit Event';
-        
+
         eventModal.style.display = 'flex';
         formStep1.classList.add('active');
         formStep2.classList.remove('active');

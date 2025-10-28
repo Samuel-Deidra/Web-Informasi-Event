@@ -112,9 +112,9 @@ body {
 
 /* ===== Table Container ===== */
 .table-container {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background-color: none;
+    border-radius: 0;
+    box-shadow: none;
     margin-bottom: 30px;
     overflow-x: auto;
 }
@@ -176,7 +176,7 @@ body {
 
 /* ===== EVENT TABLE ===== */
 .event-container {
-    width: 90%;
+    width: 100%;
     max-width: 1200px;
     margin: 40px auto;
     padding: 20px;
@@ -323,6 +323,8 @@ body {
     border-radius: 8px;
 }
 
+
+
 /* History Description Row */
 .history-desc-row td {
     background-color: #f9f9f9;
@@ -357,6 +359,7 @@ body {
 .delete,
 .view-detail,
 .delete-history {
+    display: inline-block;
     border: none;
     border-radius: 6px;
     padding: 6px 12px;
@@ -381,6 +384,20 @@ body {
 .edit:hover,
 .view-detail:hover {
     background-color: #dbe7ff;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    /* sejajarkan tombol di tengah */
+    align-items: center;
+    gap: 8px;
+    /* jarak antar tombol */
+}
+
+.action-buttons button {
+    display: inline-block;
+    /* pastikan tetap horizontal */
 }
 
 .delete:hover,
@@ -411,6 +428,7 @@ body {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -430,6 +448,7 @@ body {
         transform: scale(0.9);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -530,6 +549,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -559,4 +579,67 @@ body {
         font-size: 12px;
         padding: 10px;
     }
+}
+
+/* ===== Filter Bar (History Section) ===== */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    /* biar tetap rapi kalau layar kecil */
+    gap: 10px;
+    /* jarak antar elemen */
+    margin-bottom: 15px;
+}
+
+.filter-bar select {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.filter-bar .search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.filter-bar .search-box input {
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.filter-bar .search-btn {
+    background-color: #f4b400;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.filter-bar .search-btn:hover {
+    background-color: #e0a100;
+}
+
+.filter-event {
+    background: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin-top: 10px;
+}
+
+.history-box {
+    background: #fff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
 }
