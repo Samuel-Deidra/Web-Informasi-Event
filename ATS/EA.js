@@ -2,10 +2,6 @@
 // TAB SWITCHING LOGIC
 // ========================================
 
-// ========================================
-// TAB SWITCHING LOGIC
-// ========================================
-
 document.addEventListener("DOMContentLoaded", () => {
     // Get tab elements
     const tabEvent = document.getElementById('tabEvent');

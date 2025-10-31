@@ -150,6 +150,15 @@ body {
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
+}
+
+.search-box .search-icon {
+    position: absolute;
+    left: 10px;
+    color: #888;
+    font-size: 16px;
+    pointer-events: none;
 }
 
 .search-box input {
@@ -158,6 +167,7 @@ body {
     padding: 8px 12px;
     width: 220px;
     font-size: 14px;
+    padding-left: 35px; 
 }
 
 .search-btn {

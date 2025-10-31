@@ -15,6 +15,7 @@
         <div class="logo">
             <img src="cropped-cropped-01_Logo_1_Utama_Polibatam_Vertikal@2x.png" alt="logo" />
         </div>
+        <h1>Web Informasi Event Kampus</h1>
         <div class="icon-user">
             <i class="fa-solid fa-user" id="userIcon"></i>
             <div class="dropdown-menu" id="logoutMenu">
@@ -35,10 +36,11 @@
 
         <div class="table-container" id="tableActions" style="margin-bottom: 20px;">
             <div class="table-actions">
-                <button class="add-btn" id="addEvent-Btn">+ Add Event</button>
+                <button class="add-btn" id="addEvent-Btn">+ Tambah Event</button>
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search Event" />
-                    <button class="search-btn" id="searchBtn">Search Event</button>
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Cari Event..." />
+                    <button id="searchBtn" class="search-btn">Cari</button>
                 </div>
             </div>
         </div>
@@ -55,8 +57,8 @@
                             <th>Event</th>
                             <th>Harga</th>
                             <th>Status</th>
-                            <th>Type</th>
-                            <th>Action</th>
+                            <th>Jenis</th>
+                            <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,7 +69,7 @@
                         <td><img src="jobfair.jpg" alt=""></td>
                         <td>Job Fair 2025</td>
                         <td>0</td>
-                        <td>Coming Soon</td>
+                        <td>Akan Datang</td>
                         <td>Pameran</td>
                             <td>
                                 <button class="edit">Edit</button>
@@ -91,11 +93,11 @@
                         <td><img src="musc.jpg"></td>
                         <td>Campus Music night</td>
                         <td>Rp 150.000</td>
-                        <td>Coming Soon</td>
+                        <td>Akan Datang</td>
                         <td>Konser</td>
                             <td>
                                 <button class="edit">Edit</button>
-                                <button class="delete">Hapus    </button>
+                                <button class="delete">Hapus</button>
                             </td>
                         </tr>
                         <tr class="desc-row">
@@ -115,7 +117,7 @@
                         <td><img src="sport.jpg"></td>
                         <td>Sports day</td>
                         <td>Rp 20.000</td>
-                        <td>Upcoming</td>
+                        <td>Akan Datang</td>
                         <td>Kompetisi</td>
                             <td>
                                 <button class="edit">Edit</button>
@@ -170,10 +172,10 @@
                             <th>Date</th>
                             <th></th>
                             <th>Event</th>
-                            <th>Fee</th>
+                            <th>Harga</th>
                             <th>Status</th>
-                            <th>Type</th>
-                            <th>Action</th>
+                            <th>Jenis</th>
+                            <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -182,11 +184,11 @@
                             <td>20-23 Agustus 2024</td>
                             <td><img src="pblexpo.jpg"></td>
                             <td>PBL EXPO 2024</td>
-                            <td>Rp 20.000/tim</td>
-                            <td>Finished</td>
+                            <td>Rp 20.000</td>
+                            <td>Selesai</td>
                             <td>Pameran</td>
                             <td>
-                                <button class="delete-history">Delete</button>
+                                <button class="delete-history">Hapus</button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
@@ -208,10 +210,10 @@
                             <td><img src="batassenja.jpg"></td>
                             <td>Konser Batas Senja Live at Poltek</td>
                             <td>Rp 50.000</td>
-                            <td>Finished</td>
+                            <td>Selesai</td>
                             <td>Konser</td>
                             <td>
-                                <button class="delete-history">Delete</button>
+                                <button class="delete-history">Hapus</button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
@@ -263,51 +265,51 @@
             <form id="event" enctype="multipart/form-data" method="POST" action="Crud.php">
                 <!-- Step 1 -->
                 <div id="formStep1" class="form-step active">
-                    <h2 id="modalTitle">Add New Event</h2>
+                    <h2 id="modalTitle">Tambah Event Baru</h2>
                     
-                    <label>Date:</label>
+                    <label>Tanggal:</label>
                     <input type="text" id="dateInput" name="tdate" placeholder="Isi tanggal event" required />
                     
                     <label>Logo:</label>
                     <input type="file" id="Logo" name="tlogo" placeholder="Masukan Logo" required />
                     
-                    <label>Event Name:</label>
+                    <label>Nama Event:</label>
                     <input type="text" id="nameInput" name="tevent" placeholder="Nama Event" required />
                     
-                    <label>Fee (Rp):</label>
+                    <label>Harga (Rp):</label>
                     <input type="text" id="feeInput" name="tfee" placeholder="Rp." required />
 
                     <label>Status:</label>
-                    <input type="text" id="statusInput" name="tstatus" placeholder="Open Registration" required />
+                    <input type="text" id="statusInput" name="tstatus" placeholder="Pendaftaran Terbuka" required />
                     
-                    <label>Type:</label>
+                    <label>Jenis:</label>
                     <input type="text" id="typeInput" name="ttype" placeholder="Festival / Seminar" required />
                     
                     <div class="modal-buttons">
-                        <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
-                        <button type="button" class="btn-next" id="nextBtn">Next</button>
+                        <button type="button" class="btn-cancel" id="cancelBtn">Batal</button>
+                        <button type="button" class="btn-next" id="nextBtn">Lanjut</button>
                     </div>
                 </div>
                 
                 <!-- Step 2 -->
                 <div id="formStep2" class="form-step">
-                    <h2>Description</h2>
+                    <h2>Deskripsi</h2>
                     
-                    <label>Start Event:</label>
+                    <label>Event dimulai:</label>
                     <input type="text" id="startInput" placeholder="Hari, Tanggal (contoh: Senin, 24 Oktober 2025)" required />
                     
-                    <label>Location:</label>
+                    <label>Lokasi:</label>
                     <input type="text" id="locationInput" placeholder="Tempat Acara" required />
                     
-                    <label>Link:</label>
+                    <label>Tautan:</label>
                     <input type="url" id="linkInput" placeholder="https://example.com" />
                     
-                    <label>Description:</label>
+                    <label>Deskripsi:</label>
                     <textarea id="descInput" placeholder="Tuliskan deskripsi singkat..." required></textarea>
                     
                     <div class="modal-buttons">
-                        <button type="button" class="btn-back" id="backBtn">Back</button>
-                        <input type="submit" class="btn-save" name="addevent" id="saveBtn" value="Save"/>
+                        <button type="button" class="btn-back" id="backBtn">Kembali</button>
+                        <input type="submit" class="btn-save" name="addevent" id="saveBtn" value="Simpan"/>
                     </div>
                 </div>
             </form>
