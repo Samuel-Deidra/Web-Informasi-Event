@@ -33,7 +33,6 @@
             </nav>
         </div>
 
-        <!-- Table Actions (Add Event & Search) -->
         <div class="table-container" id="tableActions" style="margin-bottom: 20px;">
             <div class="table-actions">
                 <button class="add-btn" id="addEvent-Btn">+ Add Event</button>
@@ -51,10 +50,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Date</th>
+                            <th>Tanggal</th>
                             <th>Logo</th>
                             <th>Event</th>
-                            <th>Fee</th>
+                            <th>Harga</th>
                             <th>Status</th>
                             <th>Type</th>
                             <th>Action</th>
@@ -67,12 +66,12 @@
                            <td>19-21 Desember</td>
                         <td><img src="jobfair.jpg" alt=""></td>
                         <td>Job Fair 2025</td>
-                        <td>Gratis</td>
+                        <td>0</td>
                         <td>Coming Soon</td>
                         <td>Pameran</td>
                             <td>
                                 <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
+                                <button class="delete">Hapus</button>
                             </td>
                         </tr>
                         <tr class="desc-row">
@@ -96,7 +95,7 @@
                         <td>Konser</td>
                             <td>
                                 <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
+                                <button class="delete">Hapus    </button>
                             </td>
                         </tr>
                         <tr class="desc-row">
@@ -115,12 +114,12 @@
                             <td>25-28 Oktober</td>
                         <td><img src="sport.jpg"></td>
                         <td>Sports day</td>
-                        <td>Rp 20.000/tim</td>
+                        <td>Rp 20.000</td>
                         <td>Upcoming</td>
                         <td>Kompetisi</td>
                             <td>
                                 <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
+                                <button class="delete">Hapus</button>
                             </td>
                         </tr>
                         <tr class="desc-row">
@@ -136,11 +135,6 @@
             </div>
         </section>
 
-        <!-- HISTORY SECTION -->
-
-        <!-- Table Actions (Add Event & Search) -->
-
-
         <!-- Filter Bar -->
         <section class="event-container filter-event history-box" id="historyFilterBar">
             <div class="filter-bar">
@@ -149,12 +143,6 @@
                     <option value="2025">2025</option>
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
-                </select>
-                <select id="statusFilter">
-                    <option value="">Status</option>
-                    <option value="Open">Open</option>
-                    <option value="Closed">Closed</option>
-                    <option value="Upcoming">Upcoming</option>
                 </select>
                 <select id="typeFilter">
                     <option value="">Type</option>
@@ -173,9 +161,6 @@
         <section class="history-container" id="historySection" style="display: none;">
             <h2>📜 Event History</h2>
             <p>Riwayat event yang sudah selesai atau ditutup</p>
-
-
-
             <!--History list-->
             <div class="history-list">
                 <table>
@@ -192,9 +177,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                    
-                        <!-- History Event 1 -->
                         <tr class="history-data-row">
                             <td>126</td>
                             <td>20-23 Agustus 2024</td>
@@ -220,9 +202,6 @@
                                 </div>
                             </td>
                         </tr>
-
-
-                        <!-- History Event 2 -->
                         <tr class="history-data-row">
                             <td>510</td>
                             <td>30 Desember 2024</td>
@@ -249,15 +228,12 @@
                                 </div>
                             </td>
                         </tr>
-
-
-                        <!-- History Event 3 -->
                         <tr class="history-data-row">
                             <td>109</td>
                             <td>20 Agustus 2025</td>
                             <td><img src="summer art.jpg"></td>
                             <td>Summar Art Festival</td>
-                            <td>free</td>
+                            <td>0</td>
                             <td>Finished</td>
                             <td>Festival</td>
                             <td>

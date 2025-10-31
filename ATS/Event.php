@@ -45,7 +45,6 @@
                 <option value="Festival">Festival</option>
             </select>
             <input type="text" id="searchInput" placeholder="Search Event Name">
-            <button onclick="resetFilter()">Reset</button>
         </div>
 
         <!-- Tabel Event -->
@@ -136,9 +135,7 @@
         </div>
     </footer>
 
-    <!-- Script -->
     <script>
-        // === Toggle Deskripsi ===
         const rows = document.querySelectorAll('.data-row');
         rows.forEach(row => {
             row.addEventListener('click', () => {
@@ -186,15 +183,13 @@
         });
     }
 
-    // Jalankan filter langsung saat input berubah
     [yearFilter, statusFilter, typeFilter].forEach(input => {
         input.addEventListener('input', applyFilters);
     });
 
-    // Jalankan filter ketika tekan Enter di kolom search
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            e.preventDefault(); // biar form tidak reload
+            e.preventDefault();
             applyFilters();
         }
     });

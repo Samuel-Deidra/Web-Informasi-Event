@@ -198,7 +198,7 @@ body {
 }
 
 .event-list th {
-    background: #0047ab;
+    background: #1e4d8b;
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -322,8 +322,6 @@ body {
     object-fit: contain;
     border-radius: 8px;
 }
-
-
 
 /* History Description Row */
 .history-desc-row td {
