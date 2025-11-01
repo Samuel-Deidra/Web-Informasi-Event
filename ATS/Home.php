@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
     <head>
     <meta charset="UTF-8">
@@ -21,7 +21,6 @@
                 <div class="icon-user">
                     <a href="Login_page.php"><i class="fa-solid fa-user"></i></a>
                 </div>
-
             </div>
         </nav>
 
@@ -37,12 +36,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Logo</th>
+                        <th>Tanggal</th>
+                        <th></th>
                         <th>Event</th>
-                        <th>Fee</th>
+                        <th>Biaya</th>
                         <th>Status</th>
-                        <th>Type</th>
+                        <th>Jenis</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,13 +51,14 @@
                         <td><img src="fair.jpg"></td>
                         <td>HMTI FAIR 2025</td>
                         <td>Rp 30.000</td>
-                        <td>Open Registration</td>
+                        <td><span class="status dibuka">Pendaftaran Dibuka</span></td>
+
                         <td>Festival</td>
                     </tr>
                     <tr class="desc-row">
                         <td colspan="6">
                             <div class="desc-box">
-                               <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p><br>
+                               <p><strong>Lokasi : </strong>parkiran techno preneur politeknik negeri batam</p><br>
                                 <p><strong>Link : </strong>https://www.nightmusic.com</p><br>
                                 <p><strong>Deskripsi : </strong>HMTI FAIR 2025 adalah ajang tahunan Himpunan Mahasiswa Teknik Informatika Polibatam dengan tema “Exploring Infinite Space, Beyond the Horizon.” Kegiatan ini menghadirkan berbagai lomba seru seperti Short Movie, Capture The Flag, Graphic Design, Photography, PES, dan Mobile Legends untuk siswa SMA/SMK/MA se-Kepri.</p>
                             </div>
@@ -70,13 +70,13 @@
                         <td><img src="musc.jpg"></td>
                         <td>Campus Music night</td>
                         <td>Rp 150.000</td>
-                        <td>Coming Soon</td>
+                        <td><span class="status datang">Akan Datang</span></td>
                         <td>Konser</td>
                     </tr>
                     <tr class="desc-row">
                         <td colspan="6">
                             <div class="desc-box">
-                                <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p><br>
+                                <p><strong>Lokasi : </strong>parkiran techno preneur politeknik negeri batam</p><br>
                                 <p><strong>Link : </strong>https://www.nightmusic.com</p><br>
                                 <p><strong>Deskripsi : </strong>konser music tahunan dengan penampilan band kapus dan bintang tamu</p>
                             </div>
@@ -84,19 +84,19 @@
                     </tr>
 
                     <tr class="data-row">
-                       <td>25-28 Februari 2026</td>
+                       <td>01-10 November</td>
                         <td><img src="pbl expo.jpg"></td>
                         <td>PBL EXPO 2025</td>
-                        <td>Rp 20.000/tim</td>
-                        <td>Coming Soon</td>
+                        <td>Rp 20.000</td>
+                        <td><span class="status mulai">Sedang Berlangsung</span></td>
                         <td>Pameran</td>
                     </tr>
                     <tr class="desc-row">
                         <td colspan="6">
                             <div class="desc-box">
-                               <p><strong>Location : </strong>Gedung Traine Politeknik Negeri Batam</p><br>
+                               <p><strong>Lokasi : </strong>Gedung Traine Politeknik Negeri Batam</p><br>
                                 <p><strong>Link : </strong>https://www.pblpoltek.com</p><br>
-                                <p><strong>Deskripsi : </strong>Pameran karya proyek PBL mahasiswa. Akan ada penilaian dan hadiah untuk karya terbaik.</p>
+                                <p><strong>Deskripsi : </strong>Pameran karya proyek PBL mahasiswa. Akan ada penilaian dan hadiah untuk karya terbaik. ukup dengan Rp20.000 per tim, kamu sudah bisa ikut berpartisipasi.</p>
                             </div>
                         </td>
                     </tr>
@@ -109,7 +109,7 @@
                 <div class="footer-content">
                     <img src="logopoltektransparan.png" alt="logo" class="footer-logo">
                     <div class="footer-info">
-                        <h2>Contact Us</h2>
+                        <h2>Hubungi Kami</h2>
                             <p>Politeknik Negeri Batam</p>
                             <p>Jl. Ahmad Yani Batam Kota, Kota Batam, Kepulauan Riau, Indonesia.</p>
                             <p>Whats App 0821-7255-7099</p>

@@ -4,6 +4,21 @@
     box-sizing: border-box;
   }
   
+  :root {
+      --second-color: black;
+      --primary-color: #2C71D6;
+      --submit-color: #21539e;
+      --black-color: #020101;
+      --open-regis-bg: #e8f5e9;
+      --open-regis-text: #2e7d32;
+      --coming-bg: #e3f2fd;
+      --coming-text: #1565c0;
+      --closed-bg: #a9a9a9;
+      --closed-text: #36363b;
+      --start-bg: #ecd3b5;
+      --start-text: #ff8c00; 
+  }
+  
   body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -13,7 +28,7 @@
   
   /* ====== NAVBAR ====== */
   .navbar {
-    background: #0047ab;
+    background: var(--primary-color);
     padding: 1rem 0;
     color: white;
     position: fixed;
@@ -93,7 +108,7 @@
   
   .filter-bar select:focus,
   .filter-bar input:focus {
-    border-color: #0047ab;
+    border-color: #2C71D6;
   }
   
   /* ====== EVENT TABLE ====== */
@@ -125,7 +140,7 @@
   }
   
   .event-list th {
-    background: #0047ab;
+    background: var(--primary-color);
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -142,6 +157,13 @@
   .event-list tr:hover {
     background: #eaf0ff;
   }
+  
+  .event-list img {
+      width: 40px;        /* Sesuaikan ukuran gambar */
+      height: auto;
+      object-fit: contain; /* Menjaga proporsi gambar */
+      border-radius: 8px;  /* Opsional, biar lebih rapi */
+    }
   
   .desc-row td {
     background-color: #f9f9f9;
@@ -221,7 +243,7 @@
   }
   
   .footer {
-    background: #0047ab;
+    background: var(--primary-color);
     color: white;
     margin-top: 50px;
     bottom: 0;
@@ -247,4 +269,29 @@
     font-weight: normal;
   }
   
+  .status {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9em;
+    border: 1px solid transparent;
+  }
   
+  .dibuka {
+    background-color: var(--open-regis-bg);
+    color: var(--open-regis-text);
+    border-color: #2e7d32;
+  }
+  
+  .datang {
+    background-color: var(--coming-bg);
+    color: var(--coming-text);
+    border-color: #1565c0;
+  }
+  
+  .mulai {
+    background-color: var(--start-bg);
+    color: var(--start-text);
+    border-color: #ff8c00;
+  }

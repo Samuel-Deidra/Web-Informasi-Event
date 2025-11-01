@@ -3,17 +3,31 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root {
+    --second-color: black;
+    --primary-color: #2C71D6;
+    --submit-color: #21539e;
+    --black-color: #020101;
+    --open-regis-bg: #e8f5e9;
+    --open-regis-text: #2e7d32;
+    --coming-bg: #e3f2fd;
+    --coming-text: #1565c0;
+    --closed-bg: #a9a9a9;
+    --closed-text: #36363b;
+    --start-bg: #ecd3b5;
+    --start-text: #ff8c00; 
+}
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    padding-top: 70px;
-    background: white;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding-top: 70px;
+  background: white;
 }
 
 /* ====== NAVBAR ====== */
 .navbar {
-    background: #0047ab;
+    background: var(--primary-color);
     padding: 1rem 0;
     color: white;
     position: fixed;
@@ -74,26 +88,72 @@ body {
 
 /* ====== FILTER BAR ====== */
 .filter-bar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    margin: 20px auto;
-    width: 90%;
-    max-width: 1200px;
-    padding-left: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
 }
 
-.filter-bar select,
-.filter-bar input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* Dropdown */
+.filter-bar select {
+  padding: 8px 12px;
+  border: 1.3px solid #ccc;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
-.filter-bar select:focus,
-.filter-bar input:focus {
-    border-color: #0047ab;
+.filter-bar select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px rgba(44, 113, 214, 0.25);
+}
+
+/* 🔍 Kotak pencarian */
+.search-box {
+  position: relative;
+}
+
+.search-box i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.search-box input {
+  width: 250px; /* 🔸ubah panjang di sini biar gak kepanjangan */
+  padding: 8px 12px 8px 35px; /* tambah jarak kiri buat ikon */
+  border: 1.5px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 6px rgba(44, 113, 214, 0.25);
+}
+
+/* Tombol cari terpisah */
+.filter-bar button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.filter-bar button:hover {
+  background-color: #125ca2;
 }
 
 /* ====== EVENT TABLE ====== */
@@ -125,7 +185,7 @@ body {
 }
 
 .event-list th {
-    background: #0047ab;
+    background: var(--primary-color);
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -237,7 +297,7 @@ body {
 }
 
 .footer {
-    background: #0047ab;
+    background: var(--primary-color);
     color: white;
     margin-top: 50px;
     bottom: 0;
@@ -261,4 +321,37 @@ body {
 .footer-info p {
     font-size: small;
     font-weight: normal;
+}
+.status {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9em;
+  border: 1px solid transparent;
+}
+
+.dibuka {
+  background-color: var(--open-regis-bg);
+  color: var(--open-regis-text);
+  border-color: #2e7d32;
+}
+
+.datang {
+  background-color: var(--coming-bg);
+  color: var(--coming-text);
+  border-color: #1565c0;
+}
+
+
+.ditutup {
+  background-color: var(--closed-bg);
+  color: var(--closed-text);
+  border-color: #36363b;
+}
+
+.mulai {
+  background-color: var(--start-bg);
+  color: var(--start-text);
+  border-color: #ff8c00;
 }

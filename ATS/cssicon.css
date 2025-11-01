@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+:root{
+    --primary-color: #2C71D6;
+    --submit-color: #21539e;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -28,8 +33,7 @@ body {
 
 /* ====== NAVBAR ====== */
 .navbar {
-    background: #0047ab;
-    /* biru tua elegan */
+    background: var(--primary-color);
     padding: 1rem 0;
     color: white;
     position: fixed;
@@ -51,7 +55,7 @@ body {
 
 .icon-user a {
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -78,16 +82,13 @@ body {
 
 .navbar .nav-links a:hover {
     color: #ffd700;
-    /* kuning saat hover */
 }
 
 .footer {
-    background: #0047ab;
-    /* biru tua elegan */
-    height: 250px;
+    background: #2C71D6;
     color: white;
+    margin-top: 50px;
     bottom: 0;
-    left: 0;
     width: 100%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     padding: 30px;

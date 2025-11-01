@@ -6,6 +6,22 @@
     font-family: "Poppins", sans-serif;
 }
 
+:root {
+    --second-color: black;
+    --primary-color: #2C71D6;
+    --submit-color: #21539e;
+    --black-color: #020101;
+    --open-regis-bg: #e8f5e9;
+    --open-regis-text: #2e7d32;
+    --coming-bg: #e3f2fd;
+    --coming-text: #1565c0;
+    --closed-bg: #a9a9a9;
+    --closed-text: #36363b;
+    --start-bg: #ecd3b5;
+    --start-text: #ff8c00;
+}
+
+
 body {
     background-color: #f6f8fc;
     color: #333;
@@ -167,7 +183,7 @@ body {
     padding: 8px 12px;
     width: 220px;
     font-size: 14px;
-    padding-left: 35px; 
+    padding-left: 35px;
 }
 
 .search-btn {
@@ -650,4 +666,38 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
     border-radius: 12px !important;
     padding: 20px !important;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9em;
+    border: 1px solid transparent;
+}
+
+.dibuka {
+    background-color: var(--open-regis-bg);
+    color: var(--open-regis-text);
+    border-color: #2e7d32;
+}
+
+.datang {
+    background-color: var(--coming-bg);
+    color: var(--coming-text);
+    border-color: #1565c0;
+}
+
+
+.ditutup {
+    background-color: var(--closed-bg);
+    color: var(--closed-text);
+    border-color: #36363b;
+}
+
+.mulai {
+    background-color: var(--start-bg);
+    color: var(--start-text);
+    border-color: #ff8c00;
 }

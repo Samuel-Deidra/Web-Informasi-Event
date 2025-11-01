@@ -64,22 +64,22 @@
                     <tbody>
                         <!-- Event 1 -->
                         <tr class="data-row">
-                            <td>1</td>
-                           <td>19-21 Desember</td>
+                        <td>1</td>
+                        <td>19-21 Desember</td>
                         <td><img src="jobfair.jpg" alt=""></td>
                         <td>Job Fair 2025</td>
                         <td>0</td>
-                        <td>Akan Datang</td>
+                        <td><span class="status datang">Akan Datang</span></td>
                         <td>Pameran</td>
                             <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Hapus</button>
+                            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <tr class="desc-row">
                             <td colspan="8">
                                 <div class="desc-box">
-                                    <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p><br>
+                                <p><strong>Location : </strong>parkiran techno preneur politeknik negeri batam</p><br>
                                 <p><strong>Link : </strong>https://www.jobfair2025.com</p><br>
                                 <p><strong>Deskripsi : </strong>Pameran lowongan kerja dan magang dari berbagai perusahaan nasional dan startup</p>
                                 </div>
@@ -88,16 +88,16 @@
 
                         <!-- Event 2 -->
                         <tr class="data-row">
-                            <td>2</td>
-                            <td>19-21 Desember</td>
-                        <td><img src="musc.jpg"></td>
-                        <td>Campus Music night</td>
-                        <td>Rp 150.000</td>
-                        <td>Akan Datang</td>
-                        <td>Konser</td>
+                        <td>2</td>
+                        <td>23-09 November</td>
+                        <td><img src="fair.jpg"></td>
+                        <td>HMTI FAIR 2025</td>
+                        <td>Rp 30.000</td>
+                        <td><span class="status dibuka">Pendaftaran Dibuka</span></td>
+                        <td>Festival</td>
                             <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Hapus</button>
+                            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <tr class="desc-row">
@@ -112,22 +112,87 @@
 
                         <!-- Event 3 -->
                         <tr class="data-row">
-                            <td>3</td>
-                            <td>25-28 Oktober</td>
-                        <td><img src="sport.jpg"></td>
-                        <td>Sports day</td>
-                        <td>Rp 20.000</td>
-                        <td>Akan Datang</td>
-                        <td>Kompetisi</td>
+                        <td>3</td>
+                        <td>19-21 Desember</td>
+                        <td><img src="musc.jpg"></td>
+                        <td>Campus Music night</td>
+                        <td>Rp150.000</td>
+                        <td><span class="status datang">Akan Datang</span></td>
+                        <td>Konser</td>
                             <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Hapus</button>
+                            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <tr class="desc-row">
                             <td colspan="8">
                                 <div class="desc-box">
-                                   <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p><br>
+                                <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.sportsdaypoltek.com</p><br>
+                                <p><strong>Deskripsi : </strong>Turnamen olahraga antar-fakultas meliputi futsal, basket, badminton, dan e-sport.</p><br>
+                            </td>
+                        </tr>
+
+                        <tr class="data-row">
+                        <td>4</td>
+                        <td>21-23 November</td>
+                        <td><img src="energi.jpg"></td>
+                        <td>ENERGI FESTIVAL</td>
+                        <td>Rp 200.000</td>
+                        <td><span class="status ditutup">Selesai</span></td>
+                        <td>Festival</td>
+                            <td>
+                            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="desc-row">
+                            <td colspan="8">
+                                <div class="desc-box">
+                                <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.sportsdaypoltek.com</p><br>
+                                <p><strong>Deskripsi : </strong>Turnamen olahraga antar-fakultas meliputi futsal, basket, badminton, dan e-sport.</p><br>
+                            </td>
+                        </tr>
+
+                        <tr class="data-row">
+                        <td>5</td>
+                        <td>01-10 November</td>
+                        <td><img src="pbl expo.jpg"></td>
+                        <td>PBL EXPO 2025</td>
+                        <td>Rp 20.000</td>
+                        <td><span class="status mulai">Sedang Berlangsung</span></td>
+                        <td>Pameran</td>
+                            <td>
+                            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="desc-row">
+                            <td colspan="8">
+                                <div class="desc-box">
+                                <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p><br>
+                                <p><strong>Link : </strong>https://www.sportsdaypoltek.com</p><br>
+                                <p><strong>Deskripsi : </strong>Turnamen olahraga antar-fakultas meliputi futsal, basket, badminton, dan e-sport.</p><br>
+                            </td>
+                        </tr>
+                        <tr class="data-row">
+                        <td>6</td>
+                        <td>20-23 Agustus</td>
+                        <td><img src="pblexpo.jpg"></td>
+                        <td>PBL EXPO 2024</td>
+                        <td>Rp 20.000</td>
+                        <td><span class="status ditutup">Selesai</span></td>
+                        <td>Pameran</td>
+                            <td>
+                            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="desc-row">
+                            <td colspan="8">
+                                <div class="desc-box">
+                                <p><strong>Location : </strong>Lapangan futsal politeknik negeri batam</p><br>
                                 <p><strong>Link : </strong>https://www.sportsdaypoltek.com</p><br>
                                 <p><strong>Deskripsi : </strong>Turnamen olahraga antar-fakultas meliputi futsal, basket, badminton, dan e-sport.</p><br>
                             </td>
