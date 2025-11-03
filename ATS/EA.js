@@ -1,7 +1,4 @@
-// ========================================
 // TAB SWITCHING LOGIC
-// ========================================
-
 document.addEventListener("DOMContentLoaded", () => {
     // Get tab elements
     const tabEvent = document.getElementById('tabEvent');
@@ -56,10 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showEventTab();
 });
 
-
-// ========================================
 // USER DROPDOWN LOGIC
-// ========================================
 const userIcon = document.getElementById('userIcon');
 const logoutMenu = document.getElementById('logoutMenu');
 
@@ -74,10 +68,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-
-// ========================================
 // MODAL LOGIC (Add/Edit Event)
-// ========================================
 const addEventBtn = document.getElementById('addEvent-Btn');
 const eventModal = document.getElementById('eventModal');
 const cancelBtn = document.getElementById('cancelBtn');
@@ -122,10 +113,7 @@ eventModal.addEventListener('click', (e) => {
     }
 });
 
-
-// ========================================
 // EVENT TABLE - TOGGLE DESCRIPTION ON CLICK
-// ========================================
 const eventRows = document.querySelectorAll('.data-row');
 
 eventRows.forEach((row) => {
@@ -148,10 +136,7 @@ eventRows.forEach((row) => {
     });
 });
 
-
-// ========================================
 // HISTORY TABLE - TOGGLE DESCRIPTION ON CLICK
-// ========================================
 const historyRows = document.querySelectorAll('.history-data-row');
 
 historyRows.forEach((row) => {
@@ -174,10 +159,7 @@ historyRows.forEach((row) => {
     });
 });
 
-
-// ========================================
 // SEARCH FUNCTIONALITY
-// ========================================
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const dataRows = document.querySelectorAll('.data-row');
@@ -224,15 +206,11 @@ searchInput.addEventListener('input', (e) => {
     }
 });
 
-
-// ========================================
-// DELETE BUTTON FUNCTIONALITY
-// ========================================
 const deleteButtons = document.querySelectorAll('.delete');
 
 deleteButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent row click
+        e.stopPropagation(); 
 
         const row = e.target.closest('.data-row');
         const eventName = row.querySelector('td:nth-child(4)').textContent;
@@ -253,7 +231,7 @@ const deleteHistoryButtons = document.querySelectorAll('.delete-history');
 
 deleteHistoryButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent row click
+        e.stopPropagation(); 
 
         const row = e.target.closest('.history-data-row');
         const eventName = row.querySelector('td:nth-child(4)').textContent;
@@ -269,15 +247,12 @@ deleteHistoryButtons.forEach((btn) => {
     });
 });
 
-
-// ========================================
 // EDIT BUTTON FUNCTIONALITY
-// ========================================
 const editButtons = document.querySelectorAll('.edit');
 
 editButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent row click
+        e.stopPropagation(); 
 
         const row = e.target.closest('.data-row');
 
@@ -300,9 +275,8 @@ editButtons.forEach((btn) => {
         formStep2.classList.remove('active');
     });
 });
-// ========================================
+
 // HISTORY FILTER + SEARCH
-// ========================================
 document.addEventListener("DOMContentLoaded", () => {
     const historySection = document.getElementById("historySection");
     const historyRows = historySection.querySelectorAll(".history-data-row");

@@ -166,7 +166,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    background-color: #fff; /* Tambahkan agar warna dasar sama */
+    background-color: #fff;
 }
 
 .search-box input {
@@ -175,7 +175,7 @@ body {
     padding: 8px 12px 8px 35px;
     width: 220px;
     font-size: 14px;
-    background: transparent; /* Biar nyatu dengan background box */
+    background: transparent; 
 }
 
 .search-box .search-icon {
@@ -611,7 +611,7 @@ body {
 .filter-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* kiri & kanan */
+    justify-content: space-between;
     gap: 20px;
     margin-bottom: 15px;
     flex-wrap: nowrap;
