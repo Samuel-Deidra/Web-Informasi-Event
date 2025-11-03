@@ -90,7 +90,7 @@ addEventBtn.addEventListener('click', () => {
     eventModal.style.display = 'flex';
     formStep1.classList.add('active');
     formStep2.classList.remove('active');
-    document.getElementById('modalTitle').textContent = 'Add New Event';
+    document.getElementById('modalTitle').textContent = 'Tambah Event Baru';
 });
 
 cancelBtn.addEventListener('click', () => {
@@ -299,4 +299,48 @@ editButtons.forEach((btn) => {
         formStep1.classList.add('active');
         formStep2.classList.remove('active');
     });
+});
+// ========================================
+// HISTORY FILTER + SEARCH
+// ========================================
+document.addEventListener("DOMContentLoaded", () => {
+    const historySection = document.getElementById("historySection");
+    const historyRows = historySection.querySelectorAll(".history-data-row");
+    const yearFilter = document.getElementById("yearFilter");
+    const typeFilter = document.getElementById("typeFilter");
+    const searchInputHistory = document.querySelector("#historyFilterBar #searchInput");
+
+    function filterHistory() {
+        const yearValue = yearFilter.value.toLowerCase();
+        const typeValue = typeFilter.value.toLowerCase();
+        const searchValue = searchInputHistory.value.toLowerCase();
+
+        historyRows.forEach((row) => {
+            const date = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            const eventName = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+            const type = row.querySelector("td:nth-child(7)").textContent.toLowerCase();
+            const descRow = row.nextElementSibling;
+
+            const matchesYear = !yearValue || date.includes(yearValue);
+            const matchesType = !typeValue || type.includes(typeValue);
+            const matchesSearch = !searchValue || eventName.includes(searchValue);
+
+            if (matchesYear && matchesType && matchesSearch) {
+                row.style.display = "";
+                if (descRow && descRow.classList.contains("history-desc-row")) {
+                    descRow.style.display = "";
+                }
+            } else {
+                row.style.display = "none";
+                if (descRow && descRow.classList.contains("history-desc-row")) {
+                    descRow.style.display = "none";
+                }
+            }
+        });
+    }
+
+    // Event listeners
+    yearFilter.addEventListener("change", filterHistory);
+    typeFilter.addEventListener("change", filterHistory);
+    searchInputHistory.addEventListener("input", filterHistory);
 });
