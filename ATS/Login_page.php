@@ -14,7 +14,7 @@
 
 <body>
     <div class="login_container">
-        <button class="back-btn" onclick="window.history.back()">
+        <button class="back-btn" onclick=window.location.href="Home.php">
             <i class="fa-solid fa-arrow-left"></i> Back
         </button>
 

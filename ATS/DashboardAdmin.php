@@ -204,26 +204,31 @@
 
         <!-- Filter Bar -->
         <section class="event-container filter-event history-box" id="historyFilterBar">
-            <div class="filter-bar">
-                <select id="yearFilter">
-                    <option value="">Tahun</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                </select>
-                <select id="typeFilter">
-                    <option value="">Type</option>
-                    <option value="Seminar">Seminar</option>
-                    <option value="Workshop">Workshop</option>
-                    <option value="Festival">Festival</option>
-                </select>
+        <div class="filter-bar">
+  <div class="filter-left">
+    <select id="yearFilter">
+        <option value="">Tahun</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+    </select>
+    <select id="typeFilter">
+        <option value="">Type</option>
+        <option value="Seminar">Seminar</option>
+        <option value="Workshop">Workshop</option>
+        <option value="Festival">Festival</option>
+    </select>
+  </div>
 
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search Event" />
-                    <button class="search-btn" id="searchBtn">Search Event</button>
+  <div class="filter-right">
+    <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Cari Event..." />
+        <button id="searchBtn" class="search-btn">Cari</button> 
+    </div>
+  </div>
+</div>
 
-                </div>
-            </div>
         </section>
         <section class="history-container" id="historySection" style="display: none;">
             <h2>📜 Event History</h2>
@@ -250,10 +255,10 @@
                             <td><img src="pblexpo.jpg"></td>
                             <td>PBL EXPO 2024</td>
                             <td>Rp 20.000</td>
-                            <td>Selesai</td>
+                            <td><span class="status ditutup">Selesai</span></td>
                             <td>Pameran</td>
                             <td>
-                                <button class="delete-history">Hapus</button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
@@ -275,10 +280,10 @@
                             <td><img src="batassenja.jpg"></td>
                             <td>Konser Batas Senja Live at Poltek</td>
                             <td>Rp 50.000</td>
-                            <td>Selesai</td>
+                            <td><span class="status ditutup">Selesai</span></td>
                             <td>Konser</td>
                             <td>
-                                <button class="delete-history">Hapus</button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
@@ -301,10 +306,10 @@
                             <td><img src="summer art.jpg"></td>
                             <td>Summar Art Festival</td>
                             <td>0</td>
-                            <td>Finished</td>
+                            <td><span class="status ditutup">Selesai</span></td>
                             <td>Festival</td>
                             <td>
-                                <button class="delete-history">Delete</button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <tr class="history-desc-row">
