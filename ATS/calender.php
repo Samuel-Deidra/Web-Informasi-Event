@@ -17,7 +17,7 @@
             <ul class="nav-links">
                 <li><a href="Home.php">Home</a></li>
                 <li><a href="Event.php">Event</a></li>
-                <li><a href="#">Calendar</a></li>
+                <li><a href="#">Kalender</a></li>
             </ul>
         </div>
 

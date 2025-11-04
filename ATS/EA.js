@@ -94,7 +94,7 @@ nextBtn.addEventListener('click', () => {
     const feeInput = document.getElementById('feeInput');
 
     if (!dateInput.value || !nameInput.value || !feeInput.value) {
-        alert('Please fill in all required fields');
+        alert('Tolong isi ');
         return;
     }
 
@@ -215,7 +215,7 @@ deleteButtons.forEach((btn) => {
         const row = e.target.closest('.data-row');
         const eventName = row.querySelector('td:nth-child(4)').textContent;
 
-        if (confirm(`Are you sure you want to delete "${eventName}"?`)) {
+        if (confirm(`Kamu yakin ingin menghapus event ini "${eventName}"?`)) {
             const descRow = row.nextElementSibling;
             row.remove();
             if (descRow && descRow.classList.contains('desc-row')) {

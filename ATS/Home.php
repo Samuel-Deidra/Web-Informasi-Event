@@ -47,7 +47,7 @@
                 <tbody>
                     <!-- Contoh data statis -->
                     <tr class="data-row">
-                        <td>23-09 November</td>
+                        <td>23-09 November 2025</td>
                         <td><img src="fair.jpg"></td>
                         <td>HMTI FAIR 2025</td>
                         <td>Rp 30.000</td>
@@ -59,14 +59,16 @@
                         <td colspan="6">
                             <div class="desc-box">
                                <p><strong>Lokasi : </strong>parkiran techno preneur politeknik negeri batam</p><br>
-                                <p><strong>Link : </strong>https://www.nightmusic.com</p><br>
+                                <p><strong>Link : </strong>
+                <a href="https://www.nightmusic.com" target="_blank">https://www.nightmusic.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>HMTI FAIR 2025 adalah ajang tahunan Himpunan Mahasiswa Teknik Informatika Polibatam dengan tema “Exploring Infinite Space, Beyond the Horizon.” Kegiatan ini menghadirkan berbagai lomba seru seperti Short Movie, Capture The Flag, Graphic Design, Photography, PES, dan Mobile Legends untuk siswa SMA/SMK/MA se-Kepri.</p>
                             </div>
                         </td>
                     </tr>
 
                     <tr class="data-row">
-                        <td>19-21 Desember</td>
+                        <td>19-21 Desember 2025</td>
                         <td><img src="musc.jpg"></td>
                         <td>Campus Music night</td>
                         <td>Rp 150.000</td>
@@ -77,14 +79,16 @@
                         <td colspan="6">
                             <div class="desc-box">
                                 <p><strong>Lokasi : </strong>parkiran techno preneur politeknik negeri batam</p><br>
-                                <p><strong>Link : </strong>https://www.nightmusic.com</p><br>
+                                <p><strong>Link : </strong>
+                <a href="https://www.nightmusic.com" target="_blank">https://www.nightmusic.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>konser music tahunan dengan penampilan band kapus dan bintang tamu</p>
                             </div>
                         </td>
                     </tr>
 
                     <tr class="data-row">
-                       <td>01-10 November</td>
+                       <td>01-10 November 2025</td>
                         <td><img src="pbl expo.jpg"></td>
                         <td>PBL EXPO 2025</td>
                         <td>Rp 20.000</td>
@@ -95,7 +99,9 @@
                         <td colspan="6">
                             <div class="desc-box">
                                <p><strong>Lokasi : </strong>Gedung Traine Politeknik Negeri Batam</p><br>
-                                <p><strong>Link : </strong>https://www.pblpoltek.com</p><br>
+                                <p><strong>Link : </strong>
+                <a href="https://www.pblpoltek.com" target="_blank">https://www.pblpoltek.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>Pameran karya proyek PBL mahasiswa. Akan ada penilaian dan hadiah untuk karya terbaik. ukup dengan Rp20.000 per tim, kamu sudah bisa ikut berpartisipasi.</p>
                             </div>
                         </td>

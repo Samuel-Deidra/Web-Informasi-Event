@@ -65,7 +65,7 @@
                         <!-- Event 1 -->
                         <tr class="data-row">
                             <td>1</td>
-                            <td>19-21 Desember</td>
+                            <td>19-21 Desember 2025</td>
                             <td><img src="jobfair.jpg" alt=""></td>
                             <td>Job Fair 2025</td>
                             <td>0</td>
@@ -91,7 +91,7 @@
                         <!-- Event 2 -->
                         <tr class="data-row">
                             <td>2</td>
-                            <td>23-09 November</td>
+                            <td>23-09 November 2025</td>
                             <td><img src="fair.jpg"></td>
                             <td>HMTI FAIR 2025</td>
                             <td>Rp 30.000</td>
@@ -117,7 +117,7 @@
                         <!-- Event 3 -->
                         <tr class="data-row">
                             <td>3</td>
-                            <td>19-21 Desember</td>
+                            <td>19-21 Desember 2025</td>
                             <td><img src="musc.jpg"></td>
                             <td>Campus Music night</td>
                             <td>Rp150.000</td>
@@ -140,7 +140,7 @@
 
                         <tr class="data-row">
                             <td>4</td>
-                            <td>21-23 November</td>
+                            <td>21-23 November 2024</td>
                             <td><img src="energi.jpg"></td>
                             <td>ENERGI FESTIVAL</td>
                             <td>Rp 200.000</td>
@@ -163,7 +163,7 @@
 
                         <tr class="data-row">
                             <td>5</td>
-                            <td>01-10 November</td>
+                            <td>01-10 November 2025</td>
                             <td><img src="pbl expo.jpg"></td>
                             <td>PBL EXPO 2025</td>
                             <td>Rp 20.000</td>
@@ -185,7 +185,7 @@
                         </tr>
                         <tr class="data-row">
                             <td>6</td>
-                            <td>20-23 Agustus</td>
+                            <td>20-23 Agustus 2024</td>
                             <td><img src="pblexpo.jpg"></td>
                             <td>PBL EXPO 2024</td>
                             <td>Rp 20.000</td>
@@ -253,7 +253,6 @@
                             <th>Harga</th>
                             <th>Status</th>
                             <th>Jenis</th>
-                            <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -265,9 +264,6 @@
                             <td>Rp 20.000</td>
                             <td><span class="status ditutup">Selesai</span></td>
                             <td>Pameran</td>
-                            <td>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
                         </tr>
                         <tr class="history-desc-row">
                             <td colspan="9">
@@ -290,9 +286,6 @@
                             <td>Rp 50.000</td>
                             <td><span class="status ditutup">Selesai</span></td>
                             <td>Konser</td>
-                            <td>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
                         </tr>
                         <tr class="history-desc-row">
                             <td colspan="9">
@@ -316,9 +309,6 @@
                             <td>0</td>
                             <td><span class="status ditutup">Selesai</span></td>
                             <td>Festival</td>
-                            <td>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
                         </tr>
                         <tr class="history-desc-row">
                             <td colspan="9">

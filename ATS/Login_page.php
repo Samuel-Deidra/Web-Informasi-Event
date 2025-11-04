@@ -15,7 +15,7 @@
 <body>
     <div class="login_container">
         <button class="back-btn" onclick=window.location.href="Home.php">
-            <i class="fa-solid fa-arrow-left"></i> Back
+            <i class="fa-solid fa-arrow-left"></i> Kembali
         </button>
 
         <h2 class="login_title">Admin Login</h2>

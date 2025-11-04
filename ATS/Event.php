@@ -69,7 +69,7 @@
                 <tbody>
                     <!-- Contoh data -->
                     <tr class="data-row" data-year="2025" data-status="Akan Datang" data-type="Pameran">
-                       <td>19-21 Desember</td>
+                       <td>19-21 Desember 2025</td>
                         <td><img src="jobfair.jpg" alt=""></td>
                         <td>Job Fair 2025</td>
                         <td>0</td>
@@ -80,14 +80,16 @@
                         <td colspan="6">
                             <div class="desc-box">
                                 <p><strong>Lokasi : </strong>Lobby gedung utama politeknik negeri batam</p><br>
-                                <p><strong>Link : </strong>https://www.jobfair2025.com</p><br>
+                                 <p><strong>Link : </strong>
+                <a href="https://www.jobfair2025.com" target="_blank">https://www.jobfair2025.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>Pameran lowongan kerja dan magang dari berbagai perusahaan nasional dan startup</p>
                             </div>
                         </td>
                     </tr>
 
                     <tr class="data-row" data-year="2025" data-status="Pendaftaran Dibuka" data-type="Festival">
-                        <td>23-09 November</td>
+                        <td>23-09 November 2025</td>
                         <td><img src="fair.jpg"></td>
                         <td>HMTI FAIR 2025</td>
                         <td>Rp 30.000</td>
@@ -98,16 +100,18 @@
                         <td colspan="6">
                             <div class="desc-box">
                                <p><strong>Lokasi : </strong>parkiran techno preneur politeknik negeri batam</p><br>
-                                <p><strong>Link : </strong>https://www.nightmusic.com</p><br>
+                                <p><strong>Link : </strong>
+                <a href="https://www.nightmusic.com" target="_blank">https://www.nightmusic.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>HMTI FAIR 2025 adalah ajang tahunan Himpunan Mahasiswa Teknik Informatika Polibatam dengan tema “Exploring Infinite Space, Beyond the Horizon.” Kegiatan ini menghadirkan berbagai lomba seru seperti Short Movie, Capture The Flag, Graphic Design, Photography, PES, dan Mobile Legends untuk siswa SMA/SMK/MA se-Kepri.</p>
                             </div>
                         </td>
                     </tr>
 
                     <tr class="data-row" data-year="2025" data-status="Akan Datang" data-type="Konser">
-                       <td>19-21 Desember</td>
+                       <td>19-21 Desember 2025</td>
                         <td><img src="musc.jpg"></td>
-                        <td>Campus Music night</td>
+                        <td>Campus Music night 2025</td>
                         <td>Rp150.000</td>
                         <td><span class="status datang">Akan Datang</span></td>
                         <td>Konser</td>
@@ -116,14 +120,16 @@
                         <td colspan="6">
                             <div class="desc-box">
                                 <p><strong>Lokasi : </strong>parkiran techno preneur politeknik negeri batam</p><br>
-                                <p><strong>Link : </strong>https://www.jobfair2025.com</p><br>
+                               <p><strong>Link : </strong>
+                <a href="https://www.jobfair2025.com" target="_blank">https://www.jobfair2025.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>konser music tahunan dengan penampilan band kapus dan bintang tamu</p>
                             </div>
                         </td>
                     </tr>
                     
                      <tr class="data-row" data-year="2024" data-status="Selesai" data-type="Festival">
-                        <td>21-23 November</td>
+                        <td>21-23 November 2024</td>
                         <td><img src="energi.jpg"></td>
                         <td>ENERGI FESTIVAL</td>
                         <td>Rp 200.000</td>
@@ -134,14 +140,16 @@
                         <td colspan="6">
                             <div class="desc-box">
                                <p><strong>Lokasi : </strong>Lapangan Futsal Polibatam</p><br>
-                                <p><strong>Link : </strong>https://www.paskibpoltek.com</p><br>
+                                <p><strong>Link : </strong>
+                <a href="https://www.paskibpoltek.com" target="_blank">https://www.paskibpoltek.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>Lomba Paskibra merupakan ajang untuk mengasah kedisiplinan, kekompakan, dan semangat cinta tanah air bagi siswa-siswi SMA/SMK/sederajat. Dengan tema “Paskibra Jaya: Prestisi, Disiplin, dan Cinta Tanah Air”, kegiatan ini diadakan di Lapangan Futsal Polibatam. Biaya pendaftaran sebesar Rp 200.000 per tim.</p>
                             </div>
                         </td>
                     </tr>
 
                     <tr class="data-row" data-year="2025" data-status="Sedang Berlangsung" data-type="Pameran">
-                        <td>01-10 November</td>
+                        <td>01-10 November 2025</td>
                         <td><img src="pbl expo.jpg"></td>
                         <td>PBL EXPO 2025</td>
                         <td>Rp 20.000</td>
@@ -152,13 +160,15 @@
                         <td colspan="6">
                             <div class="desc-box">
                                <p><strong>Lokasi : </strong>Gedung Traine Politeknik Negeri Batam</p><br>
-                                <p><strong>Link : </strong>https://www.pblpoltek.com</p><br>
+                               <p><strong>Link : </strong>
+                <a href="https://www.pblpoltek.com" target="_blank">https://www.pblpoltek.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>Pameran karya proyek PBL mahasiswa. Akan ada penilaian dan hadiah untuk karya terbaik. Cukup dengan Rp20.000 per tim, kamu sudah bisa ikut berpartisipasi.</p>
                             </div>
                         </td>
                     </tr>
                     <tr class="data-row" data-year="2024" data-status="Selesai" data-type="Pameran">
-                        <td>20-23 Agustus</td>
+                        <td>20-23 Agustus 2024</td>
                         <td><img src="pblexpo.jpg"></td>
                         <td>PBL EXPO 2024</td>
                         <td>Rp 20.000</td>
@@ -169,7 +179,9 @@
                         <td colspan="6">
                             <div class="desc-box">
                                <p><strong>Lokasi : </strong>Gedung Traine Politeknik Negeri Batam</p><br>
-                                <p><strong>Link : </strong>https://www.pblexpo25poltek.com</p><br>
+                                <p><strong>Link : </strong>
+                <a href="https://www.pblexpo25poltek.com" target="_blank">https://www.pblexpo25poltek.com</a>
+            </p><br>
                                 <p><strong>Deskripsi : </strong>PBL EXPO 2024 merupakan pameran karya mahasiswa
                                         Politeknik Negeri Batam hasil dari kegiatan Project Based Learning (PBL). Dalam
                                         acara ini, berbagai proyek inovatif ditampilkan dan dinilai oleh juri.</p>
