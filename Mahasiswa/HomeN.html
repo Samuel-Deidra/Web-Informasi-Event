@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Kampus - Platform Informasi Event</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #50509d;
+        --secondary-color: #ec4899;
+        --dark-color: #1e293b;
+        --light-bg: #f8fafc;
+        --border-color: #e5e7eb;
+        --text-muted: #6b7280;
+        --white: #ffffff;
+        --event-date:#63DDFF;
+        --open-regis-text: #2e7d32;
+        --coming-bg: #e3f2fd;
+        --coming-text: #1565c0;
+        --closed-bg: #a9a9a9;
+        --closed-text: #36363b;
+        --start-bg: #ecd3b5;
+        --start-text: #ff8c00; 
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-bg);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      /* Grid System */
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+      }
+
+      .col {
+        flex: 1;
+        padding: 0 15px;
+      }
+
+      .col-md-6 {
+        width: 50%;
+        padding: 0 15px;
+      }
+
+      .col-lg-3 {
+        width: 25%;
+        padding: 0 15px;
+      }
+
+      .col-lg-4 {
+        width: 33.333%;
+        padding: 0 15px;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background-color: var(--primary-color);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        margin: 10px 80px;
+        border-radius: 10px;
+      }
+
+      .navbar-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: var(--white);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar-brand img {
+        width: 50px;
+      }
+
+      .navbar-nav {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-item {
+        margin: 0 5px;
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: var(--white);
+      }
+
+      .navbar-toggler {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Hero Slider */
+      .hero-slider {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+        border-radius: 15px;
+        margin: 30px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      .slide.active {
+        opacity: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .slide-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        color: var(--white);
+        padding: 40px;
+      }
+
+      .slide-content h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .slide-content p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-light {
+        background-color: var(--white);
+        color: var(--dark-color);
+      }
+
+      .btn-light:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-2px);
+      }
+
+      .btn-lg {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+      }
+
+      .slider-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .slider-btn {
+        background: rgba(255, 255, 255, 0.3);
+        border: none;
+        color: var(--white);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .slider-btn:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .slider-indicators {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+      }
+
+      .indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .indicator.active {
+        background: var(--white);
+        width: 30px;
+        border-radius: 6px;
+      }
+
+      /* Event Cards */
+      .event-card {
+        background: var(--white);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-bottom: 30px;
+      }
+
+      .event-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .event-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .event-card-body {
+        padding: 20px;
+      }
+
+      .event-date {
+        display: inline-block;
+        background: var(--event-date);
+        color: var(--white);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+      }
+
+      .event-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--dark-color);
+        margin-bottom: 10px;
+      }
+
+      .event-location {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .event-location i {
+        color: var(--secondary-color);
+        margin-right: 5px;
+      }
+
+      /* New Event Info Tags */
+      .event-info-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .event-info-tag {
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+        padding: 4px 8px;
+        border-radius: 15px;
+        background-color: #f0f4f8;
+        color: var(--dark-color);
+      }
+
+      .event-info-tag i {
+        margin-right: 4px;
+        font-size: 0.7rem;
+      }
+
+      .event-info-tag.registration {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .event-info-tag.participants {
+        background-color: #e3f2fd;
+        color: #1565c0;
+      }
+
+      /* Calendar Section */
+      .calendar-section {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 30px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .calendar-section h3 {
+        margin-bottom: 20px;
+        color: var(--dark-color);
+      }
+
+      .ratio {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+      }
+
+      .ratio-16x9 {
+        padding-top: 56.25%;
+      }
+
+      .ratio > iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 10px;
+      }
+
+      /* Filter Section */
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 1200px;
+      }
+
+      /* Dropdown */
+      .filter-bar select {
+        padding: 8px 12px;
+        border: 1.3px solid #ccc;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .filter-bar select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 5px rgba(44, 113, 214, 0.25);
+      }
+
+      /* 🔍 Kotak pencarian */
+      .search-box {
+        position: relative;
+      }
+
+      .search-box i {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        color: #888;
+      }
+
+      .search-box input {
+        width: 250px;
+        padding: 8px 12px 8px 35px;
+        border: 1.5px solid #ccc;
+        border-radius: 25px;
+        outline: none;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+      }
+
+      .search-box input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 6px rgba(44, 113, 214, 0.25);
+      }
+
+      /* Tombol cari terpisah */
+      .filter-bar button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .filter-bar button:hover {
+        background-color: #125ca2;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .modal.show {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-dialog {
+        background: var(--white);
+        border-radius: 15px;
+        max-width: 600px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        animation: slideUp 0.3s ease;
+      }
+
+      .modal-header {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 15px 20px;
+        border-radius: 15px 15px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .btn-close {
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+      }
+
+      .btn-close:hover {
+        opacity: 1;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      .event-detail-container {
+        display: flex;
+        gap: 20px;
+      }
+
+      .event-detail-image {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        flex-shrink: 0;
+      }
+
+      .event-detail-info {
+        flex: 1;
+      }
+
+      .event-detail-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .event-detail-item i {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--primary-color);
+        color: var(--white);
+        border-radius: 50%;
+        margin-right: 10px;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .event-detail-label {
+        font-weight: bold;
+        margin-right: 10px;
+        min-width: 70px;
+        flex-shrink: 0;
+      }
+
+      .event-detail-value {
+        color: var(--text-muted);
+      }
+
+      .event-description {
+        margin-top: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary-color);
+      }
+
+      .event-description h6 {
+        margin-bottom: 10px;
+        color: var(--dark-color);
+      }
+
+      .modal-footer {
+        padding: 15px 20px;
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: var(--white);
+      }
+
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--white);
+      }
+
+      .btn-primary:hover {
+        background-color: #42427a;
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        list-style: none;
+        padding: 0;
+      }
+
+      .page-item {
+        margin: 0 5px;
+      }
+
+      .page-link {
+        display: block;
+        padding: 10px 15px;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .page-link:hover,
+      .page-item.active .page-link {
+        background: var(--primary-color);
+        color: var(--white);
+      }
+
+      .page-item.disabled .page-link {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Page Sections */
+      .page-section {
+        display: none;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .page-section.active {
+        display: block;
+      }
+
+      /* Text utilities */
+      .text-center {
+        text-align: center;
+      }
+
+      .mb-4 {
+        margin-bottom: 1.5rem;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar-nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--primary-color);
+          flex-direction: column;
+          padding: 20px;
+        }
+
+        .navbar-nav.show {
+          display: flex;
+        }
+
+        .navbar-toggler {
+          display: block;
+        }
+
+        .hero-slider {
+          height: 300px;
+        }
+
+        .slide-content h2 {
+          font-size: 1.5rem;
+        }
+
+        .slide-content p {
+          font-size: 1rem;
+        }
+
+        .filter-row {
+          flex-direction: column;
+        }
+
+        .event-detail-container {
+          flex-direction: column;
+        }
+
+        .event-detail-image {
+          width: 100%;
+        }
+
+        .col-md-6,
+        .col-lg-3,
+        .col-lg-4 {
+          width: 100%;
+        }
+      }
+
+      @media (min-width: 769px) and (max-width: 992px) {
+        .col-lg-3 {
+          width: 50%;
+        }
+      }
+
+      .footer-end {
+        background: #50509d;
+        color: white;
+        margin-top: 50px;
+        bottom: 0;
+        width: 100%;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+      }
+
+      .footer-content-end {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 90px;
+      }
+
+      .footer-logo {
+        width: 100px;
+        height: auto;
+      }
+
+      .footer-info p {
+        font-size: small;
+        font-weight: normal;
+      }
+
+      .page-section h3{
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .New-event{
+        display: flex;
+        margin: 20px;
+    }
+    
+    .New-event a{
+        margin: 10px;
+        text-decoration: none;
+        color: #202BFA;
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-container">
+          <a class="navbar-brand" href="#">
+            <img src="../Foto/logopoltektransparan.png" alt="" />
+          </a>
+          <button class="navbar-toggler" onclick="toggleNavbar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#" data-page="home">
+                <i class="fas fa-home me-1"></i> Beranda
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-page="events">
+                <i class="fas fa-calendar me-1"></i> Event
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#calendar-section">
+                <i class="fas fa-calendar-alt me-1"></i> Kalender
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page-section active">
+      <div class="container">
+        <!-- Hero Slider -->
+        <div class="hero-slider">
+          <div class="slide active">
+            <img src="../Foto/banner.jpg" alt="Slide 1" />
+          </div>
+          <div class="slide">
+            <img src="../Foto/banner.jpg" alt="Slide 2" />
+          </div>
+          <div class="slide">
+            <img src="../Foto/banner.jpg" alt="Slide 3" />
+          </div>
+          <div class="slider-controls">
+            <button class="slider-btn" onclick="changeSlide(-1)">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-btn" onclick="changeSlide(1)">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="slider-indicators">
+            <span class="indicator active" onclick="goToSlide(0)"></span>
+            <span class="indicator" onclick="goToSlide(1)"></span>
+            <span class="indicator" onclick="goToSlide(2)"></span>
+          </div>
+        </div>
+
+        <div class="New-event">
+            <h2>Event Terbaru</h2><a href="">Lihat semua</a>
+        </div>
+
+        <!-- Event Cards -->
+        <div class="row" id="homeEvents">
+          <!-- Events will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Calendar Section -->
+      <div class="calendar-section" id="calendar-section">
+        <div class="container">
+          <h3 class="mb-4">Kalender Event</h3>
+          <div class="ratio ratio-16x9">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=54c9f1cc039bbf175212c522ee8f81556538fb9371f9551c309086df78f021a4%40group.calendar.google.com&ctz=Asia%2FJakarta"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events Page -->
+    <section id="events" class="page-section">
+      <div class="container">
+        <div class="filter-bar">
+          <select id="yearFilter">
+            <option value="">Tahun</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+          </select>
+          <select id="statusFilter">
+            <option value="">Status</option>
+            <option value="Akan Datang">Akan Datang</option>
+            <option value="Selesai">Selesai</option>
+            <option value="Pendaftaran Dibuka">Pendaftaran Dibuka</option>
+            <option value="Sedang Berlangsung">Sedang Berlangsung</option>
+          </select>
+          <select id="typeFilter">
+            <option value="">Jenis</option>
+            <option value="Seminar">Seminar</option>
+            <option value="Pameran">Pameran</option>
+            <option value="Festival">Festival</option>
+            <option value="Konser">Konser</option>
+          </select>
+          <div class="search-box">
+            <i class="fa fa-search"></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Pencarian Nama Event"
+            />
+          </div>
+        </div>
+
+        <!-- Events Grid -->
+        <div class="row" id="eventsGrid">
+          <!-- Events will be loaded here -->
+        </div>
+
+        <!-- Pagination -->
+        <ul class="pagination" id="pagination">
+          <!-- Pagination will be generated here -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- Event Detail Modal -->
+    <div class="modal" id="eventModal">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Detail Event</h5>
+          <button class="btn-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="event-detail-container">
+            <img
+              id="modalImage"
+              src=""
+              alt="Event Image"
+              class="event-detail-image"
+            />
+            <div class="event-detail-info">
+              <div class="event-detail-item">
+                <i class="fas fa-calendar"></i>
+                <span class="event-detail-label">Tanggal:</span>
+                <span class="event-detail-value" id="modalDate"></span>
+              </div>
+              <div class="event-detail-item">
+                <i class="fas fa-clock"></i>
+                <span class="event-detail-label">Jam:</span>
+                <span class="event-detail-value" id="modalTime"></span>
+              </div>
+              <div class="event-detail-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="event-detail-label">Lokasi:</span>
+                <span class="event-detail-value" id="modalLocation"></span>
+              </div>
+              <div class="event-detail-item">
+                <i class="fas fa-tag"></i>
+                <span class="event-detail-label">Harga:</span>
+                <span class="event-detail-value" id="modalPrice"></span>
+              </div>
+              <div class="event-detail-item">
+                <i class="fas fa-users"></i>
+                <span class="event-detail-label">Peserta:</span>
+                <span class="event-detail-value" id="modalParticipants"></span>
+              </div>
+            </div>
+          </div>
+          <div class="event-description">
+            <h6>Deskripsi</h6>
+            <p id="modalDescription"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal()"
+          >
+            Tutup
+          </button>
+          <button type="button" class="btn btn-primary">Daftar Event</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer-end">
+      <div class="footer-content-end">
+        <img
+          src="../Foto/logopoltektransparan.png"
+          alt="logo"
+          class="footer-logo"
+        />
+        <div class="footer-info">
+          <h2>Hubungi Kami</h2>
+          <p>Politeknik Negeri Batam</p>
+          <p>
+            Jl. Ahmad Yani Batam Kota, Kota Batam, Kepulauan Riau, Indonesia.
+          </p>
+          <p>Whats App 0821-7255-7099</p>
+          <p>Fax : +62-778-463620</p>
+          <p>Email : info@polibatam.ac.id atau humas@polibatam.ac.id</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Sample event data (simulating database)
+      const allEvents = [
+        {
+          id: 1,
+          title: "Festival Seni Kampus 2025",
+          date: "2025-11-15",
+          time: "09:00 - 21:00 WIB",
+          location: "Lapangan Utama Kampus",
+          price: "Gratis",
+          participants: "Mahasiswa, Umum",
+          category: "festival",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Festival seni tahunan yang menampilkan berbagai pertunjukan seni dari mahasiswa. Termasuk musik, tari, teater, dan pameran seni rupa.",
+        },
+        {
+          id: 2,
+          title: "Seminar Nasional Teknologi",
+          date: "2025-11-20",
+          time: "08:00 - 17:00 WIB",
+          location: "Auditorium Utama",
+          price: "Rp 50.000",
+          participants: "Mahasiswa, Profesional",
+          category: "seminar",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Profesional",
+          image: "../Foto/image.png",
+          description:
+            "Seminar dengan pembicara dari industri teknologi ternama membahas tren terkini dalam AI, cloud computing, dan cybersecurity.",
+        },
+        {
+          id: 3,
+          title: "Workshop Digital Marketing",
+          date: "2025-11-25",
+          time: "13:00 - 17:00 WIB",
+          location: "Lab Komputer",
+          price: "Rp 75.000",
+          participants: "Mahasiswa, Umum",
+          category: "workshop",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Workshop praktis tentang strategi digital marketing, SEO, dan social media marketing untuk bisnis.",
+        },
+        {
+          id: 4,
+          title: "Kompetisi Debat Antar Fakultas",
+          date: "2025-12-01",
+          time: "09:00 - 18:00 WIB",
+          location: "Gedung Rektorat",
+          price: "Rp 25.000",
+          participants: "Mahasiswa",
+          category: "kompetisi",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa",
+          image: "../Foto/image.png",
+          description:
+            "Kompetisi debat tahunan antar fakultas dengan tema isu-isu kontemporer.",
+        },
+        {
+          id: 5,
+          title: "Festival Olahraga Kampus",
+          date: "2025-12-05",
+          time: "07:00 - 19:00 WIB",
+          location: "Lapangan Olahraga",
+          price: "Gratis",
+          participants: "Mahasiswa, Umum",
+          category: "olahraga",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Festival olahraga dengan berbagai cabang seperti futsal, basket, voli, dan atletik.",
+        },
+        {
+          id: 6,
+          title: "Job Fair 2025",
+          date: "2025-12-10",
+          time: "09:00 - 16:00 WIB",
+          location: "Convention Center",
+          price: "Gratis",
+          participants: "Mahasiswa, Alumni, Umum",
+          category: "festival",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Alumni, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Job fair dengan lebih dari 50 perusahaan ternama dari berbagai industri.",
+        },
+        {
+          id: 7,
+          title: "Lomba Karya Tulis Ilmiah",
+          date: "2025-12-15",
+          time: "08:00 - 17:00 WIB",
+          location: "Perpustakaan Pusat",
+          price: "Rp 30.000",
+          participants: "Mahasiswa, Dosen",
+          category: "kompetisi",
+          status: "Pendaftaran Ditutup",
+          registrationStatus: "Ditutup",
+          participantType: "Mahasiswa, Dosen",
+          image: "../Foto/image.png",
+          description:
+            "Kompetisi karya tulis ilmiah tingkat nasional untuk mahasiswa.",
+        },
+        {
+          id: 8,
+          title: "Pameran Startup Kampus",
+          date: "2025-12-20",
+          time: "10:00 - 20:00 WIB",
+          location: "Exhibition Hall",
+          price: "Rp 20.000",
+          participants: "Mahasiswa, Investor, Umum",
+          category: "festival",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Investor, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Pameran startup hasil karya mahasiswa dengan kesempatan pitching ke investor.",
+        },
+        {
+          id: 9,
+          title: "Training Leadership",
+          date: "2025-12-25",
+          time: "09:00 - 16:00 WIB",
+          location: "Training Center",
+          price: "Rp 100.000",
+          participants: "Mahasiswa, Admin",
+          category: "workshop",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Admin",
+          image: "../Foto/image.png",
+          description:
+            "Training intensif tentang pengembangan skill leadership untuk masa depan.",
+        },
+        {
+          id: 10,
+          title: "Konser Amal",
+          date: "2025-12-31",
+          time: "19:00 - 23:00 WIB",
+          location: "Open Air Theater",
+          price: "Rp 50.000",
+          participants: "Umum",
+          category: "festival",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Umum",
+          image: "../Foto/image.png",
+          description:
+            "Konser amal tahun baru dengan artis ternama untuk kegiatan sosial.",
+        },
+        {
+          id: 11,
+          title: "Hackathon Kampus",
+          date: "2026-01-05",
+          time: "09:00 - 21:00 WIB",
+          location: "Tech Hub",
+          price: "Rp 75.000",
+          participants: "Mahasiswa, Developer",
+          category: "kompetisi",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Developer",
+          image: "../Foto/image.png",
+          description:
+            "Kompetisi hackathon 24 jam untuk menciptakan solusi inovatif.",
+        },
+        {
+          id: 12,
+          title: "Seminar Kewirausahaan",
+          date: "2026-01-10",
+          time: "13:00 - 17:00 WIB",
+          location: "Business School",
+          price: "Rp 40.000",
+          participants: "Mahasiswa, Umum",
+          category: "seminar",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Seminar tentang memulai dan mengembangkan bisnis dengan entrepreneur sukses.",
+        },
+        {
+          id: 13,
+          title: "Festival Film Mahasiswa",
+          date: "2026-01-15",
+          time: "14:00 - 22:00 WIB",
+          location: "Cinema Complex",
+          price: "Rp 35.000",
+          participants: "Mahasiswa, Umum",
+          category: "festival",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Festival film menampilkan karya terbaik mahasiswa dari seluruh Indonesia.",
+        },
+        {
+          id: 14,
+          title: "Workshop Photography",
+          date: "2026-01-20",
+          time: "09:00 - 16:00 WIB",
+          location: "Art Studio",
+          price: "Rp 60.000",
+          participants: "Mahasiswa, Umum",
+          category: "workshop",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Workshop photography dari basic hingga advanced dengan profesional photographer.",
+        },
+        {
+          id: 15,
+          title: "Turnamen Esports",
+          date: "2026-01-25",
+          time: "10:00 - 20:00 WIB",
+          location: "Esports Arena",
+          price: "Rp 30.000",
+          participants: "Mahasiswa, Umum",
+          category: "olahraga",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Turnamen esports dengan total hadiah puluhan juta rupiah.",
+        },
+        {
+          id: 16,
+          title: "Seminar Health & Wellness",
+          date: "2026-01-30",
+          time: "09:00 - 15:00 WIB",
+          location: "Medical Center",
+          price: "Gratis",
+          participants: "Mahasiswa, Umum",
+          category: "seminar",
+          status: "Pendaftaran Dibuka",
+          registrationStatus: "Dibuka",
+          participantType: "Mahasiswa, Umum",
+          image: "../Foto/image.png",
+          description:
+            "Seminar tentang pentingnya kesehatan mental dan fisik untuk mahasiswa.",
+        },
+      ];
+
+      let currentPage = 1;
+      const eventsPerPage = 8;
+      let filteredEvents = [...allEvents];
+      let currentSlide = 0;
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        loadHomeEvents();
+        loadEvents();
+        startAutoSlide();
+
+        // Navigation
+        document.querySelectorAll(".nav-link[data-page]").forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const page = this.getAttribute("data-page");
+            showPage(page);
+          });
+        });
+
+        // Filters
+        document.getElementById("yearFilter").addEventListener("change", filterEvents);
+        document.getElementById("statusFilter").addEventListener("change", filterEvents);
+        document.getElementById("typeFilter").addEventListener("change", filterEvents);
+        document.getElementById("searchInput").addEventListener("input", filterEvents);
+      });
+
+      // Toggle mobile navbar
+      function toggleNavbar() {
+        const navbar = document.getElementById("navbarNav");
+        navbar.classList.toggle("show");
+      }
+
+      // Page Navigation
+      function showPage(pageName) {
+        document.querySelectorAll(".page-section").forEach((section) => {
+          section.classList.remove("active");
+        });
+        document.getElementById(pageName).classList.add("active");
+
+        document.querySelectorAll(".nav-link").forEach((link) => {
+          link.classList.remove("active");
+        });
+        document
+          .querySelector(`.nav-link[data-page="${pageName}"]`)
+          .classList.add("active");
+
+        if (pageName === "events") {
+          loadEvents();
+        }
+      }
+
+      // Slider Functions
+      function changeSlide(direction) {
+        const slides = document.querySelectorAll(".slide");
+        const indicators = document.querySelectorAll(".indicator");
+
+        slides[currentSlide].classList.remove("active");
+        indicators[currentSlide].classList.remove("active");
+
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+
+        slides[currentSlide].classList.add("active");
+        indicators[currentSlide].classList.add("active");
+      }
+
+      function goToSlide(index) {
+        const slides = document.querySelectorAll(".slide");
+        const indicators = document.querySelectorAll(".indicator");
+
+        slides[currentSlide].classList.remove("active");
+        indicators[currentSlide].classList.remove("active");
+
+        currentSlide = index;
+
+        slides[currentSlide].classList.add("active");
+        indicators[currentSlide].classList.add("active");
+      }
+
+      function startAutoSlide() {
+        setInterval(() => {
+          changeSlide(1);
+        }, 5000);
+      }
+
+      // Load Home Events
+      function loadHomeEvents() {
+        const container = document.getElementById("homeEvents");
+        const homeEvents = allEvents.slice(0, 4);
+
+        container.innerHTML = homeEvents
+          .map(
+            (event) => `
+                <div class="col-lg-3 col-md-6">
+                    <div class="event-card" onclick="showEventDetail(${
+                      event.id
+                    })">
+                        <img src="${event.image}" alt="${event.title}">
+                        <div class="event-card-body">
+                            <span class="event-date">${formatDate(
+                              event.date
+                            )}</span>
+                            <h5 class="event-title">${event.title}</h5>
+                            <p class="event-location">
+                                <i class="fas fa-map-marker-alt"></i> ${
+                                  event.location
+                                }
+                            </p>
+                            <div class="event-info-tags">
+                                <div class="event-info-tag registration">
+                                    <i class="fas fa-user-check"></i> Pendaftaran ${
+                                      event.registrationStatus
+                                    }
+                                </div>
+                                <div class="event-info-tag participants">
+                                    <i class="fas fa-users"></i> ${
+                                      event.participantType
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      // Load Events with Pagination
+      function loadEvents() {
+        const container = document.getElementById("eventsGrid");
+        const startIndex = (currentPage - 1) * eventsPerPage;
+        const endIndex = startIndex + eventsPerPage;
+        const pageEvents = filteredEvents.slice(startIndex, endIndex);
+
+        container.innerHTML = pageEvents
+          .map(
+            (event) => `
+                <div class="col-lg-3 col-md-6">
+                    <div class="event-card" onclick="showEventDetail(${
+                      event.id
+                    })">
+                        <img src="${event.image}" alt="${event.title}">
+                        <div class="event-card-body">
+                            <span class="event-date">${formatDate(
+                              event.date
+                            )}</span>
+                            <h5 class="event-title">${event.title}</h5>
+                            <p class="event-location">
+                                <i class="fas fa-map-marker-alt"></i> ${
+                                  event.location
+                                }
+                            </p>
+                            <div class="event-info-tags">
+                                <div class="event-info-tag registration">
+                                    <i class="fas fa-user-check"></i> Pendaftaran ${
+                                      event.registrationStatus
+                                    }
+                                </div>
+                                <div class="event-info-tag participants">
+                                    <i class="fas fa-users"></i> ${
+                                      event.participantType
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+          )
+          .join("");
+
+        generatePagination();
+      }
+
+      // Filter Events
+      function filterEvents() {
+        const yearFilter = document.getElementById("yearFilter").value;
+        const statusFilter = document.getElementById("statusFilter").value;
+        const typeFilter = document.getElementById("typeFilter").value;
+        const searchInput = document.getElementById("searchInput").value.toLowerCase();
+
+        filteredEvents = allEvents.filter((event) => {
+          let matchYear = !yearFilter || event.date.includes(yearFilter);
+          let matchStatus = !statusFilter || event.status === statusFilter;
+          let matchType = !typeFilter || event.category === typeFilter.toLowerCase();
+          let matchSearch = !searchInput || event.title.toLowerCase().includes(searchInput);
+
+          return matchYear && matchStatus && matchType && matchSearch;
+        });
+
+        currentPage = 1;
+        loadEvents();
+      }
+
+      // Generate Pagination
+      function generatePagination() {
+        const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+        const pagination = document.getElementById("pagination");
+
+        let html = `
+                <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+                    <a class="page-link" href="#" onclick="changePage(${
+                      currentPage - 1
+                    })">Previous</a>
+                </li>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          html += `
+                    <li class="page-item ${currentPage === i ? "active" : ""}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>
+                `;
+        }
+
+        html += `
+                <li class="page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }">
+                    <a class="page-link" href="#" onclick="changePage(${
+                      currentPage + 1
+                    })">Next</a>
+                </li>
+            `;
+
+        pagination.innerHTML = html;
+      }
+
+      // Change Page
+      function changePage(page) {
+        const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+        if (page >= 1 && page <= totalPages) {
+          currentPage = page;
+          loadEvents();
+        }
+        return false;
+      }
+
+      // Show Event Detail Modal
+      function showEventDetail(eventId) {
+        const event = allEvents.find((e) => e.id === eventId);
+        if (event) {
+          document.getElementById("modalTitle").textContent = event.title;
+          document.getElementById("modalImage").src = event.image;
+          document.getElementById("modalDate").textContent = formatDate(event.date);
+          document.getElementById("modalTime").textContent = event.time;
+          document.getElementById("modalLocation").textContent = event.location;
+          document.getElementById("modalPrice").textContent = event.price;
+          document.getElementById("modalParticipants").textContent = event.participants;
+          document.getElementById("modalDescription").textContent = event.description;
+
+          document.getElementById("eventModal").classList.add("show");
+        }
+      }
+
+      // Close Modal
+      function closeModal() {
+        document.getElementById("eventModal").classList.remove("show");
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("eventModal");
+        if (event.target === modal) {
+          closeModal();
+        }
+      };
+
+      // Utility Functions
+      function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const options = { day: "numeric", month: "long", year: "numeric" };
+        return date.toLocaleDateString("id-ID", options);
+      }
+    </script>
+  </body>
+</html>
