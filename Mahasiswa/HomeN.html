@@ -27,13 +27,20 @@
         --text-muted: #6b7280;
         --white: #ffffff;
         --event-date:#63DDFF;
-        --open-regis-text: #2e7d32;
-        --coming-bg: #e3f2fd;
-        --coming-text: #1565c0;
-        --closed-bg: #a9a9a9;
-        --closed-text: #36363b;
-        --start-bg: #ecd3b5;
-        --start-text: #ff8c00; 
+        --open-regis-text: rgb(109, 33, 33);
+        --open-regis-bg: #f55c5c;
+        --coming-bg: #ee8843;
+        --coming-text: #7d3f0f;
+        --closed-bg: #e0c8b3;
+        --closed-text: #493a33;
+        --finished-bg: #a9a9a9;  
+        --finished-text: #36363b; 
+        --ongoing-bg: #e2e687;  
+        --ongoing-text: #5f5f23;
+        --mahasiswa-bg: #d4edda;
+        --mahasiswa-text: #155724;
+        --umum-bg: #e3f2fd;
+        --umum-text: #1565c0;
       }
 
       body {
@@ -277,6 +284,21 @@
         transition: all 0.3s ease;
         cursor: pointer;
         margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 480px;   /* bikin tinggi card rata */
+        margin-bottom: 40px; /* kasih jarak antar baris card */
+      }
+
+       /* biar isi card fleksibel ngisi ruang */
+      .event-card-body {
+        flex-grow: 1;
+      }
+
+      /* kasih ruang bawah dikit biar gak nempel pagination */
+      #eventsGrid {
+        margin-bottom: 40px;
       }
 
       .event-card:hover {
@@ -323,38 +345,64 @@
       }
 
       /* New Event Info Tags */
-      .event-info-tags {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-      }
+.event-info-tags {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+}
 
-      .event-info-tag {
-        display: flex;
-        align-items: center;
-        font-size: 0.8rem;
-        padding: 4px 8px;
-        border-radius: 15px;
-        background-color: #f0f4f8;
-        color: var(--dark-color);
-      }
+.event-info-tag {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 15px;
+}
 
-      .event-info-tag i {
-        margin-right: 4px;
-        font-size: 0.7rem;
-      }
+/* --- HANYA WARNA untuk STATUS --- */
+.event-info-tag.coming { 
+  background-color: var(--coming-bg);
+  color: var(--coming-text);
+}
 
-      .event-info-tag.registration {
-        background-color: #e8f5e9;
-        color: #2e7d32;
-      }
+.event-info-tag.open { 
+  background-color: var(--open-regis-bg);
+  color: var(--open-regis-text);
+}
 
-      .event-info-tag.participants {
-        background-color: #e3f2fd;
-        color: #1565c0;
-      }
+.event-info-tag.closed { 
+  background-color: var(--closed-bg);
+  color: var(--closed-text);
+}
 
+.event-info-tag.ongoing { 
+  background-color: var(--ongoing-bg);
+  color: var(--ongoing-text);
+}
+
+.event-info-tag.finished { 
+  background-color: var(--finished-bg);
+  color: var(--finished-text);
+}
+
+/* --- HANYA WARNA untuk PESERTA --- */
+.event-info-tag.participants-mahasiswa {
+  background-color: var(--mahasiswa-bg);
+  color: var(--mahasiswa-text);
+}
+
+.event-info-tag.participants-umum {
+  background-color: var(--umum-bg);
+  color: var(--umum-text); /* <-- Saya perbaiki kesalahan penulisan di sini */
+}
+
+/* Icon di dalam tag */
+.event-info-tag i {
+  margin-right: 4px;
+  font-size: 0.7rem;
+}
       /* Calendar Section */
       .calendar-section {
         background: var(--white);
@@ -589,7 +637,7 @@
         padding: 15px 20px;
         border-top: 1px solid var(--border-color);
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         gap: 10px;
       }
 
@@ -599,7 +647,7 @@
       }
 
       .btn-secondary:hover {
-        background-color: #5a6268;
+        background-color: #4a4d4f;
       }
 
       .btn-primary {
@@ -608,7 +656,7 @@
       }
 
       .btn-primary:hover {
-        background-color: #42427a;
+        background-color: #35356b;
       }
 
       /* Pagination */
@@ -625,8 +673,12 @@
       }
 
       .page-link {
-        display: block;
-        padding: 10px 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
         color: var(--primary-color);
         border: 1px solid var(--primary-color);
         border-radius: 10px;
@@ -818,6 +870,12 @@
               </a>
             </li>
           </ul>
+          <!-- Tombol Masuk Admin -->
+          <a href="Login_page.html" 
+           class="btn btn-light"
+           style="margin-left:auto; margin-right:20px; background-color:#FFD700; color:#000; font-weight:bold; padding:10px 28px; border-radius:6px;">Masuk
+          </a>
+
         </div>
       </div>
     </nav>
@@ -852,7 +910,8 @@
         </div>
 
         <div class="New-event">
-            <h2>Event Terbaru</h2><a href="">Lihat semua</a>
+            <h2>Event Terbaru</h2> 
+            <a href="#" onclick="showPage('events'); return false;">Lihat semua</a>
         </div>
 
         <!-- Event Cards -->
@@ -969,14 +1028,12 @@
           </div>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Daftar Event</button>
           <button
             type="button"
             class="btn btn-secondary"
             onclick="closeModal()"
-          >
-            Tutup
-          </button>
-          <button type="button" class="btn btn-primary">Daftar Event</button>
+          >Bagikan</button>
         </div>
       </div>
     </div>
@@ -1011,11 +1068,11 @@
           time: "09:00 - 21:00 WIB",
           location: "Lapangan Utama Kampus",
           price: "Gratis",
-          participants: "Mahasiswa, Umum",
+          participants: "Mahasiswa",
           category: "festival",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
             "Festival seni tahunan yang menampilkan berbagai pertunjukan seni dari mahasiswa. Termasuk musik, tari, teater, dan pameran seni rupa.",
@@ -1029,9 +1086,9 @@
           price: "Rp 50.000",
           participants: "Mahasiswa, Profesional",
           category: "seminar",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Profesional",
+          status: "Pendaftaran Ditutup",
+          registrationStatus: "Ditutup",
+          participantType: "Umum",
           image: "../Foto/image.png",
           description:
             "Seminar dengan pembicara dari industri teknologi ternama membahas tren terkini dalam AI, cloud computing, dan cybersecurity.",
@@ -1045,9 +1102,9 @@
           price: "Rp 75.000",
           participants: "Mahasiswa, Umum",
           category: "workshop",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
+          status: "Akan Datang",
+          registrationStatus: "Belum Dibuka",
+          participantType: "Umum",
           image: "../Foto/image.png",
           description:
             "Workshop praktis tentang strategi digital marketing, SEO, dan social media marketing untuk bisnis.",
@@ -1061,25 +1118,25 @@
           price: "Rp 25.000",
           participants: "Mahasiswa",
           category: "kompetisi",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa",
+          status: "Sedang Berlangsung",
+          registrationStatus: "Ditutup",
+          participantType: "Umum",
           image: "../Foto/image.png",
           description:
             "Kompetisi debat tahunan antar fakultas dengan tema isu-isu kontemporer.",
         },
         {
           id: 5,
-          title: "Festival Olahraga Kampus",
+          title: "Festival Olahraga",
           date: "2025-12-05",
           time: "07:00 - 19:00 WIB",
           location: "Lapangan Olahraga",
           price: "Gratis",
           participants: "Mahasiswa, Umum",
           category: "olahraga",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
+          status: "Selesai",
+          registrationStatus: "Ditutup",
+          participantType: "Umum",
           image: "../Foto/image.png",
           description:
             "Festival olahraga dengan berbagai cabang seperti futsal, basket, voli, dan atletik.",
@@ -1095,7 +1152,7 @@
           category: "festival",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Alumni, Umum",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
             "Job fair dengan lebih dari 50 perusahaan ternama dari berbagai industri.",
@@ -1111,7 +1168,7 @@
           category: "kompetisi",
           status: "Pendaftaran Ditutup",
           registrationStatus: "Ditutup",
-          participantType: "Mahasiswa, Dosen",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
             "Kompetisi karya tulis ilmiah tingkat nasional untuk mahasiswa.",
@@ -1127,138 +1184,138 @@
           category: "festival",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Investor, Umum",
+          participantType: "Umum",
           image: "../Foto/image.png",
           description:
             "Pameran startup hasil karya mahasiswa dengan kesempatan pitching ke investor.",
         },
-        {
+         {
           id: 9,
-          title: "Training Leadership",
-          date: "2025-12-25",
-          time: "09:00 - 16:00 WIB",
-          location: "Training Center",
-          price: "Rp 100.000",
-          participants: "Mahasiswa, Admin",
-          category: "workshop",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Admin",
-          image: "../Foto/image.png",
-          description:
-            "Training intensif tentang pengembangan skill leadership untuk masa depan.",
-        },
-        {
-          id: 10,
-          title: "Konser Amal",
-          date: "2025-12-31",
-          time: "19:00 - 23:00 WIB",
-          location: "Open Air Theater",
-          price: "Rp 50.000",
-          participants: "Umum",
-          category: "festival",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
+          title: "Kompetisi Debat Antar Fakultas",
+          date: "2025-12-01",
+          time: "09:00 - 18:00 WIB",
+          location: "Gedung Rektorat",
+          price: "Rp 25.000",
+          participants: "Mahasiswa",
+          category: "kompetisi",
+          status: "Sedang Berlangsung",
+          registrationStatus: "Ditutup",
           participantType: "Umum",
           image: "../Foto/image.png",
           description:
-            "Konser amal tahun baru dengan artis ternama untuk kegiatan sosial.",
+            "Kompetisi debat tahunan antar fakultas dengan tema isu-isu kontemporer.",
+        },
+         {
+          id: 10,
+          title: "Kompetisi Debat Antar Fakultas",
+          date: "2025-12-01",
+          time: "09:00 - 18:00 WIB",
+          location: "Gedung Rektorat",
+          price: "Rp 25.000",
+          participants: "Mahasiswa",
+          category: "kompetisi",
+          status: "Sedang Berlangsung",
+          registrationStatus: "Ditutup",
+          participantType: "Umum",
+          image: "../Foto/image.png",
+          description:
+            "Kompetisi debat tahunan antar fakultas dengan tema isu-isu kontemporer.",
         },
         {
           id: 11,
-          title: "Hackathon Kampus",
-          date: "2026-01-05",
-          time: "09:00 - 21:00 WIB",
-          location: "Tech Hub",
-          price: "Rp 75.000",
-          participants: "Mahasiswa, Developer",
-          category: "kompetisi",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Developer",
-          image: "../Foto/image.png",
-          description:
-            "Kompetisi hackathon 24 jam untuk menciptakan solusi inovatif.",
-        },
-        {
-          id: 12,
-          title: "Seminar Kewirausahaan",
-          date: "2026-01-10",
-          time: "13:00 - 17:00 WIB",
-          location: "Business School",
-          price: "Rp 40.000",
-          participants: "Mahasiswa, Umum",
-          category: "seminar",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
-          image: "../Foto/image.png",
-          description:
-            "Seminar tentang memulai dan mengembangkan bisnis dengan entrepreneur sukses.",
-        },
-        {
-          id: 13,
-          title: "Festival Film Mahasiswa",
-          date: "2026-01-15",
-          time: "14:00 - 22:00 WIB",
-          location: "Cinema Complex",
-          price: "Rp 35.000",
-          participants: "Mahasiswa, Umum",
+          title: "Job Fair 2025",
+          date: "2025-12-10",
+          time: "09:00 - 16:00 WIB",
+          location: "Convention Center",
+          price: "Gratis",
+          participants: "Mahasiswa, Alumni, Umum",
           category: "festival",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Festival film menampilkan karya terbaik mahasiswa dari seluruh Indonesia.",
+            "Job fair dengan lebih dari 50 perusahaan ternama dari berbagai industri.",
+        },
+        {
+          id: 12,
+          title: "Lomba Karya Tulis Ilmiah",
+          date: "2025-12-15",
+          time: "08:00 - 17:00 WIB",
+          location: "Perpustakaan Pusat",
+          price: "Rp 30.000",
+          participants: "Mahasiswa, Dosen",
+          category: "kompetisi",
+          status: "Pendaftaran Ditutup",
+          registrationStatus: "Ditutup",
+          participantType: "Mahasiswa",
+          image: "../Foto/image.png",
+          description:
+            "Kompetisi karya tulis ilmiah tingkat nasional untuk mahasiswa.",
+        },
+        {
+          id: 13,
+          title: "Festival Olahraga",
+          date: "2025-12-05",
+          time: "07:00 - 19:00 WIB",
+          location: "Lapangan Olahraga",
+          price: "Gratis",
+          participants: "Mahasiswa, Umum",
+          category: "olahraga",
+          status: "Selesai",
+          registrationStatus: "Ditutup",
+          participantType: "Umum",
+          image: "../Foto/image.png",
+          description:
+            "Festival olahraga dengan berbagai cabang seperti futsal, basket, voli, dan atletik.",
         },
         {
           id: 14,
-          title: "Workshop Photography",
-          date: "2026-01-20",
+          title: "Job Fair 2025",
+          date: "2025-12-10",
           time: "09:00 - 16:00 WIB",
-          location: "Art Studio",
-          price: "Rp 60.000",
-          participants: "Mahasiswa, Umum",
-          category: "workshop",
+          location: "Convention Center",
+          price: "Gratis",
+          participants: "Mahasiswa, Alumni, Umum",
+          category: "festival",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Workshop photography dari basic hingga advanced dengan profesional photographer.",
+            "Job fair dengan lebih dari 50 perusahaan ternama dari berbagai industri.",
         },
         {
           id: 15,
-          title: "Turnamen Esports",
-          date: "2026-01-25",
-          time: "10:00 - 20:00 WIB",
-          location: "Esports Arena",
-          price: "Rp 30.000",
-          participants: "Mahasiswa, Umum",
-          category: "olahraga",
+          title: "Festival Seni Kampus 2025",
+          date: "2025-11-15",
+          time: "09:00 - 21:00 WIB",
+          location: "Lapangan Utama Kampus",
+          price: "Gratis",
+          participants: "Mahasiswa",
+          category: "festival",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Turnamen esports dengan total hadiah puluhan juta rupiah.",
+            "Festival seni tahunan yang menampilkan berbagai pertunjukan seni dari mahasiswa. Termasuk musik, tari, teater, dan pameran seni rupa.",
         },
         {
           id: 16,
-          title: "Seminar Health & Wellness",
-          date: "2026-01-30",
-          time: "09:00 - 15:00 WIB",
-          location: "Medical Center",
-          price: "Gratis",
-          participants: "Mahasiswa, Umum",
+          title: "Seminar Nasional Teknologi",
+          date: "2025-11-20",
+          time: "08:00 - 17:00 WIB",
+          location: "Auditorium Utama",
+          price: "Rp 50.000",
+          participants: "Mahasiswa, Profesional",
           category: "seminar",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa, Umum",
+          status: "Pendaftaran Ditutup",
+          registrationStatus: "Ditutup",
+          participantType: "Umum",
           image: "../Foto/image.png",
           description:
-            "Seminar tentang pentingnya kesehatan mental dan fisik untuk mahasiswa.",
+            "Seminar dengan pembicara dari industri teknologi ternama membahas tren terkini dalam AI, cloud computing, dan cybersecurity.",
         },
       ];
 
@@ -1273,14 +1330,34 @@
         loadEvents();
         startAutoSlide();
 
-        // Navigation
-        document.querySelectorAll(".nav-link[data-page]").forEach((link) => {
-          link.addEventListener("click", function (e) {
-            e.preventDefault();
-            const page = this.getAttribute("data-page");
-            showPage(page);
-          });
+      // Navigation
+      document.querySelectorAll(".nav-link").forEach((link) => {
+      link.addEventListener("click", function (e) {
+      const page = this.getAttribute("data-page");
+      const href = this.getAttribute("href");
+
+      // Kalau yang diklik adalah tombol "Kalender"
+      if (href === "#calendar-section") {
+      e.preventDefault();
+      // Tampilkan beranda dulu
+      showPage("home");
+      // Tunggu sedikit biar transisi jalan, baru scroll ke kalender
+      setTimeout(() => {
+        document.getElementById("calendar-section").scrollIntoView({
+          behavior: "smooth"
         });
+      }, 300);
+      return; // hentikan di sini biar nggak lanjut ke bawah
+    }
+
+    // Navigasi normal antar-section (Beranda, Event, dll)
+    if (page) {
+      e.preventDefault();
+      showPage(page);
+    }
+  });
+});
+
 
         // Filters
         document.getElementById("yearFilter").addEventListener("change", filterEvents);
@@ -1352,44 +1429,62 @@
         const container = document.getElementById("homeEvents");
         const homeEvents = allEvents.slice(0, 4);
 
-        container.innerHTML = homeEvents
-          .map(
-            (event) => `
-                <div class="col-lg-3 col-md-6">
-                    <div class="event-card" onclick="showEventDetail(${
-                      event.id
-                    })">
-                        <img src="${event.image}" alt="${event.title}">
-                        <div class="event-card-body">
-                            <span class="event-date">${formatDate(
-                              event.date
-                            )}</span>
-                            <h5 class="event-title">${event.title}</h5>
-                            <p class="event-location">
-                                <i class="fas fa-map-marker-alt"></i> ${
-                                  event.location
-                                }
-                            </p>
-                            <div class="event-info-tags">
-                                <div class="event-info-tag registration">
-                                    <i class="fas fa-user-check"></i> Pendaftaran ${
-                                      event.registrationStatus
-                                    }
-                                </div>
-                                <div class="event-info-tag participants">
-                                    <i class="fas fa-users"></i> ${
-                                      event.participantType
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `
-          )
-          .join("");
+      container.innerHTML = homeEvents
+      .map(
+        (event) => `
+          <div class="col-lg-3 col-md-6">
+              <div class="event-card" onclick="showEventDetail(${
+                event.id
+              })">
+                  <img src="${event.image}" alt="${event.title}">
+                  <div class="event-card-body">
+                      <span class="event-date">${formatDate(
+                        event.date
+                      )}</span>
+                      <h5 class="event-title">${event.title}</h5>
+                      <p class="event-location">
+                          <i class="fas fa-map-marker-alt"></i> ${
+                            event.location
+                          }
+                      </p>
+                      <div class="event-info-tags">
+                          <div class="event-info-tag ${getStatusClass(event.status)}">
+                              <i class="fas fa-user-check"></i> ${event.status}
+                          </div>
+                            <div class="event-info-tag ${getParticipantClass(event.participantType)}">     
+                              <i class="fas fa-users"></i> ${
+                                event.participantType
+                              }
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      `
+    )
+    .join("");
+}
+
+      function getStatusClass(status) {
+        const statusLower = status.toLowerCase();
+        let classToReturn = ""; // Defaultnya kosong
+        if (statusLower.includes("akan datang")) {
+          classToReturn = "coming";
+      } else if (statusLower.includes("dibuka")) {
+          classToReturn = "open";
+      } else if (statusLower.includes("ditutup")) {
+          classToReturn = "closed";
+      } else if (statusLower.includes("berlangsung")) {
+          classToReturn = "ongoing";
+      } else if (statusLower.includes("selesai")) {
+          classToReturn = "finished";
       }
 
+      // Tambahkan baris ini untuk debugging
+      console.log(`Status: "${status}" -> Class: "${classToReturn}"`);
+
+      return classToReturn;
+    }
       // Load Events with Pagination
       function loadEvents() {
         const container = document.getElementById("eventsGrid");
@@ -1397,46 +1492,53 @@
         const endIndex = startIndex + eventsPerPage;
         const pageEvents = filteredEvents.slice(startIndex, endIndex);
 
-        container.innerHTML = pageEvents
-          .map(
-            (event) => `
-                <div class="col-lg-3 col-md-6">
-                    <div class="event-card" onclick="showEventDetail(${
-                      event.id
-                    })">
-                        <img src="${event.image}" alt="${event.title}">
-                        <div class="event-card-body">
-                            <span class="event-date">${formatDate(
-                              event.date
-                            )}</span>
-                            <h5 class="event-title">${event.title}</h5>
-                            <p class="event-location">
-                                <i class="fas fa-map-marker-alt"></i> ${
-                                  event.location
-                                }
-                            </p>
-                            <div class="event-info-tags">
-                                <div class="event-info-tag registration">
-                                    <i class="fas fa-user-check"></i> Pendaftaran ${
-                                      event.registrationStatus
-                                    }
-                                </div>
-                                <div class="event-info-tag participants">
-                                    <i class="fas fa-users"></i> ${
-                                      event.participantType
-                                    }
-                                </div>
-                            </div>
+      container.innerHTML = pageEvents
+      .map(
+       (event) => `
+          <div class="col-lg-3 col-md-6">
+            <div class="event-card" onclick="showEventDetail(${
+                event.id
+              })">
+                <img src="${event.image}" alt="${event.title}">
+                <div class="event-card-body">
+                      <span class="event-date">${formatDate(
+                        event.date
+                      )}</span>
+                      <h5 class="event-title">${event.title}</h5>
+                      <p class="event-location">
+                          <i class="fas fa-map-marker-alt"></i> ${
+                            event.location
+                          }
+                      </p>
+                      <div class="event-info-tags">
+                        <div class="event-info-tag ${getStatusClass(event.status)}">
+                          <i class="fas fa-user-check"></i> ${event.status}
                         </div>
-                    </div>
-                </div>
-            `
-          )
-          .join("");
+                          <div class="event-info-tag ${getParticipantClass(event.participantType)}">   
+                              <i class="fas fa-users"></i> ${event.participantType}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      `
+    )
+    .join("");
 
-        generatePagination();
+  generatePagination();
+}
+      // Fungsi untuk menentukan kelas warna peserta
+      function getParticipantClass(participantType) {
+        const typeLower = participantType.toLowerCase();
+  
+      // Jika mengandung "mahasiswa", gunakan warna hijau
+      if (typeLower.includes("mahasiswa")) {
+        return "participants-mahasiswa";
       }
-
+  
+      // Jika hanya "umum" atau kategori lain, gunakan warna biru (default)
+      return "participants-umum";
+    }
       // Filter Events
       function filterEvents() {
         const yearFilter = document.getElementById("yearFilter").value;
@@ -1462,35 +1564,35 @@
         const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
         const pagination = document.getElementById("pagination");
 
-        let html = `
-                <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
-                    <a class="page-link" href="#" onclick="changePage(${
-                      currentPage - 1
-                    })">Previous</a>
-                </li>
-            `;
-
-        for (let i = 1; i <= totalPages; i++) {
-          html += `
-                    <li class="page-item ${currentPage === i ? "active" : ""}">
-                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-                    </li>
-                `;
-        }
-
-        html += `
-                <li class="page-item ${
-                  currentPage === totalPages ? "disabled" : ""
-                }">
-                    <a class="page-link" href="#" onclick="changePage(${
-                      currentPage + 1
-                    })">Next</a>
-                </li>
-            `;
-
-        pagination.innerHTML = html;
+      // Kalau cuma 1 halaman, gausah ditampilkan
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
       }
 
+      let html = `
+    <!-- Panah Kiri -->
+    <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+      <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+    </li>
+    
+    <!-- NOMOR HALAMAN YANG SEDANG AKTIF SAJA -->
+    <li class="page-item active">
+      <a class="page-link" href="#">${currentPage}</a>
+    </li>
+
+    <!-- Panah Kanan -->
+    <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
+      <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </li>
+  `;
+
+  pagination.innerHTML = html;
+}
       // Change Page
       function changePage(page) {
         const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
