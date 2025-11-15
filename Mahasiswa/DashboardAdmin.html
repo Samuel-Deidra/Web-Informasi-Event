@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Halaman Admin - Final</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --sidebar-bg: #195E9E;
+      --sidebar-active: #ffd200;
+      --btn-blue: #1ea1ff;
+      --page-bg: #f2f5f7;
+      --header-blue: #195E9E;
+      --table-border: #c9d3dc;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--page-bg);
+      color: #0f1724;
+      font-size: 14px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 220px;
+      background: var(--sidebar-bg);
+      color: #fff;
+      padding: 30px 18px;
+    }
+
+    .brand-menu {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      color: #fff;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: background .18s;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-item.active {
+      background: var(--sidebar-active);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .add-event {
+      display: block;
+      margin-top: 18px;
+      background: var(--btn-blue);
+      color: #fff;
+      border: none;
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* CONTENT */
+    .content {
+      margin-left: 220px;
+      padding: 28px 34px;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--header-blue);
+      font-weight: 700;
+      font-size: 22px;
+    }
+
+    .search-box {
+      width: 320px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 14px 8px 38px;
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #fff;
+    }
+
+    .search-box .fa-magnifying-glass {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+    }
+
+    /* FILTERS */
+    .filter-row select,
+    .filter-row input[type="date"] {
+      border-radius: 20px;
+      padding: 5px 12px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+      background: #fff;
+    }
+
+    /* TABLE */
+    .table-box {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid var(--table-border);
+      overflow: hidden;
+      max-width: 1100px;
+      font-size: 13px;
+    }
+
+    .table-box thead th {
+      background: var(--header-blue);
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      text-align: center;
+      border: none;
+      font-size: 13px;
+    }
+
+    .event-row {
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .event-row:hover {
+      background-color: #f8f9fa;
+    }
+
+    .event-row.expanded {
+      background-color: #f0f7ff;
+    }
+
+    .ev-thumb {
+      width: 45px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .badge-open {
+      background: #d9f6df;
+      color: #2b7a40;
+    }
+
+    .badge-up {
+      background: #dfeaff;
+      color: #164ea8;
+    }
+
+    .badge-on {
+      background: #ffe8cf;
+      color: #b25b07;
+    }
+
+    .badge-peserta {
+      background: #dff0ea;
+      color: #0b5b2d;
+      border-radius: 18px;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    .action-btns {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .action-btn {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .action-btn.delete {
+      color: #dc2626;
+    }
+
+    .action-btn.edit {
+      color: #0b5bd6;
+    }
+
+    /* Expandable Details */
+    .event-details {
+      display: none;
+      background: #f8fafc;
+      border-top: 1px solid #e5e7eb;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .event-details.show {
+      display: table-row;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .details-content {
+      padding: 20px;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .detail-icon {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .detail-icon i {
+      font-size: 16px;
+      color: var(--header-blue);
+    }
+
+    .detail-text {
+      flex-grow: 1;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      color: #1f2937;
+      word-break: break-word;
+    }
+
+    .detail-link {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .detail-link:hover {
+      text-decoration: underline;
+    }
+
+    .expand-icon {
+      transition: transform 0.2s;
+      margin-right: 8px;
+    }
+
+    .event-row.expanded .expand-icon {
+      transform: rotate(90deg);
+    }
+
+    .modal-content {
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    #previewLogo, #previewEditLogo {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* Custom Delete Modal Styles */
+    .delete-modal .modal-dialog {
+      max-width: 400px;
+    }
+
+    .delete-modal .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .delete-modal .modal-body {
+      text-align: center;
+      padding: 20px 30px;
+    }
+
+    .delete-modal .delete-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: #fee2e2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .delete-modal .delete-icon i {
+      font-size: 28px;
+      color: #dc2626;
+    }
+
+    .delete-modal .modal-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 10px;
+    }
+
+    .delete-modal .modal-text {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .delete-modal .modal-footer {
+      border-top: none;
+      padding-top: 0;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .delete-modal .btn-cancel {
+      background: #f3f4f6;
+      color: #374151;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .delete-modal .btn-cancel:hover {
+      background: #e5e7eb;
+    }
+
+    .delete-modal .btn-delete {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .delete-modal .btn-delete:hover {
+      background: #b91c1c;
+    }
+
+    /* Success Toast Notification */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .success-toast {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 300px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .success-toast .toast-icon {
+      width: 40px;
+      height: 40px;
+      background: #d1fae5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .success-toast .toast-icon i {
+      color: #10b981;
+      font-size: 18px;
+    }
+
+    .success-toast .toast-content {
+      flex-grow: 1;
+    }
+
+    .success-toast .toast-title {
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 2px;
+    }
+
+    .success-toast .toast-message {
+      font-size: 14px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand-menu">Menu</div>
+    <a href="#" class="nav-item active"><i class="fa-solid fa-calendar-days"></i><span>Event</span></a>
+    <a href="#" class="nav-item"><i class="fa-regular fa-clock"></i><span>History</span></a>
+    <a href="#" class="nav-item"><i class="fa-solid fa-arrow-left"></i><span>Keluar</span></a>
+    <hr style="border-color:rgba(255,255,255,0.1);margin:16px 0;">
+    <button class="add-event"><i class="fa-solid fa-plus"></i>Tambah Event</button>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="title">
+        <img src="image copy 3.png" alt="logo" style="height:34px; border-radius:5px;">
+        Halaman Admin
+      </div>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="text" placeholder="Cari Disini">
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-row d-flex align-items-center gap-3 mb-3">
+      <div>
+        <label class="form-label fw-semibold small mb-1">Tanggal</label>
+        <input type="date" id="filterTanggal" class="form-control form-control-sm">
+      </div>
+
+      <div>
+        <label class="form-label fw-semibold small mb-1">Kategori</label>
+        <select id="filterKategori" class="form-select form-select-sm">
+          <option value="">Semua</option>
+          <option>Pendaftaran Dibuka</option>
+          <option>Akan Datang</option>
+          <option>Sedang Berlangsung</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="form-label fw-semibold small mb-1">Status</label>
+        <select id="filterStatus" class="form-select form-select-sm">
+          <option value="">Semua</option>
+          <option>Festival</option>
+          <option>Pameran</option>
+          <option>Konser</option>
+          <option>Workshop</option>
+          <option>Seminar</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-box">
+      <table class="w-100">
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Nama Event</th>
+            <th>Tanggal</th>
+            <th>Harga</th>
+            <th>Kategori</th>
+            <th>Peserta</th>
+            <th>Status</th>
+            <th>Tindakan</th>
+          </tr>
+        </thead>
+        <tbody id="eventTbody">
+          <tr class="event-row" data-event-id="1">
+            <td><i class=" expand-icon"></i><img class="ev-thumb" src="image.png" alt=""></td>
+            <td class="ev-name">Rock Festival</td>
+            <td>2025-11-19</td>
+            <td>Rp 50.000</td>
+            <td><span class="badge-pill badge-open">Pendaftaran Dibuka</span></td>
+            <td><span class="badge-peserta">Mahasiswa</span></td>
+            <td>Festival</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn edit" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                <button class="action-btn delete" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="event-details" id="details-1">
+            <td colspan="8">
+              <div class="details-content">
+                <div class="details-grid">
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Tanggal Pendaftaran</div>
+                      <div class="detail-value">1 November 2025 - 15 November 2025</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Jam Event</div>
+                      <div class="detail-value">19:00 - 23:00 WIB</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Lokasi</div>
+                      <div class="detail-value">Gelora Bung Karno, Jakarta</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-link"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Link Pendaftaran</div>
+                      <div class="detail-value">
+                        <a href="#" class="detail-link">bit.ly/rockfest2025</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="detail-item" style="grid-column: 1 / -1;">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-info-circle"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Deskripsi</div>
+                      <div class="detail-value">Rock Festival adalah acara musik tahunan yang menampilkan berbagai band rock ternama dari Indonesia dan mancanegara. Event ini akan menampilkan performa spektakuler dengan efek visual yang memukau.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr class="event-row" data-event-id="2">
+            <td><i class=" expand-icon"></i><img class="ev-thumb" src="image copy.png" alt=""></td>
+            <td class="ev-name">Pameran Karya Seni FSP2</td>
+            <td>25 November 2025</td>
+            <td>Rp 0</td>
+            <td><span class="badge-pill badge-up">Akan Datang</span></td>
+            <td><span class="badge-peserta">Umum</span></td>
+            <td>Pameran</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="event-details" id="details-2">
+            <td colspan="8">
+              <div class="details-content">
+                <div class="details-grid">
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Tanggal Pendaftaran</div>
+                      <div class="detail-value">10 November 2025 - 20 November 2025</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Jam Event</div>
+                      <div class="detail-value">09:00 - 17:00 WIB</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Lokasi</div>
+                      <div class="detail-value">Galeri Nasional Indonesia, Jakarta</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-link"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Link Pendaftaran</div>
+                      <div class="detail-value">
+                        <a href="#" class="detail-link">bit.ly/pameransenifsp2</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="detail-item" style="grid-column: 1 / -1;">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-info-circle"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Deskripsi</div>
+                      <div class="detail-value">Pameran karya seni dari mahasiswa Fakultas Seni dan Desain Program Studi 2. Menampilkan berbagai karya seni mulai dari lukisan, patung, hingga instalasi seni modern.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr class="event-row" data-event-id="3">
+            <td><i class=" expand-icon"></i><img class="ev-thumb" src="image copy 2.png" alt=""></td>
+            <td class="ev-name">Music Show</td>
+            <td>3 November 2025</td>
+            <td>Rp 100.000</td>
+            <td><span class="badge-pill badge-on">Sedang Berlangsung</span></td>
+            <td><span class="badge-peserta">Umum</span></td>
+            <td>Konser</td>
+            <td>
+              <div class="action-btns">
+                <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr class="event-details" id="details-3">
+            <td colspan="8">
+              <div class="details-content">
+                <div class="details-grid">
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Tanggal Pendaftaran</div>
+                      <div class="detail-value">1 Oktober 2025 - 25 Oktober 2025</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Jam Event</div>
+                      <div class="detail-value">20:00 - 23:30 WIB</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Lokasi</div>
+                      <div class="detail-value">Istora Senayan, Jakarta</div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-link"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Link Pendaftaran</div>
+                      <div class="detail-value">
+                        <a href="#" class="detail-link">bit.ly/musicshow2025</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="detail-item" style="grid-column: 1 / -1;">
+                    <div class="detail-icon">
+                      <i class="fa-solid fa-info-circle"></i>
+                    </div>
+                    <div class="detail-text">
+                      <div class="detail-label">Deskripsi</div>
+                      <div class="detail-value">Music Show adalah konser musik yang menampilkan artis-artis papan atas Indonesia dengan pencahayaan dan sound system berkualitas internasional.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- MODAL TAMBAH EVENT -->
+  <div class="modal fade" id="addEventModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius:14px;">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Tambah Event Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- STEP 1 -->
+          <form id="formStep1">
+            <div class="mb-3">
+              <label class="form-label">Tanggal Pendaftaran</label>
+              <input type="date" class="form-control" id="tanggalPendaftaran" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Tanggal Event</label>
+              <input type="date" class="form-control" id="tanggalEvent" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Logo Event (JPG/PNG, max 10MB)</label>
+              <input type="file" class="form-control" id="logoEvent" accept=".jpg,.jpeg,.png" required>
+              <img id="previewLogo" alt="Preview Logo">
+              <div id="fileWarning" class="text-danger small mt-1"></div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Nama Event</label>
+              <input type="text" class="form-control" placeholder="Masukkan nama event" required>
+            </div>
+
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label class="form-label">Biaya</label>
+                <div class="input-group">
+                  <span class="input-group-text">Rp</span>
+                  <input type="number" class="form-control" placeholder="0" min="0">
+                </div>
+              </div>
+              <div class="col-6 mb-3">
+                <label class="form-label">Peserta</label>
+                <select class="form-select">
+                  <option>Mahasiswa</option>
+                  <option>Umum</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label class="form-label">Jam Event</label>
+                <input type="time" class="form-control" id="jamEvent" required>
+              </div>
+              <div class="col-6 mb-3">
+                <label class="form-label">Status Event</label>
+                <select class="form-select">
+                  <option>Festival</option>
+                  <option>Pameran</option>
+                  <option>Konser</option>
+                  <option>Workshop</option>
+                  <option>Seminar</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="text-end mt-3">
+              <button type="button" class="btn btn-danger px-3" data-bs-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-primary px-3" id="nextStep">Lanjut</button>
+            </div>
+          </form>
+
+          <!-- STEP 2 -->
+          <form id="formStep2" class="d-none">
+            <div class="mb-2">
+              <label class="form-label">Lokasi</label>
+              <input type="text" class="form-control" placeholder="Masukkan lokasi event">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Tautan</label>
+              <input type="text" class="form-control" placeholder="Masukkan link (opsional)">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Deskripsi Event</label>
+              <textarea class="form-control" rows="4" placeholder="Tuliskan deskripsi event..."></textarea>
+            </div>
+            <div class="text-end mt-3">
+              <button type="button" class="btn btn-warning text-dark px-3" id="backStep">Kembali</button>
+              <button type="submit" class="btn btn-success px-3">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT EVENT -->
+  <div class="modal fade" id="editEventModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius:14px;">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Edit Event</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- STEP 1 -->
+          <form id="editFormStep1">
+            <div class="mb-3">
+              <label class="form-label">Tanggal Pendaftaran</label>
+              <input type="date" class="form-control" id="editTanggalPendaftaran" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Tanggal Event</label>
+              <input type="date" class="form-control" id="editTanggalEvent" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Logo Event (JPG/PNG, max 10MB)</label>
+              <input type="file" class="form-control" id="editLogoEvent" accept=".jpg,.jpeg,.png">
+              <img id="previewEditLogo" alt="Preview Logo">
+              <div id="editFileWarning" class="text-danger small mt-1"></div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Nama Event</label>
+              <input type="text" class="form-control" id="editNamaEvent" placeholder="Masukkan nama event" required>
+            </div>
+
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label class="form-label">Biaya</label>
+                <div class="input-group">
+                  <span class="input-group-text">Rp</span>
+                  <input type="number" class="form-control" id="editBiaya" placeholder="0" min="0">
+                </div>
+              </div>
+              <div class="col-6 mb-3">
+                <label class="form-label">Peserta</label>
+                <select class="form-select" id="editPeserta">
+                  <option>Mahasiswa</option>
+                  <option>Umum</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label class="form-label">Jam Event</label>
+                <input type="time" class="form-control" id="editJamEvent" required>
+              </div>
+              <div class="col-6 mb-3">
+                <label class="form-label">Status Event</label>
+                <select class="form-select" id="editStatusEvent">
+                  <option>Festival</option>
+                  <option>Pameran</option>
+                  <option>Konser</option>
+                  <option>Workshop</option>
+                  <option>Seminar</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="text-end mt-3">
+              <button type="button" class="btn btn-danger px-3" data-bs-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-primary px-3" id="editNextStep">Lanjut</button>
+            </div>
+          </form>
+
+          <!-- STEP 2 -->
+          <form id="editFormStep2" class="d-none">
+            <div class="mb-2">
+              <label class="form-label">Lokasi</label>
+              <input type="text" class="form-control" id="editLokasi" placeholder="Masukkan lokasi event">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Tautan</label>
+              <input type="text" class="form-control" id="editTautan" placeholder="Masukkan link (opsional)">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Deskripsi Event</label>
+              <textarea class="form-control" id="editDeskripsi" rows="4" placeholder="Tuliskan deskripsi event..."></textarea>
+            </div>
+            <div class="text-end mt-3">
+              <button type="button" class="btn btn-warning text-dark px-3" id="editBackStep">Kembali</button>
+              <button type="submit" class="btn btn-success px-3">Simpan Perubahan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DELETE CONFIRMATION -->
+  <div class="modal fade delete-modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="delete-icon">
+            <i class="fa-solid fa-trash"></i>
+          </div>
+          <h5 class="modal-title">Hapus Event?</h5>
+          <p class="modal-text">Apakah Anda yakin ingin menghapus event "<span id="deleteEventName"></span>"? Tindakan ini tidak dapat dibatalkan.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-cancel" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn-delete" id="confirmDelete">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container for Success Notification -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // SEARCH + FILTER
+    const input = document.getElementById('searchInput');
+    const tbody = document.getElementById('eventTbody');
+    const filterTanggal = document.getElementById('filterTanggal');
+    const filterKategori = document.getElementById('filterKategori');
+    const filterStatus = document.getElementById('filterStatus');
+
+    function filterTable() {
+      const search = input.value.trim().toLowerCase();
+      const tgl = filterTanggal.value;
+      const kategori = filterKategori.value;
+      const status = filterStatus.value;
+
+      tbody.querySelectorAll('tr').forEach(row => {
+        if (row.classList.contains('event-details')) return; // Skip detail rows
+        
+        const text = row.textContent.toLowerCase();
+        const rowDate = row.cells[2]?.textContent.trim();
+        const rowKategori = row.cells[4]?.textContent.trim();
+        const rowStatus = row.cells[6]?.textContent.trim();
+
+        const matchSearch = text.includes(search);
+        const matchDate = !tgl || rowDate.includes(tgl);
+        const matchKategori = !kategori || rowKategori === kategori;
+        const matchStatus = !status || rowStatus === status;
+
+        const display = matchSearch && matchDate && matchKategori && matchStatus ? '' : 'none';
+        row.style.display = display;
+        
+        // Also hide/show the corresponding details row
+        const eventId = row.dataset.eventId;
+        const detailsRow = document.getElementById(`details-${eventId}`);
+        if (detailsRow) {
+          detailsRow.style.display = display;
+        }
+      });
+    }
+
+    [input, filterTanggal, filterKategori, filterStatus].forEach(el => el.addEventListener('input', filterTable));
+    [filterTanggal, filterKategori, filterStatus].forEach(el => el.addEventListener('change', filterTable));
+
+    // EXPAND/COLLAPSE EVENT DETAILS
+    document.querySelectorAll('.event-row').forEach(row => {
+      row.addEventListener('click', function(e) {
+        // Prevent expanding when clicking on action buttons
+        if (e.target.closest('.action-btns')) return;
+        
+        const eventId = this.dataset.eventId;
+        const detailsRow = document.getElementById(`details-${eventId}`);
+        
+        // Toggle current row
+        this.classList.toggle('expanded');
+        detailsRow.classList.toggle('show');
+        
+        // Close other expanded rows
+        document.querySelectorAll('.event-row').forEach(otherRow => {
+          if (otherRow !== this && otherRow.classList.contains('expanded')) {
+            otherRow.classList.remove('expanded');
+            const otherEventId = otherRow.dataset.eventId;
+            const otherDetailsRow = document.getElementById(`details-${otherEventId}`);
+            if (otherDetailsRow) {
+              otherDetailsRow.classList.remove('show');
+            }
+          }
+        });
+      });
+    });
+
+    // TOMBOL TAMBAH EVENT
+    const addBtn = document.querySelector('.add-event');
+    const modal = new bootstrap.Modal(document.getElementById('addEventModal'));
+    addBtn.addEventListener('click', () => modal.show());
+
+    // VALIDASI & PREVIEW LOGO
+    const logoInput = document.getElementById("logoEvent");
+    const fileWarning = document.getElementById("fileWarning");
+    const previewLogo = document.getElementById("previewLogo");
+
+    logoInput.addEventListener("change", function () {
+      fileWarning.textContent = "";
+      previewLogo.style.display = "none";
+      const file = this.files[0];
+      if (file) {
+        const validTypes = ["image/jpeg", "image/png"];
+        if (!validTypes.includes(file.type)) {
+          fileWarning.textContent = "❌ Format file harus JPG atau PNG.";
+          this.value = "";
+          return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          fileWarning.textContent = "❌ Ukuran file maksimal 10MB.";
+          this.value = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+          previewLogo.src = e.target.result;
+          previewLogo.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // VALIDASI & PREVIEW LOGO EDIT
+    const editLogoInput = document.getElementById("editLogoEvent");
+    const editFileWarning = document.getElementById("editFileWarning");
+    const previewEditLogo = document.getElementById("previewEditLogo");
+
+    editLogoInput.addEventListener("change", function () {
+      editFileWarning.textContent = "";
+      previewEditLogo.style.display = "none";
+      const file = this.files[0];
+      if (file) {
+        const validTypes = ["image/jpeg", "image/png"];
+        if (!validTypes.includes(file.type)) {
+          editFileWarning.textContent = "❌ Format file harus JPG atau PNG.";
+          this.value = "";
+          return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          editFileWarning.textContent = "❌ Ukuran file maksimal 10MB.";
+          this.value = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+          previewEditLogo.src = e.target.result;
+          previewEditLogo.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // NAVIGASI FORM TAMBAH
+    const step1 = document.getElementById('formStep1');
+    const step2 = document.getElementById('formStep2');
+    document.getElementById('nextStep').addEventListener('click', () => {
+      step1.classList.add('d-none');
+      step2.classList.remove('d-none');
+    });
+    document.getElementById('backStep').addEventListener('click', () => {
+      step2.classList.add('d-none');
+      step1.classList.remove('d-none');
+    });
+
+    // NAVIGASI FORM EDIT
+    const editStep1 = document.getElementById('editFormStep1');
+    const editStep2 = document.getElementById('editFormStep2');
+    document.getElementById('editNextStep').addEventListener('click', () => {
+      editStep1.classList.add('d-none');
+      editStep2.classList.remove('d-none');
+    });
+    document.getElementById('editBackStep').addEventListener('click', () => {
+      editStep2.classList.add('d-none');
+      editStep1.classList.remove('d-none');
+    });
+
+    // FUNGSI EDIT EVENT
+    const editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
+    
+    // Tambahkan event listener untuk semua tombol edit
+    document.querySelectorAll('.action-btn.edit').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent row expansion
+        
+        // Dapatkan baris tabel terdekat
+        const row = this.closest('tr');
+        
+        // Ambil data dari baris tabel
+        const eventName = row.querySelector('.ev-name').textContent;
+        const eventDate = row.cells[2].textContent;
+        const eventPrice = row.cells[3].textContent.replace('Rp ', '').replace('.', '');
+        const eventCategory = row.cells[4].querySelector('.badge-pill').textContent;
+        const eventParticipant = row.cells[5].querySelector('.badge-peserta').textContent;
+        const eventStatus = row.cells[6].textContent;
+        
+        // Isi form edit dengan data yang diambil
+        document.getElementById('editNamaEvent').value = eventName;
+        document.getElementById('editTanggalEvent').value = convertDateToISO(eventDate);
+        document.getElementById('editBiaya').value = eventPrice;
+        
+        // Set nilai untuk dropdown
+        const editStatusSelect = document.getElementById('editStatusEvent');
+        for (let i = 0; i < editStatusSelect.options.length; i++) {
+          if (editStatusSelect.options[i].text === eventStatus) {
+            editStatusSelect.selectedIndex = i;
+            break;
+          }
+        }
+        
+        const editParticipantSelect = document.getElementById('editPeserta');
+        for (let i = 0; i < editParticipantSelect.options.length; i++) {
+          if (editParticipantSelect.options[i].text === eventParticipant) {
+            editParticipantSelect.selectedIndex = i;
+            break;
+          }
+        }
+        
+        // Tampilkan gambar saat ini di preview
+        const currentImage = row.querySelector('.ev-thumb').src;
+        previewEditLogo.src = currentImage;
+        previewEditLogo.style.display = "block";
+        
+        // Reset form ke step 1
+        editStep2.classList.add('d-none');
+        editStep1.classList.remove('d-none');
+        
+        // Tampilkan modal edit
+        editModal.show();
+      });
+    });
+    
+    // Fungsi untuk mengkonversi tanggal ke format ISO
+    function convertDateToISO(dateString) {
+      // Contoh input: "25 November 2025" atau "2025-11-19"
+      if (dateString.includes('-')) {
+        return dateString; // Sudah dalam format ISO
+      }
+      
+      const months = {
+        'Januari': '01',
+        'Februari': '02',
+        'Maret': '03',
+        'April': '04',
+        'Mei': '05',
+        'Juni': '06',
+        'Juli': '07',
+        'Agustus': '08',
+        'September': '09',
+        'Oktober': '10',
+        'November': '11',
+        'Desember': '12'
+      };
+      
+      const parts = dateString.split(' ');
+      const day = parts[0].padStart(2, '0');
+      const month = months[parts[1]];
+      const year = parts[2];
+      
+      return `${year}-${month}-${day}`;
+    }
+
+    // FUNGSI HAPUS EVENT
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    let currentRowToDelete = null;
+
+    document.querySelectorAll('.action-btn.delete').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent row expansion
+        
+        // Dapatkan baris tabel terdekat
+        const row = this.closest('tr');
+        
+        // Ambil nama event untuk ditampilkan di modal
+        const eventName = row.querySelector('.ev-name').textContent;
+        
+        // Set nama event di modal
+        document.getElementById('deleteEventName').textContent = eventName;
+        
+        // Simpan referensi ke baris yang akan dihapus
+        currentRowToDelete = row;
+        
+        // Tampilkan modal hapus
+        deleteModal.show();
+      });
+    });
+
+    // Konfirmasi hapus
+    document.getElementById('confirmDelete').addEventListener('click', function() {
+      if (currentRowToDelete) {
+        const eventName = currentRowToDelete.querySelector('.ev-name').textContent;
+        const eventId = currentRowToDelete.dataset.eventId;
+        
+        // Hapus baris detail jika ada
+        const detailsRow = document.getElementById(`details-${eventId}`);
+        if (detailsRow) {
+          detailsRow.remove();
+        }
+        
+        // Hapus baris dari tabel
+        currentRowToDelete.remove();
+        
+        // Tutup modal
+        deleteModal.hide();
+        
+        // Tampilkan notifikasi sukses
+        showSuccessToast('Berhasil', `Event "${eventName}" telah dihapus`);
+        
+        // Reset referensi
+        currentRowToDelete = null;
+      }
+    });
+
+    // Fungsi untuk menampilkan toast notifikasi sukses
+    function showSuccessToast(title, message) {
+      const toastContainer = document.getElementById('toastContainer');
+      
+      const toast = document.createElement('div');
+      toast.className = 'success-toast';
+      toast.innerHTML = `
+        <div class="toast-icon">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-message">${message}</div>
+        </div>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Hapus toast setelah 3 detik
+      setTimeout(() => {
+        toast.style.animation = 'slideIn 0.3s ease-out reverse';
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3000);
+    }
+  </script>
+</body>
+
+</html>
