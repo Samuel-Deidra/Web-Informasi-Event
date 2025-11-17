@@ -345,64 +345,64 @@
       }
 
       /* New Event Info Tags */
-.event-info-tags {
-  display: flex;
-  flex-direction: column; 
-  align-items: flex-start;
-  gap: 8px;
-  margin-top: 10px;
-}
+      .event-info-tags {
+        display: flex;
+        flex-direction: column; 
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 10px;
+      }
 
-.event-info-tag {
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  padding: 4px 8px;
-  border-radius: 15px;
-}
+      .event-info-tag {
+        display: flex;
+        align-items: center;
+        font-size: 0.8rem;
+        padding: 4px 8px;
+        border-radius: 15px;
+      }
 
-/* --- HANYA WARNA untuk STATUS --- */
-.event-info-tag.coming { 
-  background-color: var(--coming-bg);
-  color: var(--coming-text);
-}
+      /* --- HANYA WARNA untuk STATUS --- */
+      .event-info-tag.coming { 
+        background-color: var(--coming-bg);
+        color: var(--coming-text);
+      }
 
-.event-info-tag.open { 
-  background-color: var(--open-regis-bg);
-  color: var(--open-regis-text);
-}
+      .event-info-tag.open { 
+        background-color: var(--open-regis-bg);
+        color: var(--open-regis-text);
+      }
 
-.event-info-tag.closed { 
-  background-color: var(--closed-bg);
-  color: var(--closed-text);
-}
+      .event-info-tag.closed { 
+        background-color: var(--closed-bg);
+        color: var(--closed-text);
+      }
 
-.event-info-tag.ongoing { 
-  background-color: var(--ongoing-bg);
-  color: var(--ongoing-text);
-}
+      .event-info-tag.ongoing { 
+        background-color: var(--ongoing-bg);
+        color: var(--ongoing-text);
+      }
 
-.event-info-tag.finished { 
-  background-color: var(--finished-bg);
-  color: var(--finished-text);
-}
+      .event-info-tag.finished { 
+        background-color: var(--finished-bg);
+        color: var(--finished-text);
+      }
 
-/* --- HANYA WARNA untuk PESERTA --- */
-.event-info-tag.participants-mahasiswa {
-  background-color: var(--mahasiswa-bg);
-  color: var(--mahasiswa-text);
-}
+      /* --- HANYA WARNA untuk PESERTA --- */
+      .event-info-tag.participants-mahasiswa {
+        background-color: var(--mahasiswa-bg);
+        color: var(--mahasiswa-text);
+      }
 
-.event-info-tag.participants-umum {
-  background-color: var(--umum-bg);
-  color: var(--umum-text); /* <-- Saya perbaiki kesalahan penulisan di sini */
-}
+      .event-info-tag.participants-umum {
+          background-color: var(--umum-bg);
+          color: var(--umum-text); /* <-- Saya perbaiki kesalahan penulisan di sini */
+      }
 
-/* Icon di dalam tag */
-.event-info-tag i {
-  margin-right: 4px;
-  font-size: 0.7rem;
-}
+      /* Icon di dalam tag */
+      .event-info-tag i {
+          margin-right: 4px;
+          font-size: 0.7rem;
+      }
       /* Calendar Section */
       .calendar-section {
         background: var(--white);
@@ -948,7 +948,9 @@
             <option value="Akan Datang">Akan Datang</option>
             <option value="Selesai">Selesai</option>
             <option value="Pendaftaran Dibuka">Pendaftaran Dibuka</option>
+            <option value="Pendaftaran Ditutup">Pendaftaran Ditutup</option>
             <option value="Sedang Berlangsung">Sedang Berlangsung</option>
+
           </select>
           <select id="typeFilter">
             <option value="">Jenis</option>
@@ -956,7 +958,8 @@
             <option value="Pameran">Pameran</option>
             <option value="Festival">Festival</option>
             <option value="Konser">Konser</option>
-          </select>
+            <option value="Workshop">Workshop</option>
+           </select>
           <div class="search-box">
             <i class="fa fa-search"></i>
             <input
@@ -999,6 +1002,11 @@
                 <i class="fas fa-calendar"></i>
                 <span class="event-detail-label">Tanggal:</span>
                 <span class="event-detail-value" id="modalDate"></span>
+              </div>
+              <div class="event-detail-item">
+                <i class="fas fa-user-plus"></i>
+                <span class="event-detail-label">Pendaftaran:</span>
+                <span class="event-detail-value" id="modalRegistrationDate"></span>
               </div>
               <div class="event-detail-item">
                 <i class="fas fa-clock"></i>
@@ -1064,12 +1072,13 @@
         {
           id: 1,
           title: "Festival Seni Kampus 2025",
-          date: "2025-11-15",
+          date: "2025-11-15", //tanggal mulai event
+          registrationDate: "2025-11-15", // Tanggal buka pendaftaran
           time: "09:00 - 21:00 WIB",
           location: "Lapangan Utama Kampus",
           price: "Gratis",
           participants: "Mahasiswa",
-          category: "festival",
+          category: "Festival",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
           participantType: "Mahasiswa",
@@ -1080,12 +1089,13 @@
         {
           id: 2,
           title: "Seminar Nasional Teknologi",
-          date: "2025-11-20",
+          date: "2025-11-29",
+          registrationDate: "2025-11-20", 
           time: "08:00 - 17:00 WIB",
           location: "Auditorium Utama",
           price: "Rp 50.000",
-          participants: "Mahasiswa, Profesional",
-          category: "seminar",
+          participants: "Umum",
+          category: "Seminar",
           status: "Pendaftaran Ditutup",
           registrationStatus: "Ditutup",
           participantType: "Umum",
@@ -1097,11 +1107,12 @@
           id: 3,
           title: "Workshop Digital Marketing",
           date: "2025-11-25",
+          registrationDate: "2025-11-21", 
           time: "13:00 - 17:00 WIB",
           location: "Lab Komputer",
           price: "Rp 75.000",
-          participants: "Mahasiswa, Umum",
-          category: "workshop",
+          participants: "Umum",
+          category: "Workshop",
           status: "Akan Datang",
           registrationStatus: "Belum Dibuka",
           participantType: "Umum",
@@ -1111,29 +1122,31 @@
         },
         {
           id: 4,
-          title: "Kompetisi Debat Antar Fakultas",
-          date: "2025-12-01",
+          title: "HMTI Fair 2025",
+          date: "2025-11-16",
+          registrationDate: "2025-11-13", 
           time: "09:00 - 18:00 WIB",
-          location: "Gedung Rektorat",
+          location: "Gedung Pholux",
           price: "Rp 25.000",
           participants: "Mahasiswa",
-          category: "kompetisi",
+          category: "Festival",
           status: "Sedang Berlangsung",
           registrationStatus: "Ditutup",
-          participantType: "Umum",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Kompetisi debat tahunan antar fakultas dengan tema isu-isu kontemporer.",
+            "Pameran dan acara himpunan mahasiswa teknik industri (HMTI) yang menampilkan karya, kompetisi, dan hiburan.",
         },
         {
           id: 5,
           title: "Festival Olahraga",
           date: "2025-12-05",
+          registrationDate: "2025-12-1", 
           time: "07:00 - 19:00 WIB",
           location: "Lapangan Olahraga",
           price: "Gratis",
-          participants: "Mahasiswa, Umum",
-          category: "olahraga",
+          participants: "Mahasiswa",
+          category: "Festival",
           status: "Selesai",
           registrationStatus: "Ditutup",
           participantType: "Umum",
@@ -1145,157 +1158,167 @@
           id: 6,
           title: "Job Fair 2025",
           date: "2025-12-10",
+          registrationDate: "2025-12-4", 
           time: "09:00 - 16:00 WIB",
           location: "Convention Center",
           price: "Gratis",
-          participants: "Mahasiswa, Alumni, Umum",
-          category: "festival",
+          participants: "Mahasiswa",
+          category: "Workshop",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
           participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Job fair dengan lebih dari 50 perusahaan ternama dari berbagai industri.",
+            "Bursa kerja (Job Fair) yang menghadirkan lebih dari 50 perusahaan ternama dari berbagai industri untuk rekrutmen.",
         },
         {
           id: 7,
           title: "Lomba Karya Tulis Ilmiah",
           date: "2025-12-15",
+          registrationDate: "2025-12-9", 
           time: "08:00 - 17:00 WIB",
           location: "Perpustakaan Pusat",
           price: "Rp 30.000",
-          participants: "Mahasiswa, Dosen",
-          category: "kompetisi",
+          participants: "Mahasiswa",
+          category: "Festival",
           status: "Pendaftaran Ditutup",
           registrationStatus: "Ditutup",
           participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Kompetisi karya tulis ilmiah tingkat nasional untuk mahasiswa.",
+            "Menampilkan karya tulis ilmiah tingkat nasional untuk mahasiswa dengan tema-tema inovatif.",
         },
         {
           id: 8,
           title: "Pameran Startup Kampus",
           date: "2025-12-20",
+          registrationDate: "2025-12-11", 
           time: "10:00 - 20:00 WIB",
           location: "Exhibition Hall",
           price: "Rp 20.000",
-          participants: "Mahasiswa, Investor, Umum",
-          category: "festival",
+          participants: "Umum",
+          category: "Pameran",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
           participantType: "Umum",
           image: "../Foto/image.png",
           description:
-            "Pameran startup hasil karya mahasiswa dengan kesempatan pitching ke investor.",
+            "Pameran startup hasil karya mahasiswa dengan kesempatan pitching ke investor dan jejaring bisnis.",
         },
          {
           id: 9,
-          title: "Kompetisi Debat Antar Fakultas",
-          date: "2025-12-01",
-          time: "09:00 - 18:00 WIB",
-          location: "Gedung Rektorat",
-          price: "Rp 25.000",
+          title: "Polibatam Fair 2024",
+          date: "2024-8-21",
+          registrationDate: "2024-8-15", 
+          time: "09:00 - 15:00 WIB",
+          location: "Gedung Traine Polibatam",
+          price: "0",
           participants: "Mahasiswa",
-          category: "kompetisi",
-          status: "Sedang Berlangsung",
+          category: "Pameran",
+          status: "Selesai",
           registrationStatus: "Ditutup",
-          participantType: "Umum",
+          participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Kompetisi debat tahunan antar fakultas dengan tema isu-isu kontemporer.",
+            "Acara pameran dan perkenalan kampus Polibatam, menampilkan hasil karya dan inovasi mahasiswa.",
         },
          {
           id: 10,
-          title: "Kompetisi Debat Antar Fakultas",
-          date: "2025-12-01",
+          title: "KB Start",
+          date: "2025-11-14",
+          registrationDate: "2025-11-10", 
           time: "09:00 - 18:00 WIB",
-          location: "Gedung Rektorat",
+          location: "Depan Gedung Techno",
           price: "Rp 25.000",
-          participants: "Mahasiswa",
-          category: "kompetisi",
+          participants: "Umum",
+          category: "Festival",
           status: "Sedang Berlangsung",
           registrationStatus: "Ditutup",
           participantType: "Umum",
           image: "../Foto/image.png",
           description:
-            "Kompetisi debat tahunan antar fakultas dengan tema isu-isu kontemporer.",
+            "Acara kompetisi atau festival yang diselenggarakan oleh komunitas/lembaga KB.",
         },
         {
           id: 11,
-          title: "Job Fair 2025",
-          date: "2025-12-10",
+          title: "ENERGI FESTIVAL",
+          date: "2024-11-20",
+          registrationDate: "2024-11-15", 
           time: "09:00 - 16:00 WIB",
-          location: "Convention Center",
-          price: "Gratis",
-          participants: "Mahasiswa, Alumni, Umum",
-          category: "festival",
+          location: "Lapangan Futsal Polibatam",
+          price: "Rp 200.000",
+          participants: "Mahasiswa",
+          category: "Festival",
+          status: "Selesai",
+          registrationStatus: "Ditutup",
+          participantType: "Mahasiswa",
+          image: "../Foto/image.png",
+          description:
+            "Festival yang berfokus pada topik energi, teknologi terbarukan, atau kompetisi olahraga/seni dengan semangat energi.",
+        },
+        {
+          id: 12,
+          title: "Seminar Future Leader",
+          date: "2025-12-1",
+          registrationDate: "2025-11-25", 
+          time: "08:00 - 17:00 WIB",
+          location: "Perpustakaan Pusat",
+          price: "Rp 30.000",
+          participants: "Mahasiswa",
+          category: "Seminar",
           status: "Pendaftaran Dibuka",
           registrationStatus: "Dibuka",
           participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
-            "Job fair dengan lebih dari 50 perusahaan ternama dari berbagai industri.",
-        },
-        {
-          id: 12,
-          title: "Lomba Karya Tulis Ilmiah",
-          date: "2025-12-15",
-          time: "08:00 - 17:00 WIB",
-          location: "Perpustakaan Pusat",
-          price: "Rp 30.000",
-          participants: "Mahasiswa, Dosen",
-          category: "kompetisi",
-          status: "Pendaftaran Ditutup",
-          registrationStatus: "Ditutup",
-          participantType: "Mahasiswa",
-          image: "../Foto/image.png",
-          description:
-            "Kompetisi karya tulis ilmiah tingkat nasional untuk mahasiswa.",
+            "Seminar yang berfokus pada pengembangan kepemimpinan, soft skill, dan persiapan karir untuk menjadi pemimpin masa depan.",
         },
         {
           id: 13,
-          title: "Festival Olahraga",
-          date: "2025-12-05",
+          title: "Batas Senja",
+          date: "2025-8-21",
+          registrationDate: "2025-8-19", 
           time: "07:00 - 19:00 WIB",
           location: "Lapangan Olahraga",
           price: "Gratis",
-          participants: "Mahasiswa, Umum",
-          category: "olahraga",
+          participants: "Umum",
+          category: "Konser",
           status: "Selesai",
           registrationStatus: "Ditutup",
           participantType: "Umum",
           image: "../Foto/image.png",
           description:
-            "Festival olahraga dengan berbagai cabang seperti futsal, basket, voli, dan atletik.",
+            "Acara musik tahunan yang diadakan oleh polibatam dengan mengundang penyanyi Batas Senja",
         },
         {
           id: 14,
-          title: "Job Fair 2025",
-          date: "2025-12-10",
-          time: "09:00 - 16:00 WIB",
-          location: "Convention Center",
-          price: "Gratis",
-          participants: "Mahasiswa, Alumni, Umum",
-          category: "festival",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
-          participantType: "Mahasiswa",
+          title: "Campus Music",
+          date: "2026-2-10",
+          registrationDate: "2026-1-29", 
+          time: "17:00 - 22:00 WIB",
+          location: "Depan Gedung Techno",
+          price: "Rp 100.000",
+          participants: "Umum",
+          category: "Konser",
+          status: "Akan Datang",
+          registrationStatus: "Belum Dibuka",
+          participantType: "Umum",
           image: "../Foto/image.png",
           description:
-            "Job fair dengan lebih dari 50 perusahaan ternama dari berbagai industri.",
+            "Konser musik atau pertunjukan band yang diselenggarakan di lingkungan kampus.",
         },
         {
           id: 15,
-          title: "Festival Seni Kampus 2025",
-          date: "2025-11-15",
+          title: "Polibatam Fair 2026",
+          date: "2026-2-15",
+          registrationDate: "2026-1-20", 
           time: "09:00 - 21:00 WIB",
           location: "Lapangan Utama Kampus",
           price: "Gratis",
           participants: "Mahasiswa",
-          category: "festival",
-          status: "Pendaftaran Dibuka",
-          registrationStatus: "Dibuka",
+          category: "Pameran",
+          status: "Akan Datang",
+          registrationStatus: "Belum Dibuka",
           participantType: "Mahasiswa",
           image: "../Foto/image.png",
           description:
@@ -1303,19 +1326,20 @@
         },
         {
           id: 16,
-          title: "Seminar Nasional Teknologi",
-          date: "2025-11-20",
+          title: "Polibatam Fun Run",
+          date: "2025-11-22",
+          registrationDate: "2025-11-14", 
           time: "08:00 - 17:00 WIB",
-          location: "Auditorium Utama",
+          location: "Depan Gedung Techno",
           price: "Rp 50.000",
           participants: "Mahasiswa, Profesional",
-          category: "seminar",
+          category: "Festival",
           status: "Pendaftaran Ditutup",
           registrationStatus: "Ditutup",
           participantType: "Umum",
           image: "../Foto/image.png",
           description:
-            "Seminar dengan pembicara dari industri teknologi ternama membahas tren terkini dalam AI, cloud computing, dan cybersecurity.",
+            "Acara lari santai (Fun Run) yang diselenggarakan oleh Polibatam untuk kesehatan dan hiburan.",
         },
       ];
 
@@ -1355,8 +1379,8 @@
       e.preventDefault();
       showPage(page);
     }
-  });
-});
+    });
+    });
 
 
         // Filters
@@ -1440,7 +1464,7 @@
                   <div class="event-card-body">
                       <span class="event-date">${formatDate(
                         event.date
-                      )}</span>
+                      )}</span>                    
                       <h5 class="event-title">${event.title}</h5>
                       <p class="event-location">
                           <i class="fas fa-map-marker-alt"></i> ${
@@ -1461,24 +1485,24 @@
               </div>
           </div>
       `
-    )
-    .join("");
-}
+      )
+      .join("");
+      }
 
       function getStatusClass(status) {
         const statusLower = status.toLowerCase();
         let classToReturn = ""; // Defaultnya kosong
         if (statusLower.includes("akan datang")) {
           classToReturn = "coming";
-      } else if (statusLower.includes("dibuka")) {
+        } else if (statusLower.includes("dibuka")) {
           classToReturn = "open";
-      } else if (statusLower.includes("ditutup")) {
+        } else if (statusLower.includes("ditutup")) {
           classToReturn = "closed";
-      } else if (statusLower.includes("berlangsung")) {
+        } else if (statusLower.includes("berlangsung")) {
           classToReturn = "ongoing";
-      } else if (statusLower.includes("selesai")) {
+        } else if (statusLower.includes("selesai")) {
           classToReturn = "finished";
-      }
+        }
 
       // Tambahkan baris ini untuk debugging
       console.log(`Status: "${status}" -> Class: "${classToReturn}"`);
@@ -1525,8 +1549,8 @@
     )
     .join("");
 
-  generatePagination();
-}
+    generatePagination();
+    }
       // Fungsi untuk menentukan kelas warna peserta
       function getParticipantClass(participantType) {
         const typeLower = participantType.toLowerCase();
@@ -1548,8 +1572,8 @@
 
         filteredEvents = allEvents.filter((event) => {
           let matchYear = !yearFilter || event.date.includes(yearFilter);
-          let matchStatus = !statusFilter || event.status === statusFilter;
-          let matchType = !typeFilter || event.category === typeFilter.toLowerCase();
+          let matchStatus = !statusFilter || event.status.toLowerCase() === statusFilter.toLowerCase();
+          let matchType = !typeFilter || event.category.toLowerCase() === typeFilter.toLowerCase();
           let matchSearch = !searchInput || event.title.toLowerCase().includes(searchInput);
 
           return matchYear && matchStatus && matchType && matchSearch;
@@ -1571,28 +1595,29 @@
       }
 
       let html = `
-    <!-- Panah Kiri -->
-    <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
-      <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
-        <i class="fas fa-chevron-left"></i>
-      </a>
-    </li>
+
+      <!-- Panah Kiri -->
+      <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+        <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+      </li>
     
-    <!-- NOMOR HALAMAN YANG SEDANG AKTIF SAJA -->
-    <li class="page-item active">
-      <a class="page-link" href="#">${currentPage}</a>
-    </li>
+      <!-- NOMOR HALAMAN YANG SEDANG AKTIF SAJA -->
+      <li class="page-item active">
+        <a class="page-link" href="#">${currentPage}</a>
+      </li>
 
-    <!-- Panah Kanan -->
-    <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
-      <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
-        <i class="fas fa-chevron-right"></i>
-      </a>
-    </li>
-  `;
+      <!-- Panah Kanan -->
+      <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
+        <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </li>
+      `;
 
-  pagination.innerHTML = html;
-}
+      pagination.innerHTML = html;
+      }
       // Change Page
       function changePage(page) {
         const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
@@ -1610,6 +1635,7 @@
           document.getElementById("modalTitle").textContent = event.title;
           document.getElementById("modalImage").src = event.image;
           document.getElementById("modalDate").textContent = formatDate(event.date);
+          document.getElementById("modalRegistrationDate").textContent = formatDate(event.registrationDate);
           document.getElementById("modalTime").textContent = event.time;
           document.getElementById("modalLocation").textContent = event.location;
           document.getElementById("modalPrice").textContent = event.price;
