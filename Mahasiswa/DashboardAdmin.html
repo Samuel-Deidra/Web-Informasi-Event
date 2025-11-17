@@ -139,6 +139,11 @@
       font-size: 13px;
     }
 
+    .table-box table {
+      table-layout: fixed;
+      width: 100%;
+    }
+
     .table-box thead th {
       background: var(--header-blue);
       color: #fff;
@@ -147,6 +152,18 @@
       text-align: center;
       border: none;
       font-size: 13px;
+    }
+
+    .table-box tbody .event-row td {
+      text-align: center;
+      vertical-align: middle;
+      padding: 10px 12px;
+    }
+
+    .details-content {
+      padding: 20px;
+      text-align: left;
+      /* Pastikan detail tetap rata kiri */
     }
 
     .event-row {
@@ -243,6 +260,7 @@
         opacity: 0;
         transform: translateY(-10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -322,7 +340,8 @@
       box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
     }
 
-    #previewLogo, #previewEditLogo {
+    #previewLogo,
+    #previewEditLogo {
       max-width: 100%;
       height: auto;
       border-radius: 8px;
@@ -432,6 +451,7 @@
         transform: translateX(100%);
         opacity: 0;
       }
+
       to {
         transform: translateX(0);
         opacity: 1;
@@ -468,6 +488,11 @@
       font-size: 14px;
       color: #6b7280;
     }
+
+    .badge-history {
+      background: #e5e7eb;
+      color: #6b7280;
+    }
   </style>
 </head>
 
@@ -477,7 +502,7 @@
   <aside class="sidebar">
     <div class="brand-menu">Menu</div>
     <a href="#" class="nav-item active"><i class="fa-solid fa-calendar-days"></i><span>Event</span></a>
-    <a href="#" class="nav-item"><i class="fa-regular fa-clock"></i><span>History</span></a>
+    <a href="#" class="nav-item" id="menuHistory"><i class="fa-regular fa-clock"></i><span>History</span></a>
     <a href="#" class="nav-item"><i class="fa-solid fa-arrow-left"></i><span>Keluar</span></a>
     <hr style="border-color:rgba(255,255,255,0.1);margin:16px 0;">
     <button class="add-event"><i class="fa-solid fa-plus"></i>Tambah Event</button>
@@ -507,9 +532,12 @@
         <label class="form-label fw-semibold small mb-1">Kategori</label>
         <select id="filterKategori" class="form-select form-select-sm">
           <option value="">Semua</option>
-          <option>Pendaftaran Dibuka</option>
-          <option>Akan Datang</option>
-          <option>Sedang Berlangsung</option>
+          <option>Konser</option>
+          <option>Festival</option>
+          <option>Pameran</option>
+          <option>Workshop</option>
+          <option>Seminar</option>
+          <option>Kompetisi</option>
         </select>
       </div>
 
@@ -517,245 +545,431 @@
         <label class="form-label fw-semibold small mb-1">Status</label>
         <select id="filterStatus" class="form-select form-select-sm">
           <option value="">Semua</option>
-          <option>Festival</option>
-          <option>Pameran</option>
-          <option>Konser</option>
-          <option>Workshop</option>
-          <option>Seminar</option>
+          <option>Pendaftaran dibuka</option>
+          <option>Akan Datang</option>
+          <option>Sedang Berlangsung</option>
+          <option>Selesai</option>
         </select>
       </div>
     </div>
 
-    <!-- TABLE -->
-    <div class="table-box">
-      <table class="w-100">
-        <thead>
-          <tr>
-            <th>Logo</th>
-            <th>Nama Event</th>
-            <th>Tanggal</th>
-            <th>Harga</th>
-            <th>Kategori</th>
-            <th>Peserta</th>
-            <th>Status</th>
-            <th>Tindakan</th>
-          </tr>
-        </thead>
-        <tbody id="eventTbody">
-          <tr class="event-row" data-event-id="1">
-            <td><i class=" expand-icon"></i><img class="ev-thumb" src="image.png" alt=""></td>
-            <td class="ev-name">Rock Festival</td>
-            <td>2025-11-19</td>
-            <td>Rp 50.000</td>
-            <td><span class="badge-pill badge-open">Pendaftaran Dibuka</span></td>
-            <td><span class="badge-peserta">Mahasiswa</span></td>
-            <td>Festival</td>
-            <td>
-              <div class="action-btns">
-                <button class="action-btn edit" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                <button class="action-btn delete" title="Hapus"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </td>
-          </tr>
-          <tr class="event-details" id="details-1">
-            <td colspan="8">
-              <div class="details-content">
-                <div class="details-grid">
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-calendar-check"></i>
+    <!-- EVENT PAGE -->
+    <div id="eventPage">
+      <!-- TABLE -->
+      <div class="table-box">
+        <table class="w-100">
+          <thead>
+            <tr>
+              <th>Logo</th>
+              <th>Nama Event</th>
+              <th>Tanggal</th>
+              <th>Harga</th>
+              <th>Status</th>
+              <th>Peserta</th>
+              <th>Kategori</th>
+              <th>Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="eventTbody">
+            <tr class="event-row" data-event-id="1">
+              <td><i class=" expand-icon"></i><img class="ev-thumb" src="image.png" alt=""></td>
+              <td class="ev-name">Rock Festival</td>
+              <td>2025-11-19</td>
+              <td>Rp 50.000</td>
+              <td><span class="badge-pill badge-open">Pendaftaran Dibuka</span></td>
+              <td><span class="badge-peserta">Mahasiswa</span></td>
+              <td>Festival</td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn edit" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                  <button class="action-btn delete" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="event-details" id="details-1">
+              <td colspan="8">
+                <div class="details-content">
+                  <div class="details-grid">
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Tanggal Pendaftaran</div>
+                        <div class="detail-value">1 November 2025 - 15 November 2025</div>
+                      </div>
                     </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Tanggal Pendaftaran</div>
-                      <div class="detail-value">1 November 2025 - 15 November 2025</div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-clock"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Jam Event</div>
+                        <div class="detail-value">19:00 - 23:00 WIB</div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-clock"></i>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Lokasi</div>
+                        <div class="detail-value">Gelora Bung Karno, Jakarta</div>
+                      </div>
                     </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Jam Event</div>
-                      <div class="detail-value">19:00 - 23:00 WIB</div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-link"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Link Pendaftaran</div>
+                        <div class="detail-value">
+                          <a href="#" class="detail-link">bit.ly/rockfest2025</a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Lokasi</div>
-                      <div class="detail-value">Gelora Bung Karno, Jakarta</div>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-link"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Link Pendaftaran</div>
-                      <div class="detail-value">
-                        <a href="#" class="detail-link">bit.ly/rockfest2025</a>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-info-circle"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Deskripsi</div>
+                        <div class="detail-value">Rock Festival adalah acara musik tahunan yang
+                          menampilkan berbagai
+                          band
+                          rock ternama dari Indonesia dan mancanegara. Event ini akan
+                          menampilkan performa spektakuler
+                          dengan efek visual yang memukau.</div>
                       </div>
                     </div>
                   </div>
-                  <div class="detail-item" style="grid-column: 1 / -1;">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-info-circle"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Deskripsi</div>
-                      <div class="detail-value">Rock Festival adalah acara musik tahunan yang menampilkan berbagai band rock ternama dari Indonesia dan mancanegara. Event ini akan menampilkan performa spektakuler dengan efek visual yang memukau.</div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
 
-          <tr class="event-row" data-event-id="2">
-            <td><i class=" expand-icon"></i><img class="ev-thumb" src="image copy.png" alt=""></td>
-            <td class="ev-name">Pameran Karya Seni FSP2</td>
-            <td>25 November 2025</td>
-            <td>Rp 0</td>
-            <td><span class="badge-pill badge-up">Akan Datang</span></td>
-            <td><span class="badge-peserta">Umum</span></td>
-            <td>Pameran</td>
-            <td>
-              <div class="action-btns">
-                <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
-                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </td>
-          </tr>
-          <tr class="event-details" id="details-2">
-            <td colspan="8">
-              <div class="details-content">
-                <div class="details-grid">
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-calendar-check"></i>
+            <tr class="event-row" data-event-id="2">
+              <td><i class=" expand-icon"></i><img class="ev-thumb" src="image copy.png" alt=""></td>
+              <td class="ev-name">Pameran Karya Seni FSP2</td>
+              <td>25 November 2025</td>
+              <td>Rp 0</td>
+              <td><span class="badge-pill badge-up">Akan Datang</span></td>
+              <td><span class="badge-peserta">Umum</span></td>
+              <td>Pameran</td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                  <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="event-details" id="details-2">
+              <td colspan="8">
+                <div class="details-content">
+                  <div class="details-grid">
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Tanggal Pendaftaran</div>
+                        <div class="detail-value">10 November 2025 - 20 November 2025</div>
+                      </div>
                     </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Tanggal Pendaftaran</div>
-                      <div class="detail-value">10 November 2025 - 20 November 2025</div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-clock"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Jam Event</div>
+                        <div class="detail-value">09:00 - 17:00 WIB</div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-clock"></i>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Lokasi</div>
+                        <div class="detail-value">Galeri Nasional Indonesia, Jakarta</div>
+                      </div>
                     </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Jam Event</div>
-                      <div class="detail-value">09:00 - 17:00 WIB</div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-link"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Link Pendaftaran</div>
+                        <div class="detail-value">
+                          <a href="#" class="detail-link">bit.ly/pameransenifsp2</a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Lokasi</div>
-                      <div class="detail-value">Galeri Nasional Indonesia, Jakarta</div>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-link"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Link Pendaftaran</div>
-                      <div class="detail-value">
-                        <a href="#" class="detail-link">bit.ly/pameransenifsp2</a>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-info-circle"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Deskripsi</div>
+                        <div class="detail-value">Pameran karya seni dari mahasiswa Fakultas
+                          Seni dan Desain Program
+                          Studi
+                          2. Menampilkan berbagai karya seni mulai dari lukisan, patung,
+                          hingga instalasi seni modern.
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="detail-item" style="grid-column: 1 / -1;">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-info-circle"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Deskripsi</div>
-                      <div class="detail-value">Pameran karya seni dari mahasiswa Fakultas Seni dan Desain Program Studi 2. Menampilkan berbagai karya seni mulai dari lukisan, patung, hingga instalasi seni modern.</div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
+              </td>
+            </tr>
 
-          <tr class="event-row" data-event-id="3">
-            <td><i class=" expand-icon"></i><img class="ev-thumb" src="image copy 2.png" alt=""></td>
-            <td class="ev-name">Music Show</td>
-            <td>3 November 2025</td>
-            <td>Rp 100.000</td>
-            <td><span class="badge-pill badge-on">Sedang Berlangsung</span></td>
-            <td><span class="badge-peserta">Umum</span></td>
-            <td>Konser</td>
-            <td>
-              <div class="action-btns">
-                <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
-                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </td>
-          </tr>
-          <tr class="event-details" id="details-3">
-            <td colspan="8">
-              <div class="details-content">
-                <div class="details-grid">
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-calendar-check"></i>
+            <tr class="event-row" data-event-id="3">
+              <td><i class=" expand-icon"></i><img class="ev-thumb" src="image copy 2.png" alt=""></td>
+              <td class="ev-name">Music Show</td>
+              <td>3 November 2025</td>
+              <td>Rp 100.000</td>
+              <td><span class="badge-pill badge-on">Sedang Berlangsung</span></td>
+              <td><span class="badge-peserta">Umum</span></td>
+              <td>Konser</td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                  <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="event-details" id="details-3">
+              <td colspan="8">
+                <div class="details-content">
+                  <div class="details-grid">
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Tanggal Pendaftaran</div>
+                        <div class="detail-value">1 Oktober 2025 - 25 Oktober 2025</div>
+                      </div>
                     </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Tanggal Pendaftaran</div>
-                      <div class="detail-value">1 Oktober 2025 - 25 Oktober 2025</div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-clock"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Jam Event</div>
+                        <div class="detail-value">20:00 - 23:30 WIB</div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-clock"></i>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Lokasi</div>
+                        <div class="detail-value">Istora Senayan, Jakarta</div>
+                      </div>
                     </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Jam Event</div>
-                      <div class="detail-value">20:00 - 23:30 WIB</div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-link"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Link Pendaftaran</div>
+                        <div class="detail-value">
+                          <a href="#" class="detail-link">bit.ly/musicshow2025</a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-location-dot"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Lokasi</div>
-                      <div class="detail-value">Istora Senayan, Jakarta</div>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-link"></i>
-                    </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Link Pendaftaran</div>
-                      <div class="detail-value">
-                        <a href="#" class="detail-link">bit.ly/musicshow2025</a>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-info-circle"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Deskripsi</div>
+                        <div class="detail-value">Music Show adalah konser musik yang
+                          menampilkan artis-artis papan
+                          atas
+                          Indonesia dengan pencahayaan dan sound system berkualitas
+                          internasional.</div>
                       </div>
                     </div>
                   </div>
-                  <div class="detail-item" style="grid-column: 1 / -1;">
-                    <div class="detail-icon">
-                      <i class="fa-solid fa-info-circle"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HISTORY PAGE -->
+    <div id="historyPage" class="d-none">
+      <!-- TABLE HISTORY - DIPERBAIKI -->
+      <div class="table-box">
+        <table class="w-100">
+          <thead>
+            <tr>
+              <th>Logo</th>
+              <th>Nama Event</th>
+              <th>Tanggal</th>
+              <th>Harga</th>
+              <th>Status</th>
+              <th>Peserta</th>
+              <th>Kategori</th>
+              <th>Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="historyTbody">
+            <!-- EXAMPLE 1 -->
+            <tr class="event-row" data-event-id="h1">
+              <td><i class="expand-icon"></i><img class="ev-thumb" src="image.png" alt=""></td>
+              <td class="ev-name">Festival Budaya 2024</td>
+              <td>20 Oktober 2024</td>
+              <td>Rp 25.000</td>
+              <td><span class="badge-pill badge-history">Selesai</span></td>
+              <td><span class="badge-peserta">Mahasiswa</span></td>
+              <td>Pameran</td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn delete" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="event-details" id="details-h1">
+              <td colspan="8">
+                <div class="details-content">
+                  <div class="details-grid">
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Tanggal Pendaftaran</div>
+                        <div class="detail-value">2 - 20 Oktober 2024</div>
+                      </div>
                     </div>
-                    <div class="detail-text">
-                      <div class="detail-label">Deskripsi</div>
-                      <div class="detail-value">Music Show adalah konser musik yang menampilkan artis-artis papan atas Indonesia dengan pencahayaan dan sound system berkualitas internasional.</div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-clock"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Jam Pelaksanaan</div>
+                        <div class="detail-value">09:00 - 17:00 WIB</div>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Lokasi</div>
+                        <div class="detail-value">Taman Budaya Jakarta</div>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-link"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Link Pendaftaran</div>
+                        <div class="detail-value">
+                          <a href="#" class="detail-link">bit.ly/festivalbudaya2024</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-info-circle"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Deskripsi</div>
+                        <div class="detail-value">Festival seni dan budaya tradisional Indonesia
+                          yang sukses melibatkan
+                          partisipasi mahasiswa dari berbagai daerah.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+
+            <!-- EXAMPLE 2 -->
+            <tr class="event-row" data-event-id="h2">
+              <td><i class="expand-icon"></i><img class="ev-thumb" src="image copy 2.png" alt=""></td>
+              <td class="ev-name">Workshop Desain 2024</td>
+              <td>3 September 2024</td>
+              <td>Rp 75.000</td>
+              <td><span class="badge-pill badge-history">Selesai</span></td>
+              <td><span class="badge-peserta">Umum</span></td>
+              <td>Workshop</td>
+              <td>
+                <div class="action-btns">
+                  <button class="action-btn delete" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="event-details" id="details-h2">
+              <td colspan="8">
+                <div class="details-content">
+                  <div class="details-grid">
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Tanggal Pendaftaran</div>
+                        <div class="detail-value">1 Agustus 2024 - 25 Agustus 2024</div>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-clock"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Jam Pelaksanaan</div>
+                        <div class="detail-value">09:00 - 16:00 WIB</div>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Lokasi</div>
+                        <div class="detail-value">Universitas Multimedia Nusantara</div>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-link"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Link Pendaftaran</div>
+                        <div class="detail-value">
+                          <a href="#" class="detail-link">bit.ly/workshopdesain2024</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                      <div class="detail-icon">
+                        <i class="fa-solid fa-info-circle"></i>
+                      </div>
+                      <div class="detail-text">
+                        <div class="detail-label">Deskripsi</div>
+                        <div class="detail-value">
+                          Workshop desain grafis bagi pemula dengan instruktur dari agensi
+                          kreatif ternama.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
 
@@ -941,7 +1155,8 @@
             </div>
             <div class="mb-2">
               <label class="form-label">Deskripsi Event</label>
-              <textarea class="form-control" id="editDeskripsi" rows="4" placeholder="Tuliskan deskripsi event..."></textarea>
+              <textarea class="form-control" id="editDeskripsi" rows="4"
+                placeholder="Tuliskan deskripsi event..."></textarea>
             </div>
             <div class="text-end mt-3">
               <button type="button" class="btn btn-warning text-dark px-3" id="editBackStep">Kembali</button>
@@ -962,7 +1177,9 @@
             <i class="fa-solid fa-trash"></i>
           </div>
           <h5 class="modal-title">Hapus Event?</h5>
-          <p class="modal-text">Apakah Anda yakin ingin menghapus event "<span id="deleteEventName"></span>"? Tindakan ini tidak dapat dibatalkan.</p>
+          <p class="modal-text">Apakah Anda yakin ingin menghapus event "<span id="deleteEventName"></span>"?
+            Tindakan
+            ini tidak dapat dibatalkan.</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn-cancel" data-bs-dismiss="modal">Batal</button>
@@ -980,6 +1197,7 @@
     // SEARCH + FILTER
     const input = document.getElementById('searchInput');
     const tbody = document.getElementById('eventTbody');
+    const historyTbody = document.getElementById('historyTbody');
     const filterTanggal = document.getElementById('filterTanggal');
     const filterKategori = document.getElementById('filterKategori');
     const filterStatus = document.getElementById('filterStatus');
@@ -990,23 +1208,37 @@
       const kategori = filterKategori.value;
       const status = filterStatus.value;
 
-      tbody.querySelectorAll('tr').forEach(row => {
-        if (row.classList.contains('event-details')) return; // Skip detail rows
-        
+      const isHistoryPage = !pageHistory.classList.contains('d-none');
+      const activeTbody = isHistoryPage ? historyTbody : eventTbody;
+
+      activeTbody.querySelectorAll('tr').forEach(row => {
+        if (row.classList.contains('event-details')) return;
+
         const text = row.textContent.toLowerCase();
         const rowDate = row.cells[2]?.textContent.trim();
-        const rowKategori = row.cells[4]?.textContent.trim();
-        const rowStatus = row.cells[6]?.textContent.trim();
+
+        // Ambil teks kategori & status sesuai halaman
+        let rowKategori, rowStatus;
+
+        if (isHistoryPage) {
+          // Di halaman history: kolom 4 = status, kolom 6 = kategori
+          rowStatus = row.cells[4]?.textContent.trim();
+          rowKategori = row.cells[6]?.textContent.trim();
+        } else {
+          // Di halaman event: kolom 4 = status, kolom 6 = kategori
+          rowStatus = row.cells[4]?.textContent.trim();
+          rowKategori = row.cells[6]?.textContent.trim();
+        }
 
         const matchSearch = text.includes(search);
         const matchDate = !tgl || rowDate.includes(tgl);
-        const matchKategori = !kategori || rowKategori === kategori;
-        const matchStatus = !status || rowStatus === status;
+        const matchKategori = !kategori || rowKategori.includes(kategori);
+        const matchStatus = !status || rowStatus.includes(status);
 
         const display = matchSearch && matchDate && matchKategori && matchStatus ? '' : 'none';
         row.style.display = display;
-        
-        // Also hide/show the corresponding details row
+
+        // Tampilkan/Hide row detail
         const eventId = row.dataset.eventId;
         const detailsRow = document.getElementById(`details-${eventId}`);
         if (detailsRow) {
@@ -1020,17 +1252,17 @@
 
     // EXPAND/COLLAPSE EVENT DETAILS
     document.querySelectorAll('.event-row').forEach(row => {
-      row.addEventListener('click', function(e) {
+      row.addEventListener('click', function (e) {
         // Prevent expanding when clicking on action buttons
         if (e.target.closest('.action-btns')) return;
-        
+
         const eventId = this.dataset.eventId;
         const detailsRow = document.getElementById(`details-${eventId}`);
-        
+
         // Toggle current row
         this.classList.toggle('expanded');
         detailsRow.classList.toggle('show');
-        
+
         // Close other expanded rows
         document.querySelectorAll('.event-row').forEach(otherRow => {
           if (otherRow !== this && otherRow.classList.contains('expanded')) {
@@ -1136,15 +1368,15 @@
 
     // FUNGSI EDIT EVENT
     const editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
-    
+
     // Tambahkan event listener untuk semua tombol edit
     document.querySelectorAll('.action-btn.edit').forEach(button => {
-      button.addEventListener('click', function(e) {
+      button.addEventListener('click', function (e) {
         e.stopPropagation(); // Prevent row expansion
-        
+
         // Dapatkan baris tabel terdekat
         const row = this.closest('tr');
-        
+
         // Ambil data dari baris tabel
         const eventName = row.querySelector('.ev-name').textContent;
         const eventDate = row.cells[2].textContent;
@@ -1152,12 +1384,12 @@
         const eventCategory = row.cells[4].querySelector('.badge-pill').textContent;
         const eventParticipant = row.cells[5].querySelector('.badge-peserta').textContent;
         const eventStatus = row.cells[6].textContent;
-        
+
         // Isi form edit dengan data yang diambil
         document.getElementById('editNamaEvent').value = eventName;
         document.getElementById('editTanggalEvent').value = convertDateToISO(eventDate);
         document.getElementById('editBiaya').value = eventPrice;
-        
+
         // Set nilai untuk dropdown
         const editStatusSelect = document.getElementById('editStatusEvent');
         for (let i = 0; i < editStatusSelect.options.length; i++) {
@@ -1166,7 +1398,7 @@
             break;
           }
         }
-        
+
         const editParticipantSelect = document.getElementById('editPeserta');
         for (let i = 0; i < editParticipantSelect.options.length; i++) {
           if (editParticipantSelect.options[i].text === eventParticipant) {
@@ -1174,28 +1406,28 @@
             break;
           }
         }
-        
+
         // Tampilkan gambar saat ini di preview
         const currentImage = row.querySelector('.ev-thumb').src;
         previewEditLogo.src = currentImage;
         previewEditLogo.style.display = "block";
-        
+
         // Reset form ke step 1
         editStep2.classList.add('d-none');
         editStep1.classList.remove('d-none');
-        
+
         // Tampilkan modal edit
         editModal.show();
       });
     });
-    
+
     // Fungsi untuk mengkonversi tanggal ke format ISO
     function convertDateToISO(dateString) {
       // Contoh input: "25 November 2025" atau "2025-11-19"
       if (dateString.includes('-')) {
         return dateString; // Sudah dalam format ISO
       }
-      
+
       const months = {
         'Januari': '01',
         'Februari': '02',
@@ -1210,12 +1442,12 @@
         'November': '11',
         'Desember': '12'
       };
-      
+
       const parts = dateString.split(' ');
       const day = parts[0].padStart(2, '0');
       const month = months[parts[1]];
       const year = parts[2];
-      
+
       return `${year}-${month}-${day}`;
     }
 
@@ -1224,47 +1456,46 @@
     let currentRowToDelete = null;
 
     document.querySelectorAll('.action-btn.delete').forEach(button => {
-      button.addEventListener('click', function(e) {
+      button.addEventListener('click', function (e) {
         e.stopPropagation(); // Prevent row expansion
-        
+
         // Dapatkan baris tabel terdekat
         const row = this.closest('tr');
-        
+
         // Ambil nama event untuk ditampilkan di modal
         const eventName = row.querySelector('.ev-name').textContent;
-        
+
         // Set nama event di modal
         document.getElementById('deleteEventName').textContent = eventName;
-        
+
         // Simpan referensi ke baris yang akan dihapus
         currentRowToDelete = row;
-        
+
         // Tampilkan modal hapus
         deleteModal.show();
       });
     });
 
     // Konfirmasi hapus
-    document.getElementById('confirmDelete').addEventListener('click', function() {
+    document.getElementById('confirmDelete').addEventListener('click', function () {
       if (currentRowToDelete) {
         const eventName = currentRowToDelete.querySelector('.ev-name').textContent;
         const eventId = currentRowToDelete.dataset.eventId;
-        
+
         // Hapus baris detail jika ada
         const detailsRow = document.getElementById(`details-${eventId}`);
         if (detailsRow) {
           detailsRow.remove();
         }
-        
+
         // Hapus baris dari tabel
         currentRowToDelete.remove();
-        
-        // Tutup modal
+
         deleteModal.hide();
-        
+
         // Tampilkan notifikasi sukses
         showSuccessToast('Berhasil', `Event "${eventName}" telah dihapus`);
-        
+
         // Reset referensi
         currentRowToDelete = null;
       }
@@ -1273,7 +1504,7 @@
     // Fungsi untuk menampilkan toast notifikasi sukses
     function showSuccessToast(title, message) {
       const toastContainer = document.getElementById('toastContainer');
-      
+
       const toast = document.createElement('div');
       toast.className = 'success-toast';
       toast.innerHTML = `
@@ -1285,9 +1516,9 @@
           <div class="toast-message">${message}</div>
         </div>
       `;
-      
+
       toastContainer.appendChild(toast);
-      
+
       // Hapus toast setelah 3 detik
       setTimeout(() => {
         toast.style.animation = 'slideIn 0.3s ease-out reverse';
@@ -1296,6 +1527,61 @@
         }, 300);
       }, 3000);
     }
+
+    // PAGE SWITCHING
+    const pageEvent = document.getElementById("eventPage");
+    const pageHistory = document.getElementById("historyPage");
+
+    const btnEvent = document.querySelector(".nav-item.active"); // tombol Event di sidebar
+    const btnHistory = document.getElementById("menuHistory");
+
+    const filterRow = document.querySelector('.filter-row');
+
+    // Open history page
+    btnHistory.addEventListener("click", () => {
+      btnEvent.classList.remove("active");
+      btnHistory.classList.add("active");
+
+      pageEvent.style.display = "none";
+      pageHistory.classList.remove("d-none");
+
+      filterRow.style.display = "flex";
+      filterStatus.closest('div').style.display = "none";
+
+      // RESET FILTER INPUTS
+      filterTanggal.value = '';
+      filterKategori.value = '';
+      filterStatus.value = '';
+      input.value = '';
+
+      // RESET DISPLAY ROW
+      historyTbody.querySelectorAll('tr').forEach(row => row.style.display = '');
+
+      filterTable();
+    });
+
+    // Back to event page
+    btnEvent.addEventListener("click", () => {
+      btnHistory.classList.remove("active");
+      btnEvent.classList.add("active");
+
+      pageHistory.classList.add("d-none");
+      pageEvent.style.display = "block";
+
+      filterRow.style.display = "flex";
+      filterStatus.closest('div').style.display = "block";
+
+      // RESET FILTER INPUTS
+      filterTanggal.value = '';
+      filterKategori.value = '';
+      filterStatus.value = '';
+      input.value = '';
+
+      // RESET DISPLAY ROW
+      eventTbody.querySelectorAll('tr').forEach(row => row.style.display = '');
+
+      filterTable();
+    });
   </script>
 </body>
 
