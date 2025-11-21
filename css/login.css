@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2C71D6;
+    --submit-color: #21539e;
+    --white-transparent: rgba(255, 255, 255, 0.85);
+    --text-dark: #1a1a1a;
+}
+
+body {
+    background: url('Ucapan\ Selamat\ Datang\ di\ Kelas\ Pendidikan\ Kewarganegaraan\ PPKN\ Dekorasi\ Hia_20251010_130904_0000.png') no-repeat center center/cover;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.login_container {
+    position: relative;
+    width: 400px;
+    padding: 40px 30px;
+    border-radius: 15px;
+    background: var(--white-transparent);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    color: var(--text-dark);
+    text-align: center;
+    animation: popIn 0.6s ease-out;
+}
+
+.back-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.back-btn i {
+    margin-right: 5px;
+}
+
+.back-btn:hover {
+    color: var(--submit-color);
+}
+
+.login_title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    margin-top: 15px;
+}
+
+.input_wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input_wrapper input {
+    width: 100%;
+    padding: 12px 45px 12px 40px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+
+}
+
+.input_wrapper input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 4px var(--primary-color);
+}
+
+.input_wrapper i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+.input_wrapper i:not(.toggle-pass) {
+    position: absolute;
+    left: -17rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    font-size: 16px;
+}
+
+.toggle-pass {
+    position: absolute;
+    right: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+}
+
+.toggle-pass i {
+    font-size: 16px;
+}
+
+.submit-btn {
+    width: 100%;
+    height: 45px;
+    border-radius: 30px;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn i {
+    margin-right: 6px;
+}
+
+.submit-btn:hover {
+    background: var(--submit-color);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .login_container {
+        width: 90%;
+        padding: 30px 20px;
+    }
+}
