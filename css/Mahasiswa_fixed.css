@@ -1,0 +1,25 @@
+.event-description {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border-left: 4px solid var(--primary-color);
+  max-height: 180px;
+  overflow-y: auto;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.event-description h6 {
+  margin-bottom: 10px;
+  color: var(--dark-color);
+}
+
+.event-description p {
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+  margin: 0;
+}
