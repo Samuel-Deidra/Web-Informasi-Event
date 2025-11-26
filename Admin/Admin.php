@@ -18,7 +18,7 @@
         <div class="brand-menu">Menu</div>
         <a href="#" class="nav-item active"><i class="fa-solid fa-calendar-days"></i><span>Event</span></a>
         <a href="#" class="nav-item" id="menuHistory"><i class="fa-regular fa-clock"></i><span>History</span></a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-arrow-left"></i><span>Keluar</span></a>
+        <a href="../Mahasiswa/Mahasiswa.php" class="nav-item"><i class="fa-solid fa-arrow-left"></i><span>Keluar</span></a>
         <hr style="border-color:rgba(255,255,255,0.1);margin:16px 0;">
         <button class="add-event"><i class="fa-solid fa-plus"></i>Tambah Event</button>
     </aside>

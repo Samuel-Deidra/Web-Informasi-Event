@@ -43,7 +43,7 @@
                     </li>
                 </ul>
                 <!-- Tombol Masuk Admin -->
-                <a href="Login_page.html" class="btn btn-light"
+                <a href="../Admin/Login_page.php" class="btn btn-light"
                     style="margin-left:auto; margin-right:20px; background-color:#FFD700; color:#000; font-weight:bold; padding:10px 28px; border-radius:6px;">Masuk
                 </a>
 
