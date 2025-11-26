@@ -468,7 +468,6 @@ async function handleAddEventSubmit(e) {
   formData.append("biaya", biaya || 0);
   formData.append("peserta", document.getElementById("peserta").value);
   formData.append("kategori", document.getElementById("kategoriEvent").value);
-  // Status akan digenerate otomatis di backend dan frontend
 
   // Add logo if exists
   const logoFile = document.getElementById("logoEvent").files[0];
@@ -998,11 +997,14 @@ function createEventRow(event, isHistory = false) {
   const status = getEventStatus(event);
   switch (status) {
     case "Pendaftaran Dibuka":
-      statusBadge =
-        '<span class="badge-pill badge-open">Pendaftaran Dibuka</span>';
+      statusBadge = '<span class="badge-pill badge-open">Pendaftaran Dibuka</span>';
       break;
     case "Akan Datang":
       statusBadge = '<span class="badge-pill badge-up">Akan Datang</span>';
+      break;
+    case "Pendaftaran Ditutup":
+      statusBadge =
+        '<span class="badge-pill badge-close">Pendaftaran Ditutup</span>';
       break;
     case "Sedang Berlangsung":
       statusBadge =
@@ -1012,6 +1014,7 @@ function createEventRow(event, isHistory = false) {
       statusBadge = '<span class="badge-pill badge-history">Selesai</span>';
       break;
   }
+
 
   // Logo
   const logoSrc = event.logo
@@ -1034,7 +1037,7 @@ function createEventRow(event, isHistory = false) {
         <td>${formattedDate}</td>
         <td>${formattedPrice}</td>
         <td>${statusBadge}</td>
-        <td><span class="badge-peserta">${event.peserta}</span></td>
+        <td><span class="badge-pill badge-peserta ${event.peserta.toLowerCase() === "mahasiswa" ? "mahasiswa" : "umum" }"> ${event.peserta}</span></td>
         <td>${event.kategori}</td>
         <td>${actionButtons}</td>
     `;
@@ -1082,8 +1085,8 @@ function createDetailsRow(event) {
                       <div class="detail-text">
                         <div class="detail-label">Jam Event</div>
                         <div class="detail-value">${formatTimeHHMM(
-                          event.jam_event
-                        )} WIB</div>
+    event.jam_event
+  )} WIB</div>
                       </div>
                     </div>
                     <div class="detail-item">
@@ -1092,9 +1095,8 @@ function createDetailsRow(event) {
                         </div>
                         <div class="detail-text">
                             <div class="detail-label">Lokasi</div>
-                            <div class="detail-value">${
-                              event.lokasi || "Tidak tersedia"
-                            }</div>
+                            <div class="detail-value">${event.lokasi || "Tidak tersedia"
+    }</div>
                         </div>
                     </div>
                     <div class="detail-item">
@@ -1104,11 +1106,10 @@ function createDetailsRow(event) {
                         <div class="detail-text">
                             <div class="detail-label">Link Pendaftaran</div>
                             <div class="detail-value">
-                                ${
-                                  event.link
-                                    ? `<a href="${event.link}" class="detail-link" target="_blank">${event.link}</a>`
-                                    : "Tidak tersedia"
-                                }
+                                ${event.link
+      ? `<a href="${event.link}" class="detail-link" target="_blank">${event.link}</a>`
+      : "Tidak tersedia"
+    }
                             </div>
                         </div>
                     </div>
@@ -1118,9 +1119,8 @@ function createDetailsRow(event) {
                         </div>
                         <div class="detail-text">
                             <div class="detail-label">Deskripsi</div>
-                            <div class="detail-value">${
-                              event.deskripsi || "Tidak ada deskripsi"
-                            }</div>
+                            <div class="detail-value">${event.deskripsi || "Tidak ada deskripsi"
+    }</div>
                         </div>
                     </div>
                 </div>
