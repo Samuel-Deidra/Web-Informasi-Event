@@ -12,6 +12,15 @@
     <!-- Pastikan path CSS ini benar -->
     <link rel="stylesheet" href="../css/Mahasiswa.css">
 
+    <!-- TAMBAHKAN CSS UNTUK KATEGORI -->
+    <style>
+        .event-info-tag.category-seminar {background-color: rgba(108, 117, 125, 0.10);  } 
+        .event-info-tag.category-workshop { background-color: rgba(108, 117, 125, 0.10); }
+        .event-info-tag.category-festival { background-color: rgba(108, 117, 125, 0.10);  } 
+        .event-info-tag.category-konser { background-color: rgba(108, 117, 125, 0.10); } 
+        .event-info-tag.category-pameran { background-color: rgba(108, 117, 125, 0.10); }
+        .event-info-tag.category-default { background-color: rgba(108, 117, 125, 0.10); } 
+    </style>
 </head>
 
 <body>
@@ -158,36 +167,37 @@
             <div class="modal-body">
                 <div class="event-detail-container">
                     <img id="modalImage" src="" alt="Event Image" class="event-detail-image" />
-                    <div class="event-detail-info">
-                        <div class="event-detail-item">
+                    <div class="event-detail-info"
+                        style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+                        <div class="event-detail-item" style="display: flex; align-items: center; gap: 10px;">
                             <i class="fas fa-calendar"></i>
-                            <span class="event-detail-label">Tanggal:</span>
-                            <span class="event-detail-value" id="modalDate"></span>
+                            <span class="event-detail-label" style="font-size:13px; min-width:90px;">Tanggal</span>
+                            <span class="event-detail-value" id="modalDate" style="font-weight:600;"></span>
                         </div>
-                        <div class="event-detail-item">
+                        <div class="event-detail-item" style="display: flex; align-items: center; gap: 10px;">
                             <i class="fas fa-user-plus"></i>
-                            <span class="event-detail-label">Pendaftaran:</span>
-                            <span class="event-detail-value" id="modalRegistrationDate"></span>
+                            <span class="event-detail-label" style="font-size:13px; min-width:90px;">Pendaftaran</span>
+                            <span class="event-detail-value" id="modalRegistrationDate" style="font-weight:600;"></span>
                         </div>
-                        <div class="event-detail-item">
+                        <div class="event-detail-item" style="display: flex; align-items: center; gap: 10px;">
                             <i class="fas fa-clock"></i>
-                            <span class="event-detail-label">Jam:</span>
-                            <span class="event-detail-value" id="modalTime"></span>
+                            <span class="event-detail-label" style="font-size:13px; min-width:90px;">Jam</span>
+                            <span class="event-detail-value" id="modalTime" style="font-weight:600;"></span>
                         </div>
-                        <div class="event-detail-item">
+                        <div class="event-detail-item" style="display: flex; align-items: center; gap: 10px;">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span class="event-detail-label">Lokasi:</span>
-                            <span class="event-detail-value" id="modalLocation"></span>
+                            <span class="event-detail-label" style="font-size:13px; min-width:90px;">Lokasi</span>
+                            <span class="event-detail-value" id="modalLocation" style="font-weight:600;"></span>
                         </div>
-                        <div class="event-detail-item">
+                        <div class="event-detail-item" style="display: flex; align-items: center; gap: 10px;">
                             <i class="fas fa-tag"></i>
-                            <span class="event-detail-label">Harga:</span>
-                            <span class="event-detail-value" id="modalPrice"></span>
+                            <span class="event-detail-label" style="font-size:13px; min-width:90px;">Harga</span>
+                            <span class="event-detail-value" id="modalPrice" style="font-weight:600;"></span>
                         </div>
-                        <div class="event-detail-item">
+                        <div class="event-detail-item" style="display: flex; align-items: center; gap: 10px;">
                             <i class="fas fa-users"></i>
-                            <span class="event-detail-label">Peserta:</span>
-                            <span class="event-detail-value" id="modalParticipants"></span>
+                            <span class="event-detail-label" style="font-size:13px; min-width:90px;">Peserta</span>
+                            <span class="event-detail-value" id="modalParticipants" style="font-weight:600;"></span>
                         </div>
                     </div>
                 </div>
@@ -227,7 +237,7 @@
         const eventsPerPage = 8;
         let currentSlide = 0;
 
-        // Fungsi untuk mengambil data event dari database (DIAMBIL DARI KODE PERTAMA YANG BENAR)
+        // Fungsi untuk mengambil data event dari database
         async function fetchEventsFromDatabase() {
             try {
                 const response = await fetch('../Admin/api_events.php?for=mahasiswa');
@@ -239,7 +249,27 @@
                 const apiResponse = await response.json();
 
                 if (apiResponse.success) {
-                    allEvents = apiResponse.data;
+                    allEvents = apiResponse.data.map(event => {
+                        return {
+                            id: event.id,
+                            title: event.name || event.title,
+                            image: event.logo || event.image,
+                            date: event.tanggal_event || event.date,
+                            endDate: event.tanggal_event_akhir || event.endDate,
+                            registrationDate: event.tanggal_pendaftaran_awal || event.registrationDate,
+                            registrationEndDate: event.tanggal_pendaftaran_akhir || event.registrationEndDate,
+                            time: event.jam_event || event.time,
+                            location: event.lokasi || event.location,
+                            price: event.biaya || event.price,
+                            participantType: event.peserta || event.participantType,
+                            category: event.kategori || event.category,
+                            description: event.deskripsi || event.description,
+                            link: event.link,
+                            // PERUBAHAN: Ambil status langsung dari API untuk mengikuti data admin
+                            status: event.status
+                        };
+                    });
+                    
                     filteredEvents = [...allEvents];
 
                     // Memuat data setelah berhasil diambil
@@ -257,7 +287,7 @@
             }
         }
 
-        // Initialize (DIAMBIL DARI KODE PERTAMA YANG BENAR)
+        // Initialize
         document.addEventListener("DOMContentLoaded", function () {
             fetchEventsFromDatabase(); // Panggil fetch dulu
             startAutoSlide();
@@ -346,14 +376,40 @@
             }, 5000);
         }
 
+        // FUNGSI PENGURUTAN
+        function sortEventsByStatus(events) {
+            const statusPriority = {
+                'Akan Datang': 1,
+                'Pendaftaran Dibuka': 2,
+                'Pendaftaran Ditutup': 3,
+                'Sedang Berlangsung': 4,
+                'Selesai': 5
+            };
+            
+            return events.sort((a, b) => {
+                const statusA = a.status;
+                const statusB = b.status;
+                
+                const priorityA = statusPriority[statusA] || 99;
+                const priorityB = statusPriority[statusB] || 99;
+                
+                if (priorityA !== priorityB) {
+                    return priorityA - priorityB;
+                }
+                
+                return Number(b.id) - Number(a.id);
+            });
+        }
+
         // Load Home Events
         function loadHomeEvents() {
             const container = document.getElementById("homeEvents");
-            const homeEvents = allEvents.slice(0, 4);
+            const sortedEvents = sortEventsByStatus([...allEvents]);
+            const homeEvents = sortedEvents.slice(0, 4);
 
             container.innerHTML = homeEvents.map(
                 (event) => {
-                    const status = getEventStatus(event);
+                    const status = event.status; // Status diambil dari API
                     return `
             <div class="col-lg-3 col-md-6">
                 <div class="event-card" onclick="showEventDetail(${event.id})">
@@ -368,6 +424,11 @@
                             <div class="event-info-tag ${getStatusClass(status)}">
                                 <i class="fas fa-user-check"></i> ${status}
                             </div>
+                            <div class="event-info-tag ${getCategoryColor(event.category)}">
+                                <i class="fas fa-tag"></i> ${event.category || 'Tidak ada kategori'}
+                            </div>
+                        </div>
+                        <div class="event-info-tags">
                             <div class="event-info-tag ${getParticipantClass(event.participantType)}">
                                 <i class="fas fa-users"></i> ${event.participantType}
                             </div>
@@ -378,57 +439,19 @@
             `;
                 }
             ).join("");
-        } function getStatusClass(status) {
-            const statusLower = status.toLowerCase();
-            if (statusLower.includes("akan datang")) return "coming";
-            if (statusLower.includes("dibuka")) return "open";
-            if (statusLower.includes("ditutup")) return "closed";
-            if (statusLower.includes("berlangsung")) return "ongoing";
-            if (statusLower.includes("selesai")) return "finished";
-            return "";
-        }
-        // Status event otomatis berdasarkan tanggal
-        function getEventStatus(event) {
-            const now = new Date();
-            const regStart = new Date(event.registrationDate);
-            const regEnd = new Date(event.registrationEndDate || event.registrationCloseDate || event.registrationEnd || event.registrationEnd);
-            const eventStart = new Date(event.date);
-            const eventEnd = new Date(event.endDate || event.date);
-
-            if (now < regStart) {
-                return "Akan Datang";
-            } else if (now >= regStart && now <= regEnd) {
-                return "Pendaftaran Dibuka";
-            } else if (now > regEnd && now < eventStart) {
-                return "Pendaftaran Ditutup";
-            } else if (now >= eventStart && now <= eventEnd) {
-                return "Sedang Berlangsung";
-            } else if (now > eventEnd) {
-                return "Selesai";
-            }
-            return "Akan Datang";
-        }
-
-        function getStatusClass(status) {
-            const statusLower = status.toLowerCase();
-            if (statusLower.includes("akan datang")) return "coming";
-            if (statusLower.includes("dibuka")) return "open";
-            if (statusLower.includes("ditutup")) return "closed";
-            if (statusLower.includes("berlangsung")) return "ongoing";
-            if (statusLower.includes("selesai")) return "finished";
-            return "";
         }
 
         // Load Events with Pagination
         function loadEvents() {
             const container = document.getElementById("eventsGrid");
+            const sortedEvents = sortEventsByStatus([...filteredEvents]);
             const startIndex = (currentPage - 1) * eventsPerPage;
             const endIndex = startIndex + eventsPerPage;
-            const pageEvents = filteredEvents.slice(startIndex, endIndex);
+            const pageEvents = sortedEvents.slice(startIndex, endIndex);
 
             container.innerHTML = pageEvents.map(
                 (event) => {
-                    const status = getEventStatus(event);
+                    const status = event.status; // Status diambil dari API
                     return `
             <div class="col-lg-3 col-md-6">
                 <div class="event-card" onclick="showEventDetail(${event.id})">
@@ -443,6 +466,11 @@
                             <div class="event-info-tag ${getStatusClass(status)}">
                                 <i class="fas fa-user-check"></i> ${status}
                             </div>
+                            <div class="event-info-tag ${getCategoryColor(event.category)}">
+                                <i class="fas fa-tag"></i> ${event.category || 'Tidak ada kategori'}
+                            </div>
+                        </div>
+                        <div class="event-info-tags">
                             <div class="event-info-tag ${getParticipantClass(event.participantType)}">
                                 <i class="fas fa-users"></i> ${event.participantType}
                             </div>
@@ -455,7 +483,19 @@
             ).join("");
 
             generatePagination();
-        }        // Fungsi untuk menentukan kelas warna peserta
+        }
+
+        function getStatusClass(status) {
+            const statusLower = status.toLowerCase();
+            if (statusLower.includes("akan datang")) return "coming";
+            if (statusLower.includes("dibuka")) return "open";
+            if (statusLower.includes("ditutup")) return "closed";
+            if (statusLower.includes("berlangsung")) return "ongoing";
+            if (statusLower.includes("selesai")) return "finished";
+            return "";
+        }
+
+        // Fungsi untuk menentukan kelas warna peserta
         function getParticipantClass(participantType) {
             const typeLower = participantType.toLowerCase();
             if (typeLower.includes("mahasiswa")) {
@@ -473,9 +513,9 @@
 
             filteredEvents = allEvents.filter((event) => {
                 let matchYear = !yearFilter || event.date.includes(yearFilter);
-                let matchStatus = !statusFilter || event.status.toLowerCase() === statusFilter.toLowerCase();
-                let matchType = !typeFilter || event.category.toLowerCase() === typeFilter.toLowerCase();
-                let matchSearch = !searchInput || event.title.toLowerCase().includes(searchInput);
+                let matchStatus = !statusFilter || (event.status && event.status.toLowerCase() === statusFilter.toLowerCase());
+                let matchType = !typeFilter || (event.category && event.category.toLowerCase() === typeFilter.toLowerCase());
+                let matchSearch = !searchInput || (event.title && event.title.toLowerCase().includes(searchInput));
 
                 return matchYear && matchStatus && matchType && matchSearch;
             });
@@ -494,21 +534,22 @@
                 return;
             }
 
-            let html = `
-        <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
-            <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
-                <i class="fas fa-chevron-left"></i>
-            </a>
-        </li>
-        <li class="page-item active">
-            <a class="page-link" href="#">${currentPage}</a>
-        </li>
-        <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
-            <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
-                <i class="fas fa-chevron-right"></i>
-            </a>
-        </li>
-    `;
+            let html = '';
+            html += `<li class="page-item ${currentPage === 1 ? "disabled" : ""}">`;
+            html += `<a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">`;
+            html += `<i class="fas fa-chevron-left"></i>`;
+            html += `</a></li>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<li class="page-item ${currentPage === i ? 'active' : ''}">`;
+                html += `<a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>`;
+                html += `</li>`;
+            }
+
+            html += `<li class="page-item ${currentPage === totalPages ? "disabled" : ""}">`;
+            html += `<a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">`;
+            html += `<i class="fas fa-chevron-right"></i>`;
+            html += `</a></li>`;
 
             pagination.innerHTML = html;
         }
@@ -517,33 +558,6 @@
         function changePage(page) {
             const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
             if (page >= 1 && page <= totalPages) {
-                container.innerHTML = pageEvents.map(
-                    (event) => {
-                        const status = getEventStatus(event);
-                        return `
-        <div class="col-lg-3 col-md-6">
-          <div class="event-card" onclick="showEventDetail(${event.id})">
-            <img src="${event.image}" alt="${event.title}">
-            <div class="event-card-body">
-              <span class="event-date">${formatDate(event.date)}</span>
-              <h5 class="event-title">${event.title}</h5>
-              <p class="event-location">
-                <i class="fas fa-map-marker-alt"></i> ${event.location}
-              </p>
-              <div class="event-info-tags">
-                <div class="event-info-tag ${getStatusClass(status)}">
-                  <i class="fas fa-user-check"></i> ${status}
-                </div>
-                <div class="event-info-tag ${getParticipantClass(event.participantType)}">   
-                  <i class="fas fa-users"></i> ${event.participantType}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        `;
-                    }
-                ).join("");
                 currentPage = page;
                 loadEvents();
             }
@@ -560,16 +574,14 @@
             if (event) {
                 document.getElementById("modalTitle").textContent = event.title;
                 document.getElementById("modalImage").src = event.image;
-                document.getElementById("modalDate").textContent = formatDate(event.date);
-                document.getElementById("modalRegistrationDate").textContent = formatDate(event.registrationDate);
-                // Format time to HH:MM (remove seconds if present)
+                document.getElementById("modalDate").textContent = formatDateRange(event.date, event.endDate);
+                document.getElementById("modalRegistrationDate").textContent = formatDateRange(event.registrationDate, event.registrationEndDate);
                 document.getElementById("modalTime").textContent = formatTimeHHMM(event.time || event.jam_event || event.jamEvent || '');
                 document.getElementById("modalLocation").textContent = event.location;
                 document.getElementById("modalPrice").textContent = event.price;
                 document.getElementById("modalParticipants").textContent = event.participantType;
                 document.getElementById("modalDescription").textContent = event.description;
 
-                // Gabungkan tombol Daftar Event dan Kunjungi Link
                 const daftarBtn = document.getElementById("modalDaftarEvent");
                 if (event.link && event.link.trim() !== "") {
                     daftarBtn.href = event.link;
@@ -581,19 +593,18 @@
                     daftarBtn.target = "_self";
                 }
 
-                // Tampilkan link event jika ada (opsional, bisa dihapus jika tidak ingin tampil terpisah)
                 const linkContainer = document.getElementById("modalLinkContainer");
                 linkContainer.innerHTML = "";
 
                 document.getElementById("eventModal").classList.add("show");
-                document.body.style.overflow = "hidden"; // Disable scroll di belakang modal
+                document.body.style.overflow = "hidden";
             }
         }
 
         // Close Modal
         function closeModal() {
             document.getElementById("eventModal").classList.remove("show");
-            document.body.style.overflow = "auto"; // Enable scroll di belakang modal
+            document.body.style.overflow = "auto";
         }
 
         // Close modal when clicking outside
@@ -604,16 +615,54 @@
         });
 
         // Utility Functions
+        function formatDateWithoutYear(dateStr) {
+            if (!dateStr) return "";
+            const [year, month, day] = dateStr.split("-");
+            const date = new Date(year, month - 1, day);
+            const options = { day: "numeric", month: "long" };
+            return date.toLocaleDateString("id-ID", options);
+        }
+
         function formatDate(dateStr) {
-            const date = new Date(dateStr);
+            if (!dateStr) return "";
+            const [year, month, day] = dateStr.split("-");
+            const date = new Date(year, month - 1, day);
             const options = { day: "numeric", month: "long", year: "numeric" };
             return date.toLocaleDateString("id-ID", options);
         }
 
-        // Helper to format time strings to HH:MM (drop seconds if present)
+        function formatDateRange(startDateStr, endDateStr) {
+            if (!startDateStr) return "";
+            
+            if (!endDateStr || endDateStr === startDateStr) {
+                return formatDate(startDateStr);
+            }
+            
+            const [startYear] = startDateStr.split("-");
+            const [endYear] = endDateStr.split("-");
+            
+            if (startYear === endYear) {
+                return `${formatDateWithoutYear(startDateStr)} - ${formatDate(endDateStr)}`;
+            }
+            
+            return `${formatDate(startDateStr)} - ${formatDate(endDateStr)}`;
+        }
+
+        function getCategoryColor(category) {
+            if (!category) return 'category-default';
+            const categoryLower = category.toLowerCase();
+            switch (categoryLower) {
+                case 'seminar': return 'category-seminar';
+                case 'workshop': return 'category-workshop';
+                case 'festival': return 'category-festival';
+                case 'konser': return 'category-konser';
+                case 'pameran': return 'category-pameran';
+                default: return 'category-default';
+            }
+        }
+        
         function formatTimeHHMM(timeString) {
             if (!timeString) return '';
-            // Handle cases like "HH:MM:SS", "HH:MM" or ISO time strings
             const parts = timeString.split(':');
             if (parts.length >= 2) {
                 const hh = parts[0].padStart(2, '0');

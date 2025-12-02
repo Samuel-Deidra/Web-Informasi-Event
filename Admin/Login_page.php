@@ -30,7 +30,7 @@
         }
 
         body {
-            background: url('https://i.ibb.co/hK4J2m2/Ucapan-Selamat-Datang-di-Kelas-Pendidikan-Kewarganegaraan-PPKN-Dekorasi-Hia-20251010-130904-0000.png') no-repeat center center/cover;
+            background: url('../Foto/Ucapan\ Selamat\ Datang\ di\ Kelas\ Pendidikan\ Kewarganegaraan\ PPKN\ Dekorasi\ Hia_20251010_130904_0000.png') no-repeat center center/cover;
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
@@ -201,7 +201,8 @@
 
             <div class="input_wrapper">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="Password" required autocomplete="off"
+                    style="-webkit-text-security: disc;">
                 <i class="fa-solid fa-eye-slash toggle-pass" id="togglePass"></i>
             </div>
 

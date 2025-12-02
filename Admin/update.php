@@ -13,6 +13,7 @@ if (isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
 
     $name = $_POST['name'];
     $tanggal_event = $_POST['tanggal_event'];
+    $tanggal_event_akhir = $_POST['tanggal_event_akhir'] ?? '';
     $tanggal_pendaftaran_awal = $_POST['tanggal_pendaftaran_awal'];
     $tanggal_pendaftaran_akhir = $_POST['tanggal_pendaftaran_akhir'];
     $jam_event = $_POST['jam_event'];
@@ -28,6 +29,7 @@ if (isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
     $id = $conn->real_escape_string($id);
     $name = $conn->real_escape_string($name);
     $tanggal_event = $conn->real_escape_string($tanggal_event);
+    $tanggal_event_akhir = $conn->real_escape_string($tanggal_event_akhir);
     $tanggal_pendaftaran_awal = $conn->real_escape_string($tanggal_pendaftaran_awal);
     $tanggal_pendaftaran_akhir = $conn->real_escape_string($tanggal_pendaftaran_akhir);
     $jam_event = $conn->real_escape_string($jam_event);
@@ -66,6 +68,7 @@ if (isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
             name = '$name', 
             logo = '$logo', 
             tanggal_event = '$tanggal_event', 
+            tanggal_event_akhir = '$tanggal_event_akhir', 
             tanggal_pendaftaran_awal = '$tanggal_pendaftaran_awal', 
             tanggal_pendaftaran_akhir = '$tanggal_pendaftaran_akhir', 
             jam_event = '$jam_event', 

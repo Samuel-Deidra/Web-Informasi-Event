@@ -7,9 +7,6 @@ $password = $_POST['password'];
 $sql = "SELECT * FROM loginadmin WHERE username='$username' AND password='$password'";
 $result = $conn->query($sql);
 
-// ================================
-// LOGIN BERHASIL
-// ================================
 if ($result->num_rows > 0) {
 
     echo '

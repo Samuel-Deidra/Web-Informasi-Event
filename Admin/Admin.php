@@ -9,16 +9,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/Admin.css">
+    <!-- Flatpickr CSS untuk date picker modern -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <!-- TAMBAHKAN CSS UNTUK KATEGORI BUBBLE -->
+    <style>
+        /* Gaya untuk bubble kategori di tabel admin */
+        .category-bubble {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+        }
+        
+        /* Warna untuk setiap kategori */
+        .category-seminar { background-color: rgba(0, 123, 255, 0.8); } /* Biru Transparan */
+        .category-workshop { background-color: rgba(40, 167, 69, 0.8); } /* Hijau Transparan */
+        .category-festival { background-color: rgba(253, 126, 20, 0.8); } /* Orange Transparan */
+        .category-konser { background-color: rgba(111, 66, 193, 0.8); } /* Ungu Transparan */
+        .category-pameran { background-color: rgba(220, 53, 69, 0.8); } /* Merah Transparan */
+        .category-kompetisi { background-color: rgba(25, 135, 84, 0.8); } /* Hijau Tua Transparan */
+        .category-default { background-color: rgba(108, 117, 125, 0.8); } /* Abu-abu Transparan */
+    </style>
 </head>
 
 <body>
-
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="brand-menu">Menu</div>
         <a href="#" class="nav-item active"><i class="fa-solid fa-calendar-days"></i><span>Event</span></a>
         <a href="#" class="nav-item" id="menuHistory"><i class="fa-regular fa-clock"></i><span>History</span></a>
-        <a href="../Mahasiswa/Mahasiswa.php" class="nav-item"><i class="fa-solid fa-arrow-left"></i><span>Keluar</span></a>
+        <a href="../Mahasiswa/Mahasiswa.php" class="nav-item"><i
+                class="fa-solid fa-arrow-left"></i><span>Keluar</span></a>
         <hr style="border-color:rgba(255,255,255,0.1);margin:16px 0;">
         <button class="add-event"><i class="fa-solid fa-plus"></i>Tambah Event</button>
     </aside>
@@ -140,21 +165,19 @@
                     <form id="formStep1">
                         <div class="mb-3">
                             <label class="form-label">Tanggal Pendaftaran</label>
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="date" class="form-control" id="tanggalPendaftaranAwal"
-                                        placeholder="Dari" required>
-                                </div>
-                                <div class="col-6">
-                                    <input type="date" class="form-control" id="tanggalPendaftaranAkhir"
-                                        placeholder="Sampai" required>
-                                </div>
-                            </div>
+                            <!-- Date range hotel style -->
+                            <input type="text" class="form-control" id="tanggalPendaftaranRange"
+                                placeholder="Pilih rentang tanggal pendaftaran" required>
+                            <input type="hidden" id="tanggalPendaftaranAwal" name="tanggal_pendaftaran_awal">
+                            <input type="hidden" id="tanggalPendaftaranAkhir" name="tanggal_pendaftaran_akhir">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Tanggal Event</label>
-                            <input type="date" class="form-control" id="tanggalEvent" required>
+                            <input type="text" class="form-control" id="tanggalEventRange"
+                                placeholder="Pilih rentang tanggal event" required>
+                            <input type="hidden" id="tanggalEvent" name="tanggal_event">
+                            <input type="hidden" id="tanggalEventAkhir" name="tanggal_event_akhir">
                         </div>
 
                         <div class="mb-3">
@@ -251,21 +274,19 @@
 
                         <div class="mb-3">
                             <label class="form-label">Tanggal Pendaftaran</label>
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="date" class="form-control" id="editTanggalPendaftaranAwal"
-                                        placeholder="Dari" required>
-                                </div>
-                                <div class="col-6">
-                                    <input type="date" class="form-control" id="editTanggalPendaftaranAkhir"
-                                        placeholder="Sampai" required>
-                                </div>
-                            </div>
+                            <!-- Date range hotel style untuk edit event -->
+                            <input type="text" class="form-control" id="editTanggalPendaftaranRange"
+                                placeholder="Pilih rentang tanggal pendaftaran" required>
+                            <input type="hidden" id="editTanggalPendaftaranAwal" name="tanggal_pendaftaran_awal">
+                            <input type="hidden" id="editTanggalPendaftaranAkhir" name="tanggal_pendaftaran_akhir">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Tanggal Event</label>
-                            <input type="date" class="form-control" id="editTanggalEvent" required>
+                            <input type="text" class="form-control" id="editTanggalEventRange"
+                                placeholder="Pilih rentang tanggal event" required>
+                            <input type="hidden" id="editTanggalEvent" name="tanggal_event">
+                            <input type="hidden" id="editTanggalEventAkhir" name="tanggal_event_akhir">
                         </div>
 
                         <div class="mb-3">
@@ -373,8 +394,10 @@
     <!-- Toast Container for Success Notification -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="../javascript/Admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../javascript/Admin.js"></script>
 </body>
 
 </html>

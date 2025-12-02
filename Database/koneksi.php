@@ -1,9 +1,9 @@
 <?php
 // koneksi.php
  $host = "localhost";
- $username = "root"; // Ganti dengan username database Anda
- $password = ""; // Ganti dengan password database Anda
- $database = "events"; // Ganti dengan nama database Anda
+ $username = "root"; 
+ $password = ""; 
+ $database = "db_event"; 
 
  $conn = new mysqli($host, $username, $password, $database);
 

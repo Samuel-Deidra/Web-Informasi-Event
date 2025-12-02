@@ -1,33 +1,40 @@
 :root {
-  --sidebar-bg: #195e9e;
-  --sidebar-active: #ffd200;
-  --btn-blue: #1ea1ff;
-  --page-bg: #f2f5f7;
-  --header-blue: #195e9e;
-  --table-border: #c9d3dc;
-  --primary-color: #50509d;
-  --secondary-color: #ec4899;
-  --dark-color: #1e293b;
-  --light-bg: #f8fafc;
-  --border-color: #e5e7eb;
-  --text-muted: #6b7280;
-  --white: #ffffff;
-  --event-date: #63ddff;
-  --open-regis-text: rgb(109, 33, 33);
-  --open-regis-bg: #f55c5c;
-  --coming-bg: #ee8843;
-  --coming-text: #7d3f0f;
-  --closed-bg: #e0c8b3;
-  --closed-text: #493a33;
-  --finished-bg: #a9a9a9;
-  --finished-text: #36363b;
-  --ongoing-bg: #e2e687;
-  --ongoing-text: #5f5f23;
-  --mahasiswa-bg: #d4edda;
-  --mahasiswa-text: #155724;
-  --umum-bg: #e3f2fd;
-  --umum-text: #1565c0;
-}
+    /* ----- Warna Utama ----- */
+    --primary-color: #50509d;
+    --secondary-color: #ec4899;
+    --dark-color: #1e293b;
+    --light-bg: #f8fafc;
+    --border-color: #e5e7eb;
+    --text-muted: #6b7280;
+    --white: #ffffff;
+  
+    /* ----- Event Status ----- */
+    --event-date: #63ddff;
+    --open-regis-text: rgb(109, 33, 33);
+    --open-regis-bg: #f55c5c;
+    --coming-bg: #ee8843;
+    --coming-text: #7d3f0f;
+    --closed-bg: #e0c8b3;
+    --closed-text: #493a33;
+    --finished-bg: #a9a9a9;
+    --finished-text: #36363b;
+    --ongoing-bg: #e2e687;
+    --ongoing-text: #5f5f23;
+  
+    /* ----- Kategori ----- */
+    --mahasiswa-bg: #d4edda;
+    --mahasiswa-text: #155724;
+    --umum-bg: #e3f2fd;
+    --umum-text: #1565c0;
+  
+    /* ----- Tambahan dari root kedua ----- */
+    --sidebar-bg: #195e9e;
+    --sidebar-active: #ffd200;
+    --btn-blue: #1ea1ff;
+    --page-bg: #f2f5f7;
+    --header-blue: #195e9e;
+    --table-border: #c9d3dc;
+  }
 
 html,
 body {
