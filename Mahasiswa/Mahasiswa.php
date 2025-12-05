@@ -9,12 +9,29 @@
     <link rel="stylesheet" href="../css/Mahasiswa.css">
 
     <style>
-        .event-info-tag.category-seminar {background-color: rgba(108, 117, 125, 0.10);  } 
-        .event-info-tag.category-workshop { background-color: rgba(108, 117, 125, 0.10); }
-        .event-info-tag.category-festival { background-color: rgba(108, 117, 125, 0.10);  } 
-        .event-info-tag.category-konser { background-color: rgba(108, 117, 125, 0.10); } 
-        .event-info-tag.category-pameran { background-color: rgba(108, 117, 125, 0.10); }
-        .event-info-tag.category-default { background-color: rgba(108, 117, 125, 0.10); } 
+        .event-info-tag.category-seminar {
+            background-color: rgba(108, 117, 125, 0.10);
+        }
+
+        .event-info-tag.category-workshop {
+            background-color: rgba(108, 117, 125, 0.10);
+        }
+
+        .event-info-tag.category-festival {
+            background-color: rgba(108, 117, 125, 0.10);
+        }
+
+        .event-info-tag.category-konser {
+            background-color: rgba(108, 117, 125, 0.10);
+        }
+
+        .event-info-tag.category-pameran {
+            background-color: rgba(108, 117, 125, 0.10);
+        }
+
+        .event-info-tag.category-default {
+            background-color: rgba(108, 117, 125, 0.10);
+        }
     </style>
 </head>
 
@@ -61,13 +78,13 @@
             <!-- Hero Slider -->
             <div class="hero-slider">
                 <div class="slide active">
-                    <img src="../Foto/banner.jpg" alt="Slide 1" />
+                    <img src="../Foto/banner web event.png" alt="Slide 1" />
                 </div>
                 <div class="slide">
-                    <img src="../Foto/Web-Informasi-Kampus.jpg " alt="Slide 2" />
+                    <img src="../Foto/10.png" alt="Slide 2" />
                 </div>
                 <div class="slide">
-                    <img src="../Foto/banner.jpg" alt="Slide 3" />
+                    <img src="../Foto/11.png" alt="Slide 3" />
                 </div>
                 <div class="slider-controls">
                     <button class="slider-btn" onclick="changeSlide(-1)">
@@ -235,50 +252,59 @@
         // Fungsi untuk mengambil data event dari database
         async function fetchEventsFromDatabase() {
             try {
-                const response = await fetch('../Admin/api_events.php?for=mahasiswa');
+                // Coba berbagai path API untuk memastikan bekerja
+                let apiUrl = '../Admin/api_events.php?for=mahasiswa';
+
+                console.log('Fetching from:', apiUrl);
+                const response = await fetch(apiUrl);
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const apiResponse = await response.json();
+                console.log('API Response:', apiResponse);
 
-                if (apiResponse.success) {
+                if (apiResponse.success && apiResponse.data && Array.isArray(apiResponse.data)) {
                     allEvents = apiResponse.data.map(event => {
                         return {
                             id: event.id,
-                            title: event.name || event.title,
-                            image: event.logo || event.image,
-                            date: event.tanggal_event || event.date,
-                            endDate: event.tanggal_event_akhir || event.endDate,
-                            registrationDate: event.tanggal_pendaftaran_awal || event.registrationDate,
-                            registrationEndDate: event.tanggal_pendaftaran_akhir || event.registrationEndDate,
-                            time: event.jam_event || event.time,
-                            location: event.lokasi || event.location,
-                            price: event.biaya || event.price,
-                            participantType: event.peserta || event.participantType,
-                            category: event.kategori || event.category,
-                            description: event.deskripsi || event.description,
+                            title: event.name || 'Tanpa Judul',
+                            image: event.image ? '../Admin/' + event.image : 'https://via.placeholder.com/300',
+                            date: event.tanggal_event,
+                            endDate: event.tanggal_event,
+                            registrationDate: event.tanggal_pendaftaran_awal,
+                            registrationEndDate: event.tanggal_pendaftaran_akhir,
+                            time: event.jam_event,
+                            location: event.lokasi || 'Lokasi Tidak Ditentukan',
+                            price: event.price || 'Gratis',
+                            participantType: event.peserta || 'Umum',
+                            category: event.kategori || 'Umum',
+                            description: event.deskripsi || 'Deskripsi tidak tersedia',
                             link: event.link,
-                            // PERUBAHAN: Ambil status langsung dari API untuk mengikuti data admin
-                            status: event.status
+                            status: event.status || 'Akan Datang'
                         };
                     });
-                    
+
+                    console.log('Processed Events:', allEvents);
                     filteredEvents = [...allEvents];
 
                     // Memuat data setelah berhasil diambil
                     loadHomeEvents();
                     loadEvents();
                 } else {
-                    console.error('Error from API:', apiResponse.message);
+                    console.error('Invalid API response:', apiResponse);
                     const container = document.getElementById("homeEvents");
-                    container.innerHTML = `<p class="text-danger">Gagal memuat data event. Silakan coba lagi nanti.</p>`;
+                    if (container) {
+                        container.innerHTML = `<p class="text-danger">Format data tidak valid. Response: ${JSON.stringify(apiResponse)}</p>`;
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching events:', error);
                 const container = document.getElementById("homeEvents");
-                container.innerHTML = `<p class="text-danger">Gagal memuat data event. Periksa koneksi Anda.</p>`;
+                if (container) {
+                    container.innerHTML = `<p class="text-danger">Gagal memuat data event. Periksa koneksi Anda.</p>`;
+                }
             }
         }
 
@@ -380,18 +406,18 @@
                 'Sedang Berlangsung': 4,
                 'Selesai': 5
             };
-            
+
             return events.sort((a, b) => {
                 const statusA = a.status;
                 const statusB = b.status;
-                
+
                 const priorityA = statusPriority[statusA] || 99;
                 const priorityB = statusPriority[statusB] || 99;
-                
+
                 if (priorityA !== priorityB) {
                     return priorityA - priorityB;
                 }
-                
+
                 return Number(b.id) - Number(a.id);
             });
         }
@@ -628,18 +654,18 @@
 
         function formatDateRange(startDateStr, endDateStr) {
             if (!startDateStr) return "";
-            
+
             if (!endDateStr || endDateStr === startDateStr) {
                 return formatDate(startDateStr);
             }
-            
+
             const [startYear] = startDateStr.split("-");
             const [endYear] = endDateStr.split("-");
-            
+
             if (startYear === endYear) {
                 return `${formatDateWithoutYear(startDateStr)} - ${formatDate(endDateStr)}`;
             }
-            
+
             return `${formatDate(startDateStr)} - ${formatDate(endDateStr)}`;
         }
 
@@ -655,7 +681,7 @@
                 default: return 'category-default';
             }
         }
-        
+
         function formatTimeHHMM(timeString) {
             if (!timeString) return '';
             const parts = timeString.split(':');

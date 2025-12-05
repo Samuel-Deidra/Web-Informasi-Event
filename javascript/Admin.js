@@ -169,7 +169,7 @@ function populateEditForm(event) {
   document.getElementById("editTanggalEventAkhir").value = event.tanggal_event_akhir || "";
   document.getElementById("editTanggalPendaftaranAwal").value = event.tanggal_pendaftaran_awal || "";
   document.getElementById("editTanggalPendaftaranAkhir").value = event.tanggal_pendaftaran_akhir || "";
-  
+
   // Flatpickr population
   if (window.flatpickr && document.getElementById("editTanggalPendaftaranRange")) {
     const fpReg = document.getElementById("editTanggalPendaftaranRange")._flatpickr;
@@ -218,7 +218,7 @@ function setupFormHandlers() {
     const editEventRange = document.getElementById("editTanggalEventRange"); const editEventHidden = document.getElementById("editTanggalEvent"); const editEventEndHidden = document.getElementById("editTanggalEventAkhir");
     if (editEventRange) flatpickr(editEventRange, { mode: "range", dateFormat: "Y-m-d", locale: "id", onChange: function (selectedDates) { if (selectedDates.length >= 1) editEventHidden.value = formatYMD(selectedDates[0]); if (selectedDates.length >= 2) editEventEndHidden.value = formatYMD(selectedDates[1]); else editEventEndHidden.value = ""; }, });
   }
-  
+
   document.getElementById("formStep2").addEventListener("submit", handleAddEventSubmit);
   document.getElementById("editFormStep2").addEventListener("submit", handleEditEventSubmit);
   document.getElementById("nextStep").addEventListener("click", () => { document.getElementById("formStep1").classList.add("d-none"); document.getElementById("formStep2").classList.remove("d-none"); });
@@ -258,38 +258,117 @@ function setupFilePreview() {
 
 // Handle add event form submission
 async function handleAddEventSubmit(e) {
-  e.preventDefault(); if (isProcessing) return; isProcessing = true;
-  const namaEvent = document.getElementById("namaEvent").value.trim(); const tanggalEvent = document.getElementById("tanggalEvent").value; const tanggalPendaftaranAwal = document.getElementById("tanggalPendaftaranAwal").value; const tanggalPendaftaranAkhir = document.getElementById("tanggalPendaftaranAkhir").value; const jamEvent = document.getElementById("jamEvent").value; const lokasi = document.getElementById("lokasi").value.trim(); const tautan = document.getElementById("tautan").value.trim(); const deskripsi = document.getElementById("deskripsi").value.trim(); const biaya = document.getElementById("biaya").value;
-  if (!namaEvent || !tanggalEvent || !tanggalPendaftaranAwal || !tanggalPendaftaranAkhir || !jamEvent || !tautan || !deskripsi) { showErrorMessage("Mohon lengkapi semua field yang wajib diisi, termasuk Link dan Deskripsi"); isProcessing = false; return; }
-  const regStartDate = parseDateFromString(tanggalPendaftaranAwal); const regEndDate = parseDateFromString(tanggalPendaftaranAkhir); const eventDate = parseDateFromString(tanggalEvent);
-  if (regStartDate > regEndDate) { showErrorMessage("Tanggal pendaftaran awal tidak boleh lebih dari tanggal pendaftaran akhir"); isProcessing = false; return; }
-  if (eventDate < regEndDate) { showErrorMessage("Tanggal event harus setelah atau sama dengan tanggal pendaftaran akhir"); isProcessing = false; return; }
-  if (!isValidUrl(tautan)) { showErrorMessage("Format link pendaftaran tidak valid. Harap masukkan URL yang valid (contoh: https://example.com)"); isProcessing = false; return; }
-  if (deskripsi.length < 10 || deskripsi.length > 1000) { showErrorMessage("Deskripsi event harus diisi dengan 10-1000 karakter"); isProcessing = false; return; }
-  if (biaya && (isNaN(parseFloat(biaya)) || parseFloat(biaya) < 0)) { showErrorMessage("Biaya harus berupa angka yang valid dan tidak boleh negatif"); isProcessing = false; return; }
-  if (namaEvent.length < 3 || namaEvent.length > 100) { showErrorMessage("Nama event harus diisi dengan 3-100 karakter"); isProcessing = false; return; }
+  e.preventDefault();
+  if (isProcessing) return;
+  isProcessing = true;
+
+  const namaEvent = document.getElementById("namaEvent").value.trim();
+  const tanggalEvent = document.getElementById("tanggalEvent").value;
+  const tanggalPendaftaranAwal = document.getElementById("tanggalPendaftaranAwal").value;
+  const tanggalPendaftaranAkhir = document.getElementById("tanggalPendaftaranAkhir").value;
+  const jamEvent = document.getElementById("jamEvent").value;
+  const lokasi = document.getElementById("lokasi").value.trim();
+  const tautan = document.getElementById("tautan").value.trim();
+  const deskripsi = document.getElementById("deskripsi").value.trim();
+  const biaya = document.getElementById("biaya").value;
+  const logoFile = document.getElementById("logoEvent").files[0];
+
+  // Validasi logo harus ada
+  if (!logoFile) {
+    showErrorMessage("Logo event harus dipilih");
+    isProcessing = false;
+    return;
+  }
+
+  if (!namaEvent || !tanggalEvent || !tanggalPendaftaranAwal || !tanggalPendaftaranAkhir || !jamEvent || !deskripsi) {
+    showErrorMessage("Mohon lengkapi semua field yang wajib diisi (Link bersifat opsional)");
+    isProcessing = false;
+    return;
+  }
+
+  const regStartDate = parseDateFromString(tanggalPendaftaranAwal);
+  const regEndDate = parseDateFromString(tanggalPendaftaranAkhir);
+  const eventDate = parseDateFromString(tanggalEvent);
+
+  if (regStartDate > regEndDate) {
+    showErrorMessage("Tanggal pendaftaran awal tidak boleh lebih dari tanggal pendaftaran akhir");
+    isProcessing = false;
+    return;
+  }
+  if (eventDate < regEndDate) {
+    showErrorMessage("Tanggal event harus setelah atau sama dengan tanggal pendaftaran akhir");
+    isProcessing = false;
+    return;
+  }
+  // Jika tautan diisi, validasi format URL. Biarkan kosong jika tidak ada.
+  if (tautan && !isValidUrl(tautan)) {
+    showErrorMessage("Format link pendaftaran tidak valid. Harap masukkan URL yang valid (contoh: https://example.com)");
+    isProcessing = false;
+    return;
+  }
+  if (deskripsi.length < 10 || deskripsi.length > 1000) {
+    showErrorMessage("Deskripsi event harus diisi dengan 10-1000 karakter");
+    isProcessing = false;
+    return;
+  }
+  if (biaya && (isNaN(parseFloat(biaya)) || parseFloat(biaya) < 0)) {
+    showErrorMessage("Biaya harus berupa angka yang valid dan tidak boleh negatif");
+    isProcessing = false;
+    return;
+  }
+  if (namaEvent.length < 3 || namaEvent.length > 100) {
+    showErrorMessage("Nama event harus diisi dengan 3-100 karakter");
+    isProcessing = false;
+    return;
+  }
 
   const formData = new FormData();
-  formData.append("name", namaEvent); formData.append("tanggal_event", tanggalEvent); formData.append("tanggal_event_akhir", document.getElementById("tanggalEventAkhir").value); formData.append("tanggal_pendaftaran_awal", tanggalPendaftaranAwal); formData.append("tanggal_pendaftaran_akhir", tanggalPendaftaranAkhir); formData.append("jam_event", jamEvent); formData.append("lokasi", lokasi); formData.append("link", tautan); formData.append("deskripsi", deskripsi); formData.append("biaya", biaya || 0); formData.append("peserta", document.getElementById("peserta").value); formData.append("kategori", document.getElementById("kategoriEvent").value);
-  const logoFile = document.getElementById("logoEvent").files[0]; if (logoFile) { formData.append("logo", logoFile); }
+  formData.append("name", namaEvent);
+  formData.append("tanggal_event", tanggalEvent);
+  formData.append("tanggal_event_akhir", document.getElementById("tanggalEventAkhir").value);
+  formData.append("tanggal_pendaftaran_awal", tanggalPendaftaranAwal);
+  formData.append("tanggal_pendaftaran_akhir", tanggalPendaftaranAkhir);
+  formData.append("jam_event", jamEvent);
+  formData.append("lokasi", lokasi);
+  formData.append("link", tautan);
+  formData.append("deskripsi", deskripsi);
+  formData.append("biaya", biaya || 0);
+  formData.append("peserta", document.getElementById("peserta").value);
+  formData.append("kategori", document.getElementById("kategoriEvent").value);
+  formData.append("logo", logoFile);
 
   try {
-    const submitBtn = e.target.querySelector('button[type="submit"]'); const originalText = submitBtn.textContent; submitBtn.disabled = true; submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Menyimpan...';
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Menyimpan...';
+
     const response = await fetch(API_URL, { method: "POST", body: formData });
     const result = await response.json();
+
     if (result.success) {
       showSuccessToast("Berhasil", "Event berhasil ditambahkan");
       addModal._element.addEventListener('hidden.bs.modal', function () {
-        e.target.reset(); document.getElementById("formStep2").classList.add("d-none"); document.getElementById("formStep1").classList.remove("d-none"); document.getElementById("previewLogo").style.display = "none"; fetchEvents();
+        e.target.reset();
+        document.getElementById("formStep2").classList.add("d-none");
+        document.getElementById("formStep1").classList.remove("d-none");
+        document.getElementById("previewLogo").style.display = "none";
+        fetchEvents();
       }, { once: true });
       addModal.hide();
     } else {
       showErrorMessage("Gagal menambahkan event: " + result.message);
     }
   } catch (error) {
-    console.error("Error:", error); showErrorMessage("Terjadi kesalahan saat menambahkan event");
+    console.error("Error:", error);
+    showErrorMessage("Terjadi kesalahan saat menambahkan event");
   } finally {
-    const submitBtn = e.target.querySelector('button[type="submit"]'); if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtn.getAttribute('data-original-text') || 'Simpan'; } isProcessing = false;
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtn.getAttribute('data-original-text') || 'Simpan';
+    }
+    isProcessing = false;
   }
 }
 
@@ -297,11 +376,12 @@ async function handleAddEventSubmit(e) {
 async function handleEditEventSubmit(e) {
   e.preventDefault(); if (isProcessing) return; isProcessing = true;
   const namaEvent = document.getElementById("editNamaEvent").value.trim(); const tanggalEvent = document.getElementById("editTanggalEvent").value; const tanggalPendaftaranAwal = document.getElementById("editTanggalPendaftaranAwal").value; const tanggalPendaftaranAkhir = document.getElementById("editTanggalPendaftaranAkhir").value; const jamEvent = document.getElementById("editJamEvent").value; const lokasi = document.getElementById("editLokasi").value.trim(); const tautan = document.getElementById("editTautan").value.trim(); const deskripsi = document.getElementById("editDeskripsi").value.trim(); const biaya = document.getElementById("editBiaya").value;
-  if (!namaEvent || !tanggalEvent || !tanggalPendaftaranAwal || !tanggalPendaftaranAkhir || !jamEvent || !tautan || !deskripsi) { showErrorMessage("Mohon lengkapi semua field yang wajib diisi, termasuk Link dan Deskripsi"); isProcessing = false; return; }
+  if (!namaEvent || !tanggalEvent || !tanggalPendaftaranAwal || !tanggalPendaftaranAkhir || !jamEvent || !deskripsi) { showErrorMessage("Mohon lengkapi semua field yang wajib diisi (Link bersifat opsional)"); isProcessing = false; return; }
   const regStartDate = parseDateFromString(tanggalPendaftaranAwal); const regEndDate = parseDateFromString(tanggalPendaftaranAkhir); const eventDate = parseDateFromString(tanggalEvent);
   if (regStartDate > regEndDate) { showErrorMessage("Tanggal pendaftaran awal tidak boleh lebih dari tanggal pendaftaran akhir"); isProcessing = false; return; }
   if (eventDate < regEndDate) { showErrorMessage("Tanggal event harus setelah atau sama dengan tanggal pendaftaran akhir"); isProcessing = false; return; }
-  if (!isValidUrl(tautan)) { showErrorMessage("Format link pendaftaran tidak valid. Harap masukkan URL yang valid (contoh: https://example.com)"); isProcessing = false; return; }
+  // Jika tautan diisi, validasi format URL. Biarkan kosong jika tidak ada.
+  if (tautan && !isValidUrl(tautan)) { showErrorMessage("Format link pendaftaran tidak valid. Harap masukkan URL yang valid (contoh: https://example.com)"); isProcessing = false; return; }
   if (deskripsi.length < 10 || deskripsi.length > 1000) { showErrorMessage("Deskripsi event harus diisi dengan 10-1000 karakter"); isProcessing = false; return; }
   if (biaya && (isNaN(parseFloat(biaya)) || parseFloat(biaya) < 0)) { showErrorMessage("Biaya harus berupa angka yang valid dan tidak boleh negatif"); isProcessing = false; return; }
   if (namaEvent.length < 3 || namaEvent.length > 100) { showErrorMessage("Nama event harus diisi dengan 3-100 karakter"); isProcessing = false; return; }
@@ -352,11 +432,59 @@ async function handleDeleteConfirm() {
   if (!currentRowToDelete || isProcessing) return; isProcessing = true;
   try {
     const confirmBtn = document.getElementById("confirmDelete"); const originalText = confirmBtn.textContent; confirmBtn.disabled = true; confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memproses...';
-    const response = await fetch(`${API_URL}?id=${currentRowToDelete.eventId}`, { method: "DELETE", });
+    const url = currentRowToDelete.isHistoryPage ? `${API_URL}?id=${currentRowToDelete.eventId}&permanent=1` : `${API_URL}?id=${currentRowToDelete.eventId}`;
+    const response = await fetch(url, { method: "DELETE" });
     const result = await response.json();
     if (result.success) {
-      if (currentRowToDelete.isHistoryPage) { showSuccessToast("Berhasil", `Event "${currentRowToDelete.eventName}" telah dihapus permanen`); } else { showSuccessToast("Berhasil", `Event "${currentRowToDelete.eventName}" telah dipindahkan ke history`); }
-      deleteModal._element.addEventListener('hidden.bs.modal', function () { fetchEvents(); }, { once: true });
+      // Update local arrays and DOM instantly
+      const id = currentRowToDelete.eventId;
+      const isHistory = currentRowToDelete.isHistoryPage;
+
+      if (isHistory) {
+        // Permanent delete: remove from historyData and DOM
+        const idx = historyData.findIndex((ev) => String(ev.id) === String(id));
+        if (idx !== -1) {
+          historyData.splice(idx, 1);
+          // remove rows from DOM
+          const row = document.querySelector(`#historyTbody tr.event-row[data-event-id=\"${id}\"]`);
+          const details = document.getElementById(`details-${id}`);
+          if (row && row.parentNode) row.parentNode.removeChild(row);
+          if (details && details.parentNode) details.parentNode.removeChild(details);
+          showSuccessToast("Berhasil", `Event "${currentRowToDelete.eventName}" telah dihapus permanen`);
+        } else {
+          // fallback
+          fetchEvents();
+        }
+      } else {
+        // Move to history: update eventsData -> historyData and move DOM rows
+        const idx = eventsData.findIndex((ev) => String(ev.id) === String(id));
+        if (idx !== -1) {
+          const ev = eventsData.splice(idx, 1)[0];
+          ev.status = 'Selesai';
+          historyData.unshift(ev);
+
+          // remove from events DOM
+          const row = document.querySelector(`#eventTbody tr.event-row[data-event-id=\"${id}\"]`);
+          const details = document.getElementById(`details-${id}`);
+          if (row && row.parentNode) row.parentNode.removeChild(row);
+          if (details && details.parentNode) details.parentNode.removeChild(details);
+
+          // add to history DOM at top
+          const newRow = createEventRow(ev, true);
+          const newDetails = createDetailsRow(ev);
+          if (historyTbody.firstChild) {
+            historyTbody.insertBefore(newDetails, historyTbody.firstChild);
+            historyTbody.insertBefore(newRow, newDetails);
+          } else {
+            historyTbody.appendChild(newRow);
+            historyTbody.appendChild(newDetails);
+          }
+          showSuccessToast("Berhasil", `Event "${currentRowToDelete.eventName}" telah dipindahkan ke history`);
+        } else {
+          // fallback to re-fetch if we can't find the event locally
+          fetchEvents();
+        }
+      }
       deleteModal.hide();
     } else {
       showErrorMessage("Gagal memproses event: " + result.message);
@@ -417,7 +545,7 @@ function createEventRow(event, isHistory = false) {
   const row = document.createElement("tr"); row.className = "event-row"; row.dataset.eventId = event.id;
   const formattedEventStart = formatDateFromString(event.tanggal_event); const formattedEventEnd = event.tanggal_event_akhir ? formatDateFromString(event.tanggal_event_akhir) : "";
   const formattedPrice = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0, }).format(event.biaya);
-  
+
   // PERUBAHAN: Gunakan status langsung dari API tanpa perhitungan ulang
   const status = event.status;
   let statusBadge = "";
