@@ -4,15 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Kampus - Platform Informasi Event</title>
-
-    <!-- Font Awesome -->
+    <title>Web Informasi Event Kampus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- Pastikan path CSS ini benar -->
     <link rel="stylesheet" href="../css/Mahasiswa.css">
 
-    <!-- TAMBAHKAN CSS UNTUK KATEGORI -->
     <style>
         .event-info-tag.category-seminar {background-color: rgba(108, 117, 125, 0.10);  } 
         .event-info-tag.category-workshop { background-color: rgba(108, 117, 125, 0.10); }
@@ -69,7 +64,7 @@
                     <img src="../Foto/banner.jpg" alt="Slide 1" />
                 </div>
                 <div class="slide">
-                    <img src="../Foto/banner.jpg" alt="Slide 2" />
+                    <img src="../Foto/Web-Informasi-Kampus.jpg " alt="Slide 2" />
                 </div>
                 <div class="slide">
                     <img src="../Foto/banner.jpg" alt="Slide 3" />
