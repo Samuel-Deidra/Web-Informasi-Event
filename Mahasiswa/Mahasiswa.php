@@ -130,6 +130,7 @@
             <div class="filter-bar">
                 <select id="yearFilter">
                     <option value="">Tahun</option>
+                    <option value="2027">2027</option>
                     <option value="2026">2026</option>
                     <option value="2025">2025</option>
                     <option value="2024">2024</option>
@@ -144,7 +145,7 @@
 
                 </select>
                 <select id="typeFilter">
-                    <option value="">Jenis</option>
+                    <option value="">Kategori</option>
                     <option value="Seminar">Seminar</option>
                     <option value="Pameran">Pameran</option>
                     <option value="Festival">Festival</option>
