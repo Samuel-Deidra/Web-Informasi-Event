@@ -144,12 +144,13 @@
 
                 </select>
                 <select id="typeFilter">
-                    <option value="">Jenis</option>
+                    <option value="">Kategori</option>
                     <option value="Seminar">Seminar</option>
                     <option value="Pameran">Pameran</option>
                     <option value="Festival">Festival</option>
                     <option value="Konser">Konser</option>
                     <option value="Workshop">Workshop</option>
+                    <option value="Workshop">Kompetisi</option>
                 </select>
                 <div class="search-box">
                     <i class="fa fa-search"></i>
