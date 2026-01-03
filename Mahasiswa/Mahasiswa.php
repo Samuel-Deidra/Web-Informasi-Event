@@ -32,6 +32,31 @@
         .event-info-tag.category-default {
             background-color: rgba(108, 117, 125, 0.10);
         }
+
+        /* PERBAIKAN: Tambahkan CSS untuk notifikasi Toast */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000; /* Pastikan di atas modal */
+        }
+
+        .toast {
+            background-color: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 </head>
 
@@ -64,8 +89,8 @@
                     </li>
                 </ul>
                 <!-- Tombol Masuk Admin -->
-                <a href="../Admin/Login_page.php" class="btn btn-light"
-                    style="margin-left:auto; margin-right:20px; background-color:#FFD700; color:#000; font-weight:bold; padding:10px 28px; border-radius:6px;">Masuk
+                <a href="../Admin/Login_page.php" class="btn "
+                    style="margin-left:auto; margin-right:20px; background-color: hsla(192, 100%, 74%, 0.62); color:black; font-weight:bold; padding:10px 28px; border-radius:7px;">Masuk
                 </a>
 
             </div>
@@ -130,6 +155,7 @@
             <div class="filter-bar">
                 <select id="yearFilter">
                     <option value="">Tahun</option>
+                    <option value="2027">2027</option>
                     <option value="2026">2026</option>
                     <option value="2025">2025</option>
                     <option value="2024">2024</option>
@@ -221,7 +247,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeModal()">Bagikan</button>
+                <!-- PERBAIKAN: Ubah onclick tombol Bagikan -->
+                <button type="button" class="btn btn-secondary" onclick="shareEvent()">
+                    <i class="fas fa-share-alt"></i> Bagikan
+                </button>
                 <a id="modalDaftarEvent" href="Login_page.html" class="btn btn-primary" target="_blank">Daftar Event</a>
             </div>
         </div>
@@ -242,6 +271,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- PERBAIKAN: Tambahkan container untuk notifikasi Toast -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <script>
         let allEvents = [];
@@ -395,7 +427,7 @@
         function startAutoSlide() {
             setInterval(() => {
                 changeSlide(1);
-            }, 5000);
+            }, 10000);
         }
 
         // FUNGSI PENGURUTAN
@@ -692,6 +724,61 @@
                 return hh + ':' + mm;
             }
             return timeString;
+        }
+
+        /* PERBAIKAN: Tambahkan fungsi untuk berbagi dan menampilkan toast */
+        // Fungsi untuk menampilkan notifikasi Toast
+        function showToast(message, duration = 3000) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            
+            toastContainer.appendChild(toast);
+            
+            // Trigger reflow untuk memulai transisi
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Hapus toast setelah durasi tertentu
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toastContainer.removeChild(toast);
+                    }
+                }, 300); // Tunggu hingga transisi selesai
+            }, duration);
+        }
+
+        // Fungsi untuk menyalin link URL halaman
+        function shareEvent() {
+            const url = window.location.href;
+            
+            // Gunakan modern Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Link berhasil disalin!');
+                }).catch(err => {
+                    console.error('Gagal menyalin link: ', err);
+                    showToast('Gagal menyalin link. Silakan coba lagi.');
+                });
+            } else {
+                // Fallback untuk browser yang lebih lama
+                const textArea = document.createElement("textarea");
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Link berhasil disalin!');
+                } catch (err) {
+                    console.error('Fallback: Gagal menyalin link: ', err);
+                    showToast('Gagal menyalin link. Silakan salin secara manual.');
+                }
+                document.body.removeChild(textArea);
+            }
         }
     </script>
 </body>

@@ -96,16 +96,32 @@
             border: none;
             outline: none;
             background: transparent;
-            /* Tetap transparan */
             font-size: 15px;
             color: var(--text-dark);
             position: relative;
             z-index: 2;
-            /* Input berada di bawah ikon */
+
+            /* PERBAIKAN: Terapkan border-radius pada input itu sendiri */
+            border-radius: 30px;
         }
 
         .input_wrapper input::placeholder {
             color: #999;
+        }
+
+        /* PERBAIKAN: Atur ulang gaya saat browser mengisi otomatis (autofill) */
+        .input_wrapper input:-webkit-autofill,
+        .input_wrapper input:-webkit-autofill:hover,
+        .input_wrapper input:-webkit-autofill:focus {
+            /* Gunakan inset shadow untuk "mengecat" latar belakang dengan warna putih */
+            -webkit-box-shadow: 0 0 0 1000px white inset;
+            /* Pastikan warna teks tetap terlihat */
+            -webkit-text-fill-color: var(--text-dark);
+            /* Kembalikan border dan radiusnya seperti semula */
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            /* Berikan transisi yang sangat panjang untuk "menahan" perubahan warna background dari browser */
+            transition: background-color 5000s ease-in-out 0s;
         }
 
         .input_wrapper i {
@@ -114,7 +130,6 @@
             transform: translateY(-50%);
             color: #555;
             z-index: 3;
-            /* FIX: Ikon berada di atas input */
         }
 
         .input_wrapper i:not(.toggle-pass) {
@@ -201,8 +216,7 @@
 
             <div class="input_wrapper">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="password" id="password" placeholder="Password" required autocomplete="off"
-                    style="-webkit-text-security: disc;">
+                <input type="password" name="password" id="password" placeholder="Password" required autocomplete="off">
                 <i class="fa-solid fa-eye-slash toggle-pass" id="togglePass"></i>
             </div>
 
@@ -213,16 +227,19 @@
     </div>
 
     <script>
-        // Toggle Password
         const togglePass = document.getElementById('togglePass');
         const passwordField = document.getElementById('password');
 
         togglePass.addEventListener('click', () => {
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-
-            togglePass.classList.toggle('fa-eye');
-            togglePass.classList.toggle('fa-eye-slash');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                togglePass.classList.remove('fa-eye-slash');
+                togglePass.classList.add('fa-eye');
+            } else {
+                passwordField.type = 'password';
+                togglePass.classList.remove('fa-eye');
+                togglePass.classList.add('fa-eye-slash');
+            }
         });
     </script>
 
