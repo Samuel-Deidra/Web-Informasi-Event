@@ -38,8 +38,6 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 });
 
 /**
- * Menghitung status event secara otomatis berdasarkan tanggal.
- * Fungsi ini fleksibel untuk menangani nama kolom asli (admin) dan yang sudah di-alias (mahasiswa).
  *
  * @param array $event Array data event.
  * @return string Status event.
@@ -177,7 +175,6 @@ switch ($method) {
         break;
 
     case 'POST':
-        // Cek apakah ini adalah permintaan UPDATE (dengan _method=PUT) atau CREATE
         if (isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
             // --- LOGIKA UPDATE EVENT ---
             $id = $_GET['id'];
@@ -279,7 +276,7 @@ switch ($method) {
                 echo json_encode(['success' => false, 'message' => 'Error: ' . $conn->error]);
             }
         } else {
-            // --- LOGIKA CREATE EVENT ---
+            // --- CREATE EVENT ---
             $name = $conn->real_escape_string($_POST['name']);
             $tanggal_event = $conn->real_escape_string($_POST['tanggal_event']);
             $tanggal_event_akhir = isset($_POST['tanggal_event_akhir']) ? $conn->real_escape_string($_POST['tanggal_event_akhir']) : '';
