@@ -953,17 +953,12 @@ function createEventRow(event, isHistory = false) {
   const actionButtons = isHistory
     ? `<div class="action-btns"><button class="action-btn delete" title="Hapus Permanen"><i class="fa-solid fa-trash"></i></button></div>`
     : `<div class="action-btns"><button class="action-btn edit" title="Edit"><i class="fa-solid fa-pen"></i></button><button class="action-btn delete" title="Hapus"><i class="fa-solid fa-trash"></i></button></div>`;
-  row.innerHTML = `<td><i class="expand-icon"></i><img class="ev-thumb" src="${logoSrc}" alt="${
-    event.name
-  }"></td><td class="ev-name">${
-    event.name
-  }</td><td class="date-cell">${formattedEventStart}${
-    formattedEventEnd ? "<br>" + formattedEventEnd : ""
-  }</td><td>${formattedPrice}</td><td>${statusBadge}</td><td><span class="badge-pill badge-peserta ${
-    event.peserta.toLowerCase() === "mahasiswa" ? "mahasiswa" : "umum"
-  }"> ${event.peserta}</span></td><td>${
-    event.kategori
-  }</td><td>${actionButtons}</td>`;
+  row.innerHTML = `<td><i class="expand-icon"></i><img class="ev-thumb" src="${logoSrc}" alt="${event.name
+    }"></td><td class="ev-name">${event.name
+    }</td><td class="date-cell">${formattedEventStart}${formattedEventEnd ? "<br>" + formattedEventEnd : ""
+    }</td><td>${formattedPrice}</td><td>${statusBadge}</td><td><span class="badge-pill badge-peserta ${event.peserta.toLowerCase() === "mahasiswa" ? "mahasiswa" : "umum"
+    }"> ${event.peserta}</span></td><td>${event.kategori
+    }</td><td>${actionButtons}</td>`;
   return row;
 }
 
@@ -980,19 +975,15 @@ function createDetailsRow(event) {
   const formattedEventEnd = event.tanggal_event_akhir
     ? formatDateFromString(event.tanggal_event_akhir)
     : "";
-  detailsRow.innerHTML = `<td colspan="8"><div class="details-content"><div class="details-grid"><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-check"></i></div><div class="detail-text"><div class="detail-label">Tanggal Pendaftaran</div><div class="detail-value">${formattedRegStart} - ${formattedRegEnd}</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-day"></i></div><div class="detail-text"><div class="detail-label">Tanggal Event</div><div class="detail-value">${formattedEventStart}${
-    formattedEventEnd ? " - " + formattedEventEnd : ""
-  }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-clock"></i></div><div class="detail-text"><div class="detail-label">Jam Event</div><div class="detail-value">${formatTimeHHMM(
-    event.jam_event
-  )} WIB</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-text"><div class="detail-label">Lokasi</div><div class="detail-value">${
-    event.lokasi || "Tidak tersedia"
-  }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-link"></i></div><div class="detail-text"><div class="detail-label">Link Pendaftaran</div><div class="detail-value">${
-    event.link
+  detailsRow.innerHTML = `<td colspan="8"><div class="details-content"><div class="details-grid"><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-check"></i></div><div class="detail-text"><div class="detail-label">Tanggal Pendaftaran</div><div class="detail-value">${formattedRegStart} - ${formattedRegEnd}</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-day"></i></div><div class="detail-text"><div class="detail-label">Tanggal Event</div><div class="detail-value">${formattedEventStart}${formattedEventEnd ? " - " + formattedEventEnd : ""
+    }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-clock"></i></div><div class="detail-text"><div class="detail-label">Jam Event</div><div class="detail-value">${formatTimeHHMM(
+      event.jam_event
+    )} WIB</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-text"><div class="detail-label">Lokasi</div><div class="detail-value">${event.lokasi || "Tidak tersedia"
+    }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-link"></i></div><div class="detail-text"><div class="detail-label">Link Pendaftaran</div><div class="detail-value">${event.link
       ? `<a href="${event.link}" class="detail-link" target="_blank">${event.link}</a>`
       : "Tidak tersedia"
-  }</div></div></div><div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-icon"><i class="fa-solid fa-info-circle"></i></div><div class="detail-text"><div class="detail-label">Deskripsi</div><div class="detail-value" style="white-space: pre-wrap; word-wrap: break-word;">${
-    event.deskripsi || "Tidak ada deskripsi"
-  }</div></div></div></div></div></td>`;
+    }</div></div></div><div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-icon"><i class="fa-solid fa-info-circle"></i></div><div class="detail-text"><div class="detail-label">Deskripsi</div><div class="detail-value" style="white-space: pre-wrap; word-wrap: break-word;">${event.deskripsi || "Tidak ada deskripsi"
+    }</div></div></div></div></div></td>`;
   return detailsRow;
 }
 

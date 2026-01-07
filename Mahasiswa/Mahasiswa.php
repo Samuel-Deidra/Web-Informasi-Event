@@ -39,7 +39,7 @@
             top: 20px;
             right: 20px;
             z-index: 10000;
-            /* Pastikan di atas modal */
+
         }
 
         .toast {
@@ -138,7 +138,8 @@
                 <h3 class="mb-4">Kalender Event</h3>
                 <div class="ratio ratio-16x9">
                     <iframe
-                        src="https://calendar.google.com/calendar/embed?src=54c9f1cc039bbf175212c522ee8f81556538fb9371f9551c309086df78f021a4%40group.calendar.google.com&ctz=Asia%2FJakarta"></iframe>
+                        src="https://calendar.google.com/calendar/embed?src=704495b66ae8dc005c14421765292630e0dfd0dee90f60ed388680811a0251e3%40group.calendar.google.com&ctz=Asia%2FJakarta"
+                        style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
         </div>
