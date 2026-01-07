@@ -38,7 +38,8 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 10000; /* Pastikan di atas modal */
+            z-index: 10000;
+            /* Pastikan di atas modal */
         }
 
         .toast {
@@ -50,7 +51,7 @@
             opacity: 0;
             transform: translateX(100%);
             transition: opacity 0.3s, transform 0.3s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .toast.show {
@@ -102,15 +103,9 @@
         <div class="container">
             <!-- Hero Slider -->
             <div class="hero-slider">
-                <div class="slide active">
-                    <img src="../Foto/banner web event.png" alt="Slide 1" />
-                </div>
-                <div class="slide">
-                    <img src="../Foto/10.png" alt="Slide 2" />
-                </div>
-                <div class="slide">
-                    <img src="../Foto/11.png" alt="Slide 3" />
-                </div>
+                <div class="slide active banner1"></div>
+                <div class="slide banner2"></div>
+                <div class="slide banner3"></div>
                 <div class="slider-controls">
                     <button class="slider-btn" onclick="changeSlide(-1)">
                         <i class="fas fa-chevron-left"></i>
@@ -733,14 +728,14 @@
             const toast = document.createElement('div');
             toast.className = 'toast';
             toast.textContent = message;
-            
+
             toastContainer.appendChild(toast);
-            
+
             // Trigger reflow untuk memulai transisi
             setTimeout(() => {
                 toast.classList.add('show');
             }, 10);
-            
+
             // Hapus toast setelah durasi tertentu
             setTimeout(() => {
                 toast.classList.remove('show');
@@ -755,7 +750,7 @@
         // Fungsi untuk menyalin link URL halaman
         function shareEvent() {
             const url = window.location.href;
-            
+
             // Gunakan modern Clipboard API
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(url).then(() => {

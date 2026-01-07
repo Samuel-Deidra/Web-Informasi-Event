@@ -1,40 +1,40 @@
 :root {
-    /* ----- Warna Utama ----- */
-    --primary-color: #50509d;
-    --secondary-color: #ec4899;
-    --dark-color: #1e293b;
-    --light-bg: #f8fafc;
-    --border-color: #e5e7eb;
-    --text-muted: #6b7280;
-    --white: #ffffff;
-  
-    /* ----- Event Status ----- */
-    --event-date: #63ddff;
-    --open-regis-text: rgb(109, 33, 33);
-    --open-regis-bg: #f55c5c;
-    --coming-bg: #ee8843;
-    --coming-text: #7d3f0f;
-    --closed-bg: #e0c8b3;
-    --closed-text: #493a33;
-    --finished-bg: #a9a9a9;
-    --finished-text: #36363b;
-    --ongoing-bg: #e2e687;
-    --ongoing-text: #5f5f23;
-  
-    /* ----- Kategori ----- */
-    --mahasiswa-bg: #d4edda;
-    --mahasiswa-text: #155724;
-    --umum-bg: #e3f2fd;
-    --umum-text: #1565c0;
-  
-    /* ----- Tambahan dari root kedua ----- */
-    --sidebar-bg: #195e9e;
-    --sidebar-active: #ffd200;
-    --btn-blue: #1ea1ff;
-    --page-bg: #f2f5f7;
-    --header-blue: #195e9e;
-    --table-border: #c9d3dc;
-  }
+  /* ----- Warna Utama ----- */
+  --primary-color: #50509d;
+  --secondary-color: #ec4899;
+  --dark-color: #1e293b;
+  --light-bg: #f8fafc;
+  --border-color: #e5e7eb;
+  --text-muted: #6b7280;
+  --white: #ffffff;
+
+  /* ----- Event Status ----- */
+  --event-date: #63ddff;
+  --open-regis-text: rgb(109, 33, 33);
+  --open-regis-bg: #f55c5c;
+  --coming-bg: #ee8843;
+  --coming-text: #7d3f0f;
+  --closed-bg: #e0c8b3;
+  --closed-text: #493a33;
+  --finished-bg: #a9a9a9;
+  --finished-text: #36363b;
+  --ongoing-bg: #e2e687;
+  --ongoing-text: #5f5f23;
+
+  /* ----- Kategori ----- */
+  --mahasiswa-bg: #d4edda;
+  --mahasiswa-text: #155724;
+  --umum-bg: #e3f2fd;
+  --umum-text: #1565c0;
+
+  /* ----- Tambahan dari root kedua ----- */
+  --sidebar-bg: #195e9e;
+  --sidebar-active: #ffd200;
+  --btn-blue: #1ea1ff;
+  --page-bg: #f2f5f7;
+  --header-blue: #195e9e;
+  --table-border: #c9d3dc;
+}
 
 html,
 body {
@@ -286,9 +286,8 @@ body {
 }
 
 .badge-close {
-  background: var(--closed-bg); 
-  color: var(--closed-text); 
- 
+  background: var(--closed-bg);
+  color: var(--closed-text);
 }
 
 .badge-peserta {
@@ -311,7 +310,6 @@ body {
   background: var(--umum-bg);
   color: var(--umum-text);
 }
-
 
 .action-btns {
   display: flex;
@@ -605,5 +603,66 @@ body {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Media Queries untuk Responsivitas */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 250px;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    padding: 20px;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .sidebar-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: var(--sidebar-bg);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1001;
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none;
+  }
+
+  .filter-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .table-box {
+    overflow-x: auto;
+  }
+
+  .search-box {
+    width: 100%;
   }
 }

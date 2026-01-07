@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/Admin.css">
     <!-- Flatpickr CSS untuk date picker modern -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    
+
     <!-- TAMBAHKAN CSS UNTUK KATEGORI BUBBLE -->
     <style>
         /* Gaya untuk bubble kategori di tabel admin */
@@ -24,15 +24,43 @@
             color: #fff;
             text-align: center;
         }
-        
+
         /* Warna untuk setiap kategori */
-        .category-seminar { background-color: rgba(0, 123, 255, 0.8); } /* Biru Transparan */
-        .category-workshop { background-color: rgba(40, 167, 69, 0.8); } /* Hijau Transparan */
-        .category-festival { background-color: rgba(253, 126, 20, 0.8); } /* Orange Transparan */
-        .category-konser { background-color: rgba(111, 66, 193, 0.8); } /* Ungu Transparan */
-        .category-pameran { background-color: rgba(220, 53, 69, 0.8); } /* Merah Transparan */
-        .category-kompetisi { background-color: rgba(25, 135, 84, 0.8); } /* Hijau Tua Transparan */
-        .category-default { background-color: rgba(108, 117, 125, 0.8); } /* Abu-abu Transparan */
+        .category-seminar {
+            background-color: rgba(0, 123, 255, 0.8);
+        }
+
+        /* Biru Transparan */
+        .category-workshop {
+            background-color: rgba(40, 167, 69, 0.8);
+        }
+
+        /* Hijau Transparan */
+        .category-festival {
+            background-color: rgba(253, 126, 20, 0.8);
+        }
+
+        /* Orange Transparan */
+        .category-konser {
+            background-color: rgba(111, 66, 193, 0.8);
+        }
+
+        /* Ungu Transparan */
+        .category-pameran {
+            background-color: rgba(220, 53, 69, 0.8);
+        }
+
+        /* Merah Transparan */
+        .category-kompetisi {
+            background-color: rgba(25, 135, 84, 0.8);
+        }
+
+        /* Hijau Tua Transparan */
+        .category-default {
+            background-color: rgba(108, 117, 125, 0.8);
+        }
+
+        /* Abu-abu Transparan */
     </style>
 </head>
 
@@ -48,8 +76,14 @@
         <button class="add-event"><i class="fa-solid fa-plus"></i>Tambah Event</button>
     </aside>
 
+    <!-- SIDEBAR BACKDROP -->
+    <div class="sidebar-backdrop d-md-none" onclick="toggleSidebar()"></div>
+
     <!-- CONTENT -->
     <main class="content">
+        <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="title">
                 <img src="../Foto/logopoltektransparan.png" alt="logo" style="height:34px; border-radius:5px;">
@@ -396,7 +430,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script src="../javascript/Admin.js"></script>
 </body>
 
