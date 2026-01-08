@@ -1,6 +1,6 @@
 const API_URL = "api_events.php";
 
-// DOM Elements
+// Elemen DOM
 const input = document.getElementById("searchInput");
 const tbody = document.getElementById("eventTbody");
 const historyTbody = document.getElementById("historyTbody");
@@ -12,16 +12,16 @@ const filterStatus = document.getElementById("filterStatus");
 let eventsData = [];
 let historyData = [];
 
-// State untuk mencegah multiple clicks
+// State klik
 let isProcessing = false;
 
-// Modal instances
+// Modal
 let editModal, deleteModal, addModal;
 
-// Current editing/deleting data
+// Data edit/hapus
 let currentRowToDelete = null;
 
-// Helper function to format date without timezone conversion
+// Format tanggal
 function formatDateFromString(dateString) {
   if (!dateString) return "";
   const [year, month, day] = dateString.split("-");
@@ -38,25 +38,25 @@ function parseDateFromString(dateString) {
   return new Date(year, month - 1, day);
 }
 
-// Initialize everything when DOM is loaded
+// Init saat DOM siap
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize modals
+  // Init modal
   editModal = new bootstrap.Modal(document.getElementById("editEventModal"));
   deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
   addModal = new bootstrap.Modal(document.getElementById("addEventModal"));
 
-  // Set up event listeners
+  // Event listener
   setupEventListeners();
   setupFormHandlers();
   setupNavigation();
 
-  // Initial load
+  // Load awal
   fetchEvents();
 });
 
-// Setup event listeners using event delegation
+// Delegasi event
 function setupEventListeners() {
-  // Event delegation for event table
+  // Delegasi event tabel
   document.getElementById("eventTbody").addEventListener("click", function (e) {
     if (e.target.closest(".action-btn.edit")) {
       e.preventDefault();
@@ -76,7 +76,7 @@ function setupEventListeners() {
     }
   });
 
-  // Event delegation for history table
+  // Delegasi history tabel
   document
     .getElementById("historyTbody")
     .addEventListener("click", function (e) {
@@ -99,7 +99,7 @@ function setupEventListeners() {
     });
 }
 
-// Handle edit button click
+// Klik edit
 function handleEditClick(button) {
   if (isProcessing) return;
   const row = button.closest("tr");
@@ -115,7 +115,7 @@ function handleEditClick(button) {
   }
 }
 
-// Handle delete button click
+// Klik hapus
 function handleDeleteClick(button) {
   if (isProcessing) return;
   const row = button.closest("tr");
@@ -124,7 +124,7 @@ function handleDeleteClick(button) {
   showDeleteConfirmation(eventId, eventName, row);
 }
 
-// Handle row click for expand/collapse
+// Klik row expand/collapse
 function handleRowClick(row) {
   const eventId = row.dataset.eventId;
   const detailsRow = document.getElementById(`details-${eventId}`);
@@ -143,7 +143,7 @@ function handleRowClick(row) {
   });
 }
 
-// Load event data for editing
+// Load data edit
 async function loadEventForEdit(eventId) {
   if (isProcessing) return;
   isProcessing = true;
@@ -165,7 +165,7 @@ async function loadEventForEdit(eventId) {
   }
 }
 
-// Populate edit form with event data
+// Isi form edit
 function populateEditForm(event) {
   document.getElementById("editFormStep2").classList.add("d-none");
   document.getElementById("editFormStep1").classList.remove("d-none");
@@ -179,7 +179,7 @@ function populateEditForm(event) {
   document.getElementById("editTanggalPendaftaranAkhir").value =
     event.tanggal_pendaftaran_akhir || "";
 
-  // Flatpickr population
+  // Flatpickr
   if (
     window.flatpickr &&
     document.getElementById("editTanggalPendaftaranRange")
@@ -227,7 +227,7 @@ function populateEditForm(event) {
   }
 }
 
-// Setup form handlers
+// Form handler
 function setupFormHandlers() {
   function formatYMD(d) {
     if (!d) return "";
@@ -342,7 +342,7 @@ function setupFormHandlers() {
   });
 }
 
-// Setup file preview
+// Preview file
 function setupFilePreview() {
   const logoInput = document.getElementById("logoEvent");
   const fileWarning = document.getElementById("fileWarning");
@@ -399,7 +399,7 @@ function setupFilePreview() {
   });
 }
 
-// Handle add event form submission
+// Submit tambah event
 async function handleAddEventSubmit(e) {
   e.preventDefault();
   if (isProcessing) return;
@@ -420,7 +420,7 @@ async function handleAddEventSubmit(e) {
   const biaya = document.getElementById("biaya").value;
   const logoFile = document.getElementById("logoEvent").files[0];
 
-  // Validasi logo harus ada
+  // Validasi logo
   if (!logoFile) {
     showErrorMessage("Logo event harus dipilih");
     isProcessing = false;
@@ -545,7 +545,7 @@ async function handleAddEventSubmit(e) {
   }
 }
 
-// Handle edit event form submission
+// Submit edit event
 async function handleEditEventSubmit(e) {
   e.preventDefault();
   if (isProcessing) return;
@@ -688,7 +688,7 @@ async function handleEditEventSubmit(e) {
   }
 }
 
-// Fungsi bantu: validasi format URL
+// Validasi URL
 function isValidUrl(string) {
   try {
     new URL(string);
@@ -698,7 +698,7 @@ function isValidUrl(string) {
   }
 }
 
-// Show delete confirmation modal
+// Modal hapus
 function showDeleteConfirmation(eventId, eventName, row) {
   const isHistoryPage = !document
     .getElementById("historyPage")
@@ -726,7 +726,7 @@ function showDeleteConfirmation(eventId, eventName, row) {
   deleteModal.show();
 }
 
-// Handle delete confirmation
+// Konfirmasi hapus
 async function handleDeleteConfirm() {
   if (!currentRowToDelete || isProcessing) return;
   isProcessing = true;
@@ -742,16 +742,16 @@ async function handleDeleteConfirm() {
     const response = await fetch(url, { method: "DELETE" });
     const result = await response.json();
     if (result.success) {
-      // Update local arrays and DOM instantly
+      // Update array & DOM
       const id = currentRowToDelete.eventId;
       const isHistory = currentRowToDelete.isHistoryPage;
 
       if (isHistory) {
-        // Permanent delete: remove from historyData and DOM
+        // Hapus permanen
         const idx = historyData.findIndex((ev) => String(ev.id) === String(id));
         if (idx !== -1) {
           historyData.splice(idx, 1);
-          // remove rows from DOM
+          // hapus row DOM
           const row = document.querySelector(
             `#historyTbody tr.event-row[data-event-id=\"${id}\"]`
           );
@@ -768,14 +768,14 @@ async function handleDeleteConfirm() {
           fetchEvents();
         }
       } else {
-        // Move to history: update eventsData -> historyData and move DOM rows
+        // Pindah ke history
         const idx = eventsData.findIndex((ev) => String(ev.id) === String(id));
         if (idx !== -1) {
           const ev = eventsData.splice(idx, 1)[0];
           ev.status = "Selesai";
           historyData.unshift(ev);
 
-          // remove from events DOM
+          // hapus dari DOM event
           const row = document.querySelector(
             `#eventTbody tr.event-row[data-event-id=\"${id}\"]`
           );
@@ -784,7 +784,7 @@ async function handleDeleteConfirm() {
           if (details && details.parentNode)
             details.parentNode.removeChild(details);
 
-          // add to history DOM at top
+          // tambah ke history DOM
           const newRow = createEventRow(ev, true);
           const newDetails = createDetailsRow(ev);
           if (historyTbody.firstChild) {
@@ -821,7 +821,7 @@ async function handleDeleteConfirm() {
   }
 }
 
-// Setup navigation
+// Navigasi
 function setupNavigation() {
   const pageEvent = document.getElementById("eventPage");
   const pageHistory = document.getElementById("historyPage");
@@ -856,13 +856,13 @@ function setupNavigation() {
   });
 }
 
-// Fetch events from API
+// Ambil event dari API
 async function fetchEvents() {
   try {
     const response = await fetch(API_URL);
     const result = await response.json();
     if (result.success) {
-      // Status sudah dihitung di API, tinggal pisahkan berdasarkan status
+      // Status dari API
       eventsData = result.data.filter((ev) => ev.status !== "Selesai");
       historyData = result.data.filter((ev) => ev.status === "Selesai");
       renderEvents();
@@ -876,7 +876,7 @@ async function fetchEvents() {
   }
 }
 
-// Render events table
+// Render tabel event
 function renderEvents() {
   tbody.innerHTML = "";
   if (eventsData.length === 0) {
@@ -892,7 +892,7 @@ function renderEvents() {
   });
 }
 
-// Render history table
+// Render tabel history
 function renderHistory() {
   historyTbody.innerHTML = "";
   if (historyData.length === 0) {
@@ -908,7 +908,7 @@ function renderHistory() {
   });
 }
 
-// Create event row
+// Buat row event
 function createEventRow(event, isHistory = false) {
   const row = document.createElement("tr");
   row.className = "event-row";
@@ -923,7 +923,7 @@ function createEventRow(event, isHistory = false) {
     minimumFractionDigits: 0,
   }).format(event.biaya);
 
-  // PERUBAHAN: Gunakan status langsung dari API tanpa perhitungan ulang
+  // Status dari API
   const status = event.status;
   let statusBadge = "";
   switch (status) {
@@ -953,16 +953,21 @@ function createEventRow(event, isHistory = false) {
   const actionButtons = isHistory
     ? `<div class="action-btns"><button class="action-btn delete" title="Hapus Permanen"><i class="fa-solid fa-trash"></i></button></div>`
     : `<div class="action-btns"><button class="action-btn edit" title="Edit"><i class="fa-solid fa-pen"></i></button><button class="action-btn delete" title="Hapus"><i class="fa-solid fa-trash"></i></button></div>`;
-  row.innerHTML = `<td><i class="expand-icon"></i><img class="ev-thumb" src="${logoSrc}" alt="${event.name
-    }"></td><td class="ev-name">${event.name
-    }</td><td class="date-cell">${formattedEventStart}${formattedEventEnd ? "<br>" + formattedEventEnd : ""
-    }</td><td>${formattedPrice}</td><td>${statusBadge}</td><td><span class="badge-pill badge-peserta ${event.peserta.toLowerCase() === "mahasiswa" ? "mahasiswa" : "umum"
-    }"> ${event.peserta}</span></td><td>${event.kategori
-    }</td><td>${actionButtons}</td>`;
+  row.innerHTML = `<td><i class="expand-icon"></i><img class="ev-thumb" src="${logoSrc}" alt="${
+    event.name
+  }"></td><td class="ev-name">${
+    event.name
+  }</td><td class="date-cell">${formattedEventStart}${
+    formattedEventEnd ? "<br>" + formattedEventEnd : ""
+  }</td><td>${formattedPrice}</td><td>${statusBadge}</td><td><span class="badge-pill badge-peserta ${
+    event.peserta.toLowerCase() === "mahasiswa" ? "mahasiswa" : "umum"
+  }"> ${event.peserta}</span></td><td>${
+    event.kategori
+  }</td><td>${actionButtons}</td>`;
   return row;
 }
 
-// Create details row
+// Buat row detail
 function createDetailsRow(event) {
   const detailsRow = document.createElement("tr");
   detailsRow.className = "event-details";
@@ -975,15 +980,19 @@ function createDetailsRow(event) {
   const formattedEventEnd = event.tanggal_event_akhir
     ? formatDateFromString(event.tanggal_event_akhir)
     : "";
-  detailsRow.innerHTML = `<td colspan="8"><div class="details-content"><div class="details-grid"><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-check"></i></div><div class="detail-text"><div class="detail-label">Tanggal Pendaftaran</div><div class="detail-value">${formattedRegStart} - ${formattedRegEnd}</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-day"></i></div><div class="detail-text"><div class="detail-label">Tanggal Event</div><div class="detail-value">${formattedEventStart}${formattedEventEnd ? " - " + formattedEventEnd : ""
-    }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-clock"></i></div><div class="detail-text"><div class="detail-label">Jam Event</div><div class="detail-value">${formatTimeHHMM(
-      event.jam_event
-    )} WIB</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-text"><div class="detail-label">Lokasi</div><div class="detail-value">${event.lokasi || "Tidak tersedia"
-    }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-link"></i></div><div class="detail-text"><div class="detail-label">Link Pendaftaran</div><div class="detail-value">${event.link
+  detailsRow.innerHTML = `<td colspan="8"><div class="details-content"><div class="details-grid"><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-check"></i></div><div class="detail-text"><div class="detail-label">Tanggal Pendaftaran</div><div class="detail-value">${formattedRegStart} - ${formattedRegEnd}</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-calendar-day"></i></div><div class="detail-text"><div class="detail-label">Tanggal Event</div><div class="detail-value">${formattedEventStart}${
+    formattedEventEnd ? " - " + formattedEventEnd : ""
+  }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-clock"></i></div><div class="detail-text"><div class="detail-label">Jam Event</div><div class="detail-value">${formatTimeHHMM(
+    event.jam_event
+  )} WIB</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div><div class="detail-text"><div class="detail-label">Lokasi</div><div class="detail-value">${
+    event.lokasi || "Tidak tersedia"
+  }</div></div></div><div class="detail-item"><div class="detail-icon"><i class="fa-solid fa-link"></i></div><div class="detail-text"><div class="detail-label">Link Pendaftaran</div><div class="detail-value">${
+    event.link
       ? `<a href="${event.link}" class="detail-link" target="_blank">${event.link}</a>`
       : "Tidak tersedia"
-    }</div></div></div><div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-icon"><i class="fa-solid fa-info-circle"></i></div><div class="detail-text"><div class="detail-label">Deskripsi</div><div class="detail-value" style="white-space: pre-wrap; word-wrap: break-word;">${event.deskripsi || "Tidak ada deskripsi"
-    }</div></div></div></div></div></td>`;
+  }</div></div></div><div class="detail-item" style="grid-column: 1 / -1;"><div class="detail-icon"><i class="fa-solid fa-info-circle"></i></div><div class="detail-text"><div class="detail-label">Deskripsi</div><div class="detail-value" style="white-space: pre-wrap; word-wrap: break-word;">${
+    event.deskripsi || "Tidak ada deskripsi"
+  }</div></div></div></div></div></td>`;
   return detailsRow;
 }
 
@@ -999,7 +1008,7 @@ function formatTimeHHMM(timeString) {
   return timeString;
 }
 
-// Filter table
+// Filter tabel
 function filterTable() {
   const search = input.value.trim().toLowerCase();
   const tgl = filterTanggal.value;
@@ -1037,7 +1046,7 @@ function filterTable() {
   });
 }
 
-// Toast notification functions
+// Toast
 function showSuccessToast(title, message) {
   const toastContainer = document.getElementById("toastContainer");
   const toast = document.createElement("div");

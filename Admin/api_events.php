@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// Mulai output buffering untuk menangkap error
+// Mulai buffer error
 ob_start();
 
 // Load database connection 
@@ -17,7 +17,7 @@ if (!file_exists($dbConnPath)) {
 }
 require_once $dbConnPath;
 
-// Cek koneksi database
+// Koneksi DB
 if ($conn->connect_error) {
     ob_clean();
     http_response_code(500);
@@ -27,7 +27,7 @@ if ($conn->connect_error) {
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Error handler 
+// Error handler
 set_error_handler(function ($errno, $errstr, $errfile, $errline) {
     ob_clean();
     http_response_code(500);
@@ -62,6 +62,7 @@ function getEventStatus($event)
         $eventStart = new DateTime($event[$eventStartKey]);
         $eventEnd = !empty($event[$eventEndKey]) ? new DateTime($event[$eventEndKey]) : clone $eventStart;
 
+        // Perbaikan: status 'Selesai' mengikuti tanggal akhir event
         if ($now < $regStart) {
             return "Akan Datang";
         } elseif ($now >= $regStart && $now <= $regEnd) {
@@ -112,7 +113,7 @@ switch ($method) {
             $requestFor = isset($_GET['for']) ? $_GET['for'] : 'admin';
 
             if ($requestFor === 'mahasiswa') {
-                // Query khusus untuk Mahasiswa - hanya gunakan field yang ada
+                // Query event mahasiswa
                 $sql = "SELECT 
                             id, 
                             name, 
@@ -132,7 +133,7 @@ switch ($method) {
                         FROM events 
                         ORDER BY tanggal_event DESC";
             } else {
-                // Query default untuk Admin
+                // Query event admin
                 $sql = "SELECT * FROM events ORDER BY tanggal_event DESC";
             }
 
@@ -147,7 +148,7 @@ switch ($method) {
                     }
 
                     if ($requestFor === 'mahasiswa') {
-                        // Format gambar path untuk mahasiswa
+                        // Format gambar dan harga
                         if (!empty($row['logo'])) {
                             // Jika logo sudah ada path uploads, jangan tambahkan lagi
                             if (strpos($row['logo'], 'uploads/') === 0) {
@@ -203,7 +204,7 @@ switch ($method) {
             $current_event = $result->fetch_assoc();
             $logo = $current_event['logo'];
 
-            // Handle logo upload if new file is provided dengan error handling
+            // Upload logo baru jika ada
             if (isset($_FILES['logo'])) {
                 $upload_error = $_FILES['logo']['error'];
 
@@ -249,7 +250,13 @@ switch ($method) {
                 }
             }
 
-            $eventDataForStatus = ['tanggal_pendaftaran_awal' => $tanggal_pendaftaran_awal, 'tanggal_pendaftaran_akhir' => $tanggal_pendaftaran_akhir, 'tanggal_event' => $tanggal_event];
+            // Update event
+            $eventDataForStatus = [
+                'tanggal_pendaftaran_awal' => $tanggal_pendaftaran_awal,
+                'tanggal_pendaftaran_akhir' => $tanggal_pendaftaran_akhir,
+                'tanggal_event' => $tanggal_event,
+                'tanggal_event_akhir' => $tanggal_event_akhir
+            ];
             $status = getEventStatus($eventDataForStatus);
 
             $sql_update = "UPDATE events SET 
@@ -276,7 +283,7 @@ switch ($method) {
                 echo json_encode(['success' => false, 'message' => 'Error: ' . $conn->error]);
             }
         } else {
-            // --- CREATE EVENT ---
+            // --- TAMBAH EVENT ---
             $name = $conn->real_escape_string($_POST['name']);
             $tanggal_event = $conn->real_escape_string($_POST['tanggal_event']);
             $tanggal_event_akhir = isset($_POST['tanggal_event_akhir']) ? $conn->real_escape_string($_POST['tanggal_event_akhir']) : '';
@@ -290,7 +297,13 @@ switch ($method) {
             $peserta = $conn->real_escape_string($_POST['peserta']);
             $kategori = $conn->real_escape_string($_POST['kategori']);
 
-            $eventDataForStatus = ['tanggal_pendaftaran_awal' => $tanggal_pendaftaran_awal, 'tanggal_pendaftaran_akhir' => $tanggal_pendaftaran_akhir, 'tanggal_event' => $tanggal_event];
+            // Perbaikan: status event harus mengikuti tanggal_event_akhir
+            $eventDataForStatus = [
+                'tanggal_pendaftaran_awal' => $tanggal_pendaftaran_awal,
+                'tanggal_pendaftaran_akhir' => $tanggal_pendaftaran_akhir,
+                'tanggal_event' => $tanggal_event,
+                'tanggal_event_akhir' => $tanggal_event_akhir
+            ];
             $status = getEventStatus($eventDataForStatus);
 
             // Handle logo upload dengan error handling yang lebih baik

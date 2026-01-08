@@ -278,10 +278,10 @@
         const eventsPerPage = 8;
         let currentSlide = 0;
 
-        // Fungsi untuk mengambil data event dari database
+        // Ambil data event
         async function fetchEventsFromDatabase() {
             try {
-                // Coba berbagai path API untuk memastikan bekerja
+                // Coba path API
                 let apiUrl = '../Admin/api_events.php?for=mahasiswa';
 
                 console.log('Fetching from:', apiUrl);
@@ -318,7 +318,7 @@
                     console.log('Processed Events:', allEvents);
                     filteredEvents = [...allEvents];
 
-                    // Memuat data setelah berhasil diambil
+                    // Data berhasil diambil
                     loadHomeEvents();
                     loadEvents();
                 } else {
@@ -370,13 +370,13 @@
             document.getElementById("searchInput").addEventListener("input", filterEvents);
         });
 
-        // Toggle mobile navbar
+        // Navbar mobile
         function toggleNavbar() {
             const navbar = document.getElementById("navbarNav");
             navbar.classList.toggle("show");
         }
 
-        // Page Navigation
+        // Navigasi halaman
         function showPage(pageName) {
             document.querySelectorAll(".page-section").forEach((section) => {
                 section.classList.remove("active");
@@ -393,7 +393,7 @@
             }
         }
 
-        // Slider Functions
+        // Slider
         function changeSlide(direction) {
             const slides = document.querySelectorAll(".slide");
             const indicators = document.querySelectorAll(".indicator");
@@ -426,7 +426,7 @@
             }, 10000);
         }
 
-        // FUNGSI PENGURUTAN
+        // Pengurutan
         function sortEventsByStatus(events) {
             const statusPriority = {
                 'Akan Datang': 1,
@@ -451,7 +451,7 @@
             });
         }
 
-        // Load Home Events
+        // Load event beranda
         function loadHomeEvents() {
             const container = document.getElementById("homeEvents");
             const sortedEvents = sortEventsByStatus([...allEvents]);
@@ -459,7 +459,7 @@
 
             container.innerHTML = homeEvents.map(
                 (event) => {
-                    const status = event.status; // Status diambil dari API
+                    const status = event.status; // Status dari API
                     return `
             <div class="col-lg-3 col-md-6">
                 <div class="event-card" onclick="showEventDetail(${event.id})">
@@ -491,7 +491,7 @@
             ).join("");
         }
 
-        // Load Events with Pagination
+        // Load event dengan pagination
         function loadEvents() {
             const container = document.getElementById("eventsGrid");
             const sortedEvents = sortEventsByStatus([...filteredEvents]);
@@ -501,7 +501,7 @@
 
             container.innerHTML = pageEvents.map(
                 (event) => {
-                    const status = event.status; // Status diambil dari API
+                    const status = event.status; // Status dari API
                     return `
             <div class="col-lg-3 col-md-6">
                 <div class="event-card" onclick="showEventDetail(${event.id})">
@@ -554,7 +554,7 @@
             return "participants-umum";
         }
 
-        // Filter Events
+        // Filter event
         function filterEvents() {
             const yearFilter = document.getElementById("yearFilter").value;
             const statusFilter = document.getElementById("statusFilter").value;
@@ -574,7 +574,7 @@
             loadEvents();
         }
 
-        // Generate Pagination
+        // Pagination
         function generatePagination() {
             const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
             const pagination = document.getElementById("pagination");
@@ -604,7 +604,7 @@
             pagination.innerHTML = html;
         }
 
-        // Change Page
+        // Ganti halaman
         function changePage(page) {
             const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
             if (page >= 1 && page <= totalPages) {
@@ -614,7 +614,7 @@
             return false;
         }
 
-        // Show Event Detail Modal
+        // Modal detail event
         function showEventDetail(eventId) {
             const event = allEvents.find((e) => Number(e.id) === Number(eventId));
             if (!event) {
@@ -651,20 +651,20 @@
             }
         }
 
-        // Close Modal
+        // Tutup modal
         function closeModal() {
             document.getElementById("eventModal").classList.remove("show");
             document.body.style.overflow = "auto";
         }
 
-        // Close modal when clicking outside
+        // Tutup modal klik luar
         document.getElementById("eventModal").addEventListener("mousedown", function (event) {
             if (event.target === this) {
                 closeModal();
             }
         });
 
-        // Utility Functions
+        // Fungsi bantu
         function formatDateWithoutYear(dateStr) {
             if (!dateStr) return "";
             const [year, month, day] = dateStr.split("-");
@@ -752,7 +752,7 @@
         function shareEvent() {
             const url = window.location.href;
 
-            // Gunakan modern Clipboard API
+            // Clipboard API
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(url).then(() => {
                     showToast('Link berhasil disalin!');
@@ -761,7 +761,7 @@
                     showToast('Gagal menyalin link. Silakan coba lagi.');
                 });
             } else {
-                // Fallback untuk browser yang lebih lama
+                // Fallback browser lama
                 const textArea = document.createElement("textarea");
                 textArea.value = url;
                 document.body.appendChild(textArea);
