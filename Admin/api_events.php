@@ -1,5 +1,4 @@
 <?php
-// Atur header untuk respons JSON dan CORS
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
@@ -8,7 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // Mulai output buffering untuk menangkap error
 ob_start();
 
-// Load database connection - gunakan path absolute
+// Load database connection 
 $dbConnPath = __DIR__ . '/../Database/koneksi.php';
 if (!file_exists($dbConnPath)) {
     ob_clean();
@@ -44,7 +43,6 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
  */
 function getEventStatus($event)
 {
-    // Tentukan kunci kolom yang akan digunakan (fleksibel)
     $regStartKey = isset($event['tanggal_pendaftaran_awal']) ? 'tanggal_pendaftaran_awal' : 'registrationDate';
     $regEndKey = isset($event['tanggal_pendaftaran_akhir']) ? 'tanggal_pendaftaran_akhir' : 'registrationEndDate';
     $eventStartKey = isset($event['tanggal_event']) ? 'tanggal_event' : 'date';
@@ -57,12 +55,11 @@ function getEventStatus($event)
 
     try {
         $now = new DateTime();
-        $now->setTime(0, 0, 0); // Abaikan waktu untuk perbandingan
+        $now->setTime(0, 0, 0);
 
         $regStart = new DateTime($event[$regStartKey]);
         $regEnd = new DateTime($event[$regEndKey]);
         $eventStart = new DateTime($event[$eventStartKey]);
-        // Jika tidak ada endDate, gunakan startDate
         $eventEnd = !empty($event[$eventEndKey]) ? new DateTime($event[$eventEndKey]) : clone $eventStart;
 
         if ($now < $regStart) {
@@ -121,6 +118,7 @@ switch ($method) {
                             name, 
                             logo, 
                             tanggal_event, 
+                            tanggal_event_akhir, 
                             tanggal_pendaftaran_awal, 
                             tanggal_pendaftaran_akhir, 
                             lokasi, 
@@ -166,6 +164,8 @@ switch ($method) {
                         } else {
                             $row['price'] = 'Gratis';
                         }
+                        // Pastikan tanggal_event_akhir ikut dikirim ke frontend mahasiswa
+                        $row['tanggal_event_akhir'] = isset($row['tanggal_event_akhir']) ? $row['tanggal_event_akhir'] : $row['tanggal_event'];
                     }
                     $events[] = $row;
                 }
@@ -256,7 +256,7 @@ switch ($method) {
                     name = '$name', 
                     logo = '$logo', 
                     tanggal_event = '$tanggal_event', 
-                    
+                    tanggal_event_akhir = '$tanggal_event_akhir', 
                     tanggal_pendaftaran_awal = '$tanggal_pendaftaran_awal', 
                     tanggal_pendaftaran_akhir = '$tanggal_pendaftaran_akhir', 
                     jam_event = '$jam_event', 
@@ -336,8 +336,8 @@ switch ($method) {
                 $logo = $target_file;
             }
 
-            $sql_insert = "INSERT INTO events (name, logo, tanggal_event, tanggal_pendaftaran_awal, tanggal_pendaftaran_akhir, jam_event, lokasi, link, deskripsi, biaya, peserta, status, kategori) 
-                    VALUES ('$name', '$logo', '$tanggal_event', '$tanggal_pendaftaran_awal', '$tanggal_pendaftaran_akhir', '$jam_event', '$lokasi', '$link', '$deskripsi', '$biaya', '$peserta', '$status', '$kategori')";
+            $sql_insert = "INSERT INTO events (name, logo, tanggal_event, tanggal_event_akhir, tanggal_pendaftaran_awal, tanggal_pendaftaran_akhir, jam_event, lokasi, link, deskripsi, biaya, peserta, status, kategori) 
+                    VALUES ('$name', '$logo', '$tanggal_event', '$tanggal_event_akhir', '$tanggal_pendaftaran_awal', '$tanggal_pendaftaran_akhir', '$jam_event', '$lokasi', '$link', '$deskripsi', '$biaya', '$peserta', '$status', '$kategori')";
 
             if ($conn->query($sql_insert) === TRUE) {
                 echo json_encode(['success' => true, 'message' => 'Event berhasil ditambahkan']);

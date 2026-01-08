@@ -301,7 +301,7 @@
                             title: event.name || 'Tanpa Judul',
                             image: event.image ? '../Admin/' + event.image : 'https://via.placeholder.com/300',
                             date: event.tanggal_event,
-                            endDate: event.tanggal_event,
+                            endDate: event.tanggal_event_akhir,
                             registrationDate: event.tanggal_pendaftaran_awal,
                             registrationEndDate: event.tanggal_pendaftaran_akhir,
                             time: event.jam_event,
